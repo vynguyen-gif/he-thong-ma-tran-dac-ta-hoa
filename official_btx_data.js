@@ -118,7 +118,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6"
           ],
           "knowDesc": "Nhận biết xu hướng biến đổi bán kính nguyên tử, độ âm điện, tính kim loại, tính phi kim trong một chu kì và một nhóm A (HH1.1).",
-          "underDesc": "So sánh và giải thích xu hướng biến đổi bán kính, độ âm điện, tính kim loại/phi kim và tính acid/base của oxide, hydroxide cao nhất theo chu kì (HH1.5, HH1.6).",
+          "underDesc": "So sánh xu hướng biến đổi bán kính nguyên tử, độ âm điện, tính kim loại/phi kim theo chu kì (HH1.5); Giải thích xu hướng biến đổi tính acid/base của oxide và hydroxide cao nhất theo chu kì (HH1.6).",
           "applyDesc": "Xác định nguyên tố dựa vào công thức hợp chất khí với hydrogen và phần trăm khối lượng trong oxide cao nhất (HH1.6)."
         },
         {
@@ -170,7 +170,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH1.4"
           ],
-          "knowDesc": "Trình bày thành phần nguyên tử, điện tích và khối lượng hạt (HH1.2); Nêu khái niệm đồng vị, AO, lớp và phân lớp electron (HH1.1, HH1.3).",
+          "knowDesc": "Trình bày thành phần nguyên tử, điện tích và khối lượng hạt (HH1.2); Nêu khái niệm đồng vị và AO nguyên tử (HH1.1); Nêu khái niệm lớp và phân lớp electron (HH1.3).",
           "underDesc": "Liên hệ số lượng AO trong một phân lớp, một lớp; xác định số electron hóa trị từ cấu hình ô orbital (HH1.4).",
           "applyDesc": "Xác định cấu hình electron và đặc điểm hạt nhân của các nguyên tố Z ≤ 20 trong bảng tuần hoàn (HH1.4)."
         },
@@ -296,7 +296,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.7"
           ],
           "knowDesc": "Nêu được khái niệm số oxi hóa của nguyên tử trong hợp chất (HH1.1); Nêu khái niệm và ý nghĩa của phản ứng oxi hóa – khử (HH1.2).",
-          "underDesc": "Xác định được số oxi hóa của nguyên tử trong hợp chất/ion (HH1.2, HH1.4); Cân bằng phản ứng oxi hóa – khử bằng phương pháp thăng bằng electron (HH1.7).",
+          "underDesc": "Xác định được số oxi hóa của nguyên tử trong hợp chất và ion (HH1.2); Phân biệt chất oxi hóa và chất khử trong phản ứng oxi hóa – khử (HH1.4); Cân bằng phản ứng oxi hóa – khử bằng phương pháp thăng bằng electron (HH1.7).",
           "applyDesc": "Mô tả các phản ứng oxi hóa – khử quan trọng trong thực tiễn và lập PTHH oxi hóa – khử phức tạp (HH1.6)."
         },
         {
@@ -321,7 +321,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6",
             "HH3.1"
           ],
-          "knowDesc": "Trình bày khái niệm phản ứng tỏa nhiệt, thu nhiệt, điều kiện chuẩn (HH1.1); Trình bày khái niệm enthalpy tạo thành chuẩn ΔfH°298 và biến thiên enthalpy chuẩn ΔrH°298 (HH1.2, HH1.3).",
+          "knowDesc": "Trình bày khái niệm phản ứng tỏa nhiệt, thu nhiệt, điều kiện chuẩn (HH1.1); Trình bày khái niệm enthalpy tạo thành chuẩn ΔfH°298 (HH1.2); Trình bày ý nghĩa và tính toán biến thiên enthalpy chuẩn ΔrH°298 (HH1.3).",
           "underDesc": "Nêu được ý nghĩa của dấu và giá trị ΔrH°298 của phản ứng hóa học (HH1.4).",
           "applyDesc": "Tính ΔrH°298 của phản ứng dựa vào bảng số liệu nhiệt tạo thành hoặc năng lượng liên kết Eb (HH1.6); Giải bài toán nhiệt lượng đốt cháy nhiên liệu LPG (gas) trong thực tiễn (HH3.1)."
         }
@@ -396,8 +396,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH1.6"
           ],
-          "knowDesc": "Trình bày khái niệm tốc độ phản ứng, ý nghĩa hằng số tốc độ và các yếu tố ảnh hưởng đến tốc độ phản ứng (nồng độ, nhiệt độ, áp suất, diện tích bề mặt, chất xúc tác) (HH1.1, HH1.2).",
-          "underDesc": "Giải thích ảnh hưởng của các yếu tố tới tốc độ phản ứng trong thực nghiệm (Na2S2O3 + H2SO4) và vận dụng hệ số nhiệt độ Van't Hoff (HH1.3, HH1.6).",
+          "knowDesc": "Trình bày khái niệm tốc độ phản ứng và ý nghĩa hằng số tốc độ (HH1.1); Trình bày các yếu tố ảnh hưởng đến tốc độ phản ứng (nồng độ, nhiệt độ, áp suất, diện tích bề mặt, chất xúc tác) (HH1.2).",
+          "underDesc": "Giải thích ảnh hưởng của các yếu tố tới tốc độ phản ứng trong thực nghiệm (HH1.3); Vận dụng hệ số nhiệt độ Van't Hoff tính tốc độ phản ứng ở nhiệt độ khác (HH1.6).",
           "applyDesc": "Vận dụng các yếu tố ảnh hưởng tốc độ phản ứng để giải thích cách bảo quản thực phẩm và điều khiển tốc độ phản ứng trong đời sống, sản xuất (HH1.6)."
         },
         {
@@ -423,9 +423,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.7",
             "HH2.4"
           ],
-          "knowDesc": "Mô tả trạng thái, màu sắc, nhiệt độ nóng chảy/sôi của các đơn chất halogen; trình bày xu hướng nhận 1 electron (HH1.1, HH1.2).",
-          "underDesc": "Viết cấu hình electron lớp ngoài cùng của nguyên tử halogen (HH1.3); Giải thích xu hướng giảm dần tính oxi hóa từ F2 đến I2 và viết PTHH chứng minh (HH1.5, HH1.6).",
-          "applyDesc": "Phân tích dữ kiện tính thể tích khí Cl2 phản ứng với dung dịch KI và thực hiện thí nghiệm/chuỗi phản ứng hóa học của hợp chất halogen (HH1.7, HH2.4)."
+          "knowDesc": "Mô tả trạng thái tự nhiên, màu sắc, nhiệt độ nóng chảy/sôi của các đơn chất halogen (HH1.1); Trình bày xu hướng nhận 1 electron để đạt cấu hình bền vững của khí hiếm (HH1.2).",
+          "underDesc": "Viết cấu hình electron lớp ngoài cùng của nguyên tử halogen (HH1.3); Giải thích xu hướng giảm dần tính oxi hóa từ F2 đến I2 (HH1.5); Viết PTHH chứng minh tính oxi hóa giảm dần từ fluorine đến iodine (HH1.6).",
+          "applyDesc": "Tính thể tích khí Cl2 phản ứng với dung dịch KI theo phương pháp bảo toàn electron (HH1.7); Phân tích hiện tượng thí nghiệm và chuỗi phản ứng hóa học của halogen (HH2.4)."
         },
         {
           "topic": "Chương 7: Nhóm Halogen (Nhóm VIIA) - Bài 18: Hydrogen halide và muối halide",
@@ -447,7 +447,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH2.4"
           ],
           "knowDesc": "Nhận xét xu hướng biến đổi tính acid của dãy hydrohalic acid (HF đến HI) và tính khử của ion halide (HH1.2).",
-          "underDesc": "Xác định vai trò của HCl trong các phản ứng hóa học và tính toán bài toán hỗn hợp oxide/muối tác dụng với HCl (HH1.2, HH1.6).",
+          "underDesc": "Xác định vai trò của HCl trong các phản ứng hóa học (tính acid, tính khử) (HH1.2); Tính toán bài toán hỗn hợp kim loại/oxide tác dụng với dung dịch HCl (HH1.6).",
           "applyDesc": "Trình bày cách phân biệt các ion halide (F-, Cl-, Br-, I-) bằng dung dịch AgNO3 và tính khối lượng kết tủa thu được (HH2.4)."
         }
       ]
@@ -526,7 +526,7 @@ const OFFICIAL_BTX_MATRICES = {
           ],
           "knowDesc": "Nêu khái niệm và ý nghĩa của pH trong thực tiễn (liên hệ giá trị pH ở các bộ phận trong cơ thể, đất, nước) (HH1.1).",
           "underDesc": "Tính nồng độ ion H+, OH-, giá trị pH của dung dịch acid/base và xác định môi trường của dung dịch (HH1.6).",
-          "applyDesc": "Vận dụng tính chất của đơn chất nitrogen để giải thích việc bảo quản mẫu vật và thực phẩm trong thực tiễn (HH1.5, HH3.1)."
+          "applyDesc": "Giải thích tính kém hoạt động hóa học của nitrogen ở nhiệt độ thường dựa vào liên kết ba (HH1.5); Vận dụng tính trơ của nitrogen giải thích ứng dụng bảo quản thực phẩm, dược phẩm trong thực tiễn (HH3.1)."
         },
         {
           "topic": "Chương 2: Nitrogen và sulfur - Bài 4: Đơn chất nitrogen (N2)",
@@ -550,7 +550,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6"
           ],
           "knowDesc": "Phát biểu được trạng thái tự nhiên của nguyên tố nitrogen (HH1.1); Trình bày sự hoạt động của đơn chất N2 ở nhiệt độ cao với H2 và O2 (HH1.2).",
-          "underDesc": "Giải thích được tính base và tính khử của NH3; nhận biết được ion ammonium trong phân đạm và dung dịch (HH1.3, HH1.4).",
+          "underDesc": "Giải thích tính base yếu và tính khử của phân tử ammonia NH3; viết PTHH minh họa (HH1.3); Nhận biết ion ammonium trong phân đạm và dung dịch bằng kiềm (HH1.4).",
           "applyDesc": "Tính khối lượng nguyên liệu sản xuất ammonia và phân đạm ammonium theo hiệu suất phản ứng công nghiệp (HH1.6)."
         },
         {
@@ -573,7 +573,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH1.6"
           ],
-          "knowDesc": "Mô tả công thức Lewis và dạng hình học chóp tam giác của phân tử ammonia (HH1.3); Nêu tính chất vật lí, cấu tạo của HNO3 và hiện tượng phú dưỡng (HH1.1, HH1.2).",
+          "knowDesc": "Mô tả công thức Lewis và dạng hình học chóp tam giác của phân tử ammonia (HH1.3); Nêu tính chất vật lí và cấu tạo của HNO3 (HH1.1); Trình bày nguyên nhân và tác hại của hiện tượng phú dưỡng (HH1.2).",
           "underDesc": "Trình bày tính chất cơ bản của muối ammonium và nhận biết ion NH4+; phân tích nguồn gốc các oxide của nitrogen và mưa acid (HH1.2).",
           "applyDesc": "Dựa vào đặc điểm cấu tạo giải thích tính base, tính khử của NH3; Viết chuỗi phương trình hóa học của hợp chất nitrogen và tính hiệu suất tổng hợp NH3 (HH1.6)."
         }
@@ -603,7 +603,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH2.4"
           ],
-          "knowDesc": "Nêu được khái niệm sự điện li, chất điện li mạnh, chất điện li yếu, thuyết acid – base Brønsted – Lowry (HH1.1, HH1.3).",
+          "knowDesc": "Nêu được khái niệm sự điện li, chất điện li mạnh, chất điện li yếu (HH1.1); Trình bày thuyết acid – base Brønsted – Lowry và cho ví dụ (HH1.3).",
           "underDesc": "Xác định môi trường dung dịch muối làm đổi màu quỳ tím; tính pH và nồng độ H+, OH- của dung dịch (HH1.2).",
           "applyDesc": "Thực hiện thí nghiệm chuẩn độ dung dịch base mạnh bằng acid mạnh (HH2.4)."
         },
@@ -626,8 +626,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.2",
             "HH1.3"
           ],
-          "knowDesc": "Phát biểu trạng thái tự nhiên của N2, S; trình bày ứng dụng của NH3, muối ammonium; nêu tác hại của SO2 gây mưa acid (HH1.1, HH1.2).",
-          "underDesc": "Trình bày tính oxi hóa và tính khử của sulfur và sulfur dioxide (SO2); đề xuất biện pháp giảm thiểu khí thải SO2 (HH1.2, HH1.3).",
+          "knowDesc": "Phát biểu trạng thái tự nhiên của N2, S (HH1.1); Trình bày ứng dụng của NH3, muối ammonium và tác hại của khí SO2 gây mưa acid (HH1.2).",
+          "underDesc": "Trình bày tính oxi hóa và tính khử của sulfur và sulfur dioxide SO2 (HH1.2); Viết PTHH minh họa và đề xuất biện pháp giảm thiểu khí thải SO2 (HH1.3).",
           "applyDesc": "Giải thích quy trình xử lí khí thải chứa SO2 và NOx gây mưa acid trong công nghiệp (HH1.3)."
         },
         {
@@ -651,9 +651,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH2.2",
             "HH2.4"
           ],
-          "knowDesc": "Trình bày tính chất vật lí, quy tắc an toàn khi pha loãng H2SO4 đặc và cách xử lí sơ bộ khi bỏng acid; nhận biết ion SO4(2-) (HH1.1, HH1.2).",
-          "underDesc": "Trình bày tính chất hóa học cơ bản của H2SO4 loãng và tính oxi hóa mạnh, tính háo nước của H2SO4 đặc (HH1.2, HH2.2, HH2.4).",
-          "applyDesc": "Tính nồng độ dung dịch H2SO4 sau khi pha loãng và xác định số chất phản ứng tạo khí với H2SO4 đặc nóng (HH1.6, HH2.4)."
+          "knowDesc": "Trình bày quy tắc an toàn khi pha loãng H2SO4 đặc và sơ cứu khi bỏng acid (HH1.1); Trình bày cách nhận biết ion sulfate SO4(2-) bằng ion Ba(2+) (HH1.2).",
+          "underDesc": "Trình bày tính chất acid của dung dịch H2SO4 loãng (HH1.2); Trình bày tính oxi hóa mạnh và tính háo nước của H2SO4 đặc (HH2.2); Mô tả hiện tượng thí nghiệm thực hành với H2SO4 đặc (HH2.4).",
+          "applyDesc": "Tính nồng độ hoặc khối lượng dung dịch H2SO4 sau khi pha loãng (HH1.6); Xác định các chất phản ứng tạo khí SO2 với H2SO4 đặc nóng (HH2.4)."
         },
         {
           "topic": "Chương 3: Đại cương về hóa học hữu cơ - Bài 8: Hợp chất hữu cơ, nhóm chức & phổ hồng ngoại (IR)",
@@ -749,7 +749,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH1.6"
           ],
-          "knowDesc": "Nêu khái niệm alkane, công thức chung CnH2n+2 (n ≥ 1), nguồn alkane trong tự nhiên (khí thiên nhiên, khí mỏ dầu) và quy tắc gọi tên IUPAC (HH1.1, HH1.2, HH1.3).",
+          "knowDesc": "Nêu khái niệm alkane, công thức chung CnH2n+2 (n ≥ 1) (HH1.1); Nêu nguồn alkane trong tự nhiên và tính chất vật lí (HH1.2); Gọi tên alkane theo danh pháp IUPAC (HH1.3).",
           "underDesc": "Giải thích sự biến đổi nhiệt độ sôi của các alkane dựa vào phân tử khối và tương tác van der Waals (HH1.6).",
           "applyDesc": "Xác định các sản phẩm của quá trình reforming alkane (như reforming heptane) trong công nghiệp lọc hóa dầu (HH1.6)."
         },
@@ -773,7 +773,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH2.4"
           ],
-          "knowDesc": "Nêu khái niệm, công thức chung của alkene (CnH2n) và alkyne (CnH2n-2), tính chất vật lí chung và danh pháp IUPAC (HH1.1, HH1.3).",
+          "knowDesc": "Nêu khái niệm, công thức chung của alkene (CnH2n) và alkyne (CnH2n-2) (HH1.1); Nêu tính chất vật lí chung (HH1.2); Gọi tên alkene, alkyne theo danh pháp IUPAC (HH1.3).",
           "underDesc": "Xác định điều kiện và số lượng đồng phân hình học cis-trans; Trình bày phản ứng cộng (H2 với xúc tác Lindlar hoặc Ni, Br2, HX), phản ứng thế của alk-1-yne với AgNO3/NH3 (HH1.2).",
           "applyDesc": "Phân biệt các khí ethane, ethylene, acetylene bằng phương pháp hóa học và viết PTHH minh họa (HH2.4)."
         },
@@ -797,9 +797,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.1",
             "HH3.3"
           ],
-          "knowDesc": "Nêu khái niệm arene, đặc điểm tính chất vật lí và ứng dụng của benzene, toluene, naphthalene (HH1.1, HH1.2).",
+          "knowDesc": "Nêu khái niệm arene (HH1.1); Nêu đặc điểm tính chất vật lí và ứng dụng của benzene, toluene, naphthalene (HH1.2).",
           "underDesc": "Trình bày tính chất hóa học của arene (phản ứng thế halogen, nitro hóa vào vòng benzene; phản ứng oxi hóa mạch nhánh bằng KMnO4) và an toàn hóa chất (HH1.2).",
-          "applyDesc": "Giải bài toán thực tiễn tính giới hạn hàm lượng benzene trong xăng theo quy định EPA và tính lượng nguyên liệu toluene điều chế benzoic acid bảo quản thực phẩm (HH3.1, HH3.3)."
+          "applyDesc": "Vận dụng kiến thức giải thích giới hạn hàm lượng benzene trong xăng theo quy định bảo vệ môi trường (HH3.1); Tính lượng nguyên liệu toluene điều chế benzoic acid bảo quản thực phẩm (HH3.3)."
         }
       ]
     },
@@ -827,7 +827,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3"
           ],
           "knowDesc": "Nêu được khái niệm và công thức chung của alkene, alkyne, arene (HH1.1).",
-          "underDesc": "Gọi tên IUPAC của một số alkene, alkyne mạch nhánh; trình bày tính chất hóa học của propyne với H2, Br2, H2O, AgNO3/NH3 (HH1.2, HH1.3).",
+          "underDesc": "Gọi tên IUPAC của một số alkene, alkyne mạch nhánh (HH1.2); Trình bày tính chất hóa học của propyne với H2, Br2, H2O, AgNO3/NH3; viết PTHH minh họa (HH1.3).",
           "applyDesc": "Vận dụng tính chất hóa học của hydrocarbon không no và arene trong tổng hợp hữu cơ (HH1.3)."
         },
         {
@@ -850,7 +850,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH3.2"
           ],
-          "knowDesc": "Nêu khái niệm dẫn xuất halogen, alcohol, công thức tổng quát alcohol no đơn chức mạch hở; đặc điểm cấu tạo và ứng dụng của phenol (HH1.1, HH1.2).",
+          "knowDesc": "Nêu khái niệm dẫn xuất halogen, alcohol, công thức tổng quát alcohol no đơn chức mạch hở (HH1.1); Nêu đặc điểm cấu tạo và ứng dụng của phenol (HH1.2).",
           "underDesc": "Viết công thức cấu tạo, xác định số đồng phân alcohol (C3H8O, C4H10O) và gọi tên IUPAC; so sánh nhiệt độ sôi của alcohol với hydrocarbon và aldehyde (HH1.3).",
           "applyDesc": "Nêu giải pháp phòng chống tác hại của việc lạm dụng rượu bia và giải bài toán sản xuất xăng sinh học E5 từ tinh bột ngô (HH3.2)."
         },
@@ -876,9 +876,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH2.4",
             "HH3.1"
           ],
-          "knowDesc": "Nêu khái niệm hợp chất carbonyl, công thức chung aldehyde no đơn chức mạch hở, tính chất vật lí và ứng dụng của formalin, nhựa PF (HH1.1, HH1.2).",
-          "underDesc": "Trình bày tính chất hóa học của aldehyde, ketone (phản ứng khử, phản ứng tráng bạc với thuốc thử Tollens, phản ứng tạo iodoform) và điều chế CH3CHO từ C2H4 (HH1.2, HH1.3).",
-          "applyDesc": "Phân tích hiện tượng thí nghiệm tráng bạc (HH2.4); tính khối lượng Ag kết tủa và hiệu suất quá trình oxi hóa ethylene thành acetaldehyde (HH1.6, HH3.1)."
+          "knowDesc": "Nêu khái niệm hợp chất carbonyl, công thức chung aldehyde no đơn chức mạch hở (HH1.1); Trình bày tính chất vật lí và ứng dụng của formalin, nhựa PF (HH1.2).",
+          "underDesc": "Trình bày tính chất hóa học của aldehyde, ketone (phản ứng khử, tráng bạc, tạo iodoform) (HH1.2); Viết PTHH minh họa và phản ứng điều chế CH3CHO từ C2H4 (HH1.3).",
+          "applyDesc": "Phân tích hiện tượng thí nghiệm tráng bạc (HH2.4); Tính khối lượng Ag kết tủa theo phương pháp bảo toàn electron (HH1.6); Tính hiệu suất quá trình oxi hóa ethylene thành acetaldehyde trong công nghiệp (HH3.1)."
         },
         {
           "topic": "Chương 6: Hợp chất carbonyl - Carboxylic acid - Bài 24: Carboxylic acid",
@@ -900,9 +900,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6",
             "HH2.4"
           ],
-          "knowDesc": "Nêu khái niệm, danh pháp, tính chất vật lí, phương pháp lên men giấm và ứng dụng thực tiễn của acetic acid (giấm ăn) (HH1.2, HH1.3).",
+          "knowDesc": "Nêu khái niệm, danh pháp, tính chất vật lí và ứng dụng thực tiễn của acetic acid (HH1.2); Trình bày phương pháp lên men giấm và viết PTHH (HH1.3).",
           "underDesc": "Trình bày tính chất hóa học cơ bản của carboxylic acid (tính acid yếu nhưng đầy đủ, phản ứng tẩy cặn đá vôi, phản ứng ester hóa) (HH1.2).",
-          "applyDesc": "Xác định nồng độ phần trăm của mẫu giấm ăn thông qua phép chuẩn độ bằng dung dịch NaOH (HH1.6, HH2.4)."
+          "applyDesc": "Tính toán nồng độ phần trăm của mẫu giấm ăn dựa trên kết quả chuẩn độ (HH1.6); Thực hiện quy trình thí nghiệm chuẩn độ acid - base bằng dung dịch NaOH (HH2.4)."
         }
       ]
     }
@@ -933,7 +933,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6"
           ],
           "knowDesc": "Biết công thức cấu tạo và gọi tên một số ester đơn giản; biết khái niệm và cấu tạo của lipid, chất béo (HH1.1).",
-          "underDesc": "Trình bày đặc điểm tính chất vật lí và tính chất hóa học cơ bản của ester (phản ứng thủy phân) và chất béo (thủy phân, hydrogen hóa chất béo lỏng) (HH1.2, HH1.3).",
+          "underDesc": "Trình bày đặc điểm tính chất vật lí của ester và chất béo (trạng thái, nhiệt độ sôi, tính tan) (HH1.2); Trình bày tính chất hóa học cơ bản của ester (phản ứng thủy phân trong môi trường acid và base) và chất béo (thủy phân, xà phòng hóa, hydrogen hóa chất béo lỏng); viết PTHH minh họa (HH1.3).",
           "applyDesc": "Giải thích vai trò của H2SO4 đặc và các bước tiến hành trong thí nghiệm điều chế ethyl acetate (HH1.6)."
         },
         {
@@ -957,7 +957,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6"
           ],
           "knowDesc": "Nêu được khái niệm và nguyên liệu sản xuất xà phòng, chất giặt rửa tự nhiên và chất giặt rửa tổng hợp (HH1.1).",
-          "underDesc": "Nêu được đặc điểm cấu tạo (đầu ưa nước, đuôi kị nước) và cơ chế giặt rửa của xà phòng và chất giặt rửa tổng hợp (HH1.2, HH1.4).",
+          "underDesc": "Trình bày đặc điểm cấu tạo (đầu ưa nước, đuôi kị nước) của phân tử xà phòng và chất giặt rửa tổng hợp (HH1.2); Phân tích cơ chế giặt rửa và so sánh ưu nhược điểm của xà phòng với chất giặt rửa tổng hợp (HH1.4).",
           "applyDesc": "Tính toán khối lượng xà phòng sản xuất được từ phản ứng xà phòng hóa chất béo trong công nghiệp (HH1.6)."
         },
         {
@@ -980,7 +980,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH3.1"
           ],
-          "knowDesc": "Nêu được khái niệm, cách phân loại carbohydrate, trạng thái tự nhiên và công thức cấu tạo dạng mạch hở, mạch vòng của glucose, fructose (HH1.1, HH1.3).",
+          "knowDesc": "Nêu được khái niệm và cách phân loại carbohydrate (HH1.1); Nêu trạng thái tự nhiên và công thức cấu tạo dạng mạch hở, mạch vòng của glucose, fructose (HH1.3).",
           "underDesc": "Trình bày tính chất hóa học cơ bản của glucose, fructose (phản ứng với Cu(OH)2, nước bromine, thuốc thử Tollens, lên men) và khả năng mở vòng (HH1.2).",
           "applyDesc": "Vận dụng thí nghiệm tráng bạc và lên men glucose để giải thích ứng dụng thực tế (HH3.1)."
         },
@@ -1004,7 +1004,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.4"
           ],
           "knowDesc": "Nêu được trạng thái tự nhiên, công thức phân tử của saccharose và maltose (HH1.1).",
-          "underDesc": "Trình bày tính chất hóa học cơ bản của saccharose (phản ứng với Cu(OH)2, phản ứng thủy phân trong môi trường acid) (HH1.2, HH1.4).",
+          "underDesc": "Trình bày tính chất hóa học cơ bản của saccharose (phản ứng với Cu(OH)2 tạo dung dịch xanh lam) (HH1.2); Trình bày phản ứng thủy phân saccharose trong môi trường acid và phân biệt với glucose (HH1.4).",
           "applyDesc": "So sánh cấu tạo phân tử và khả năng mở vòng của maltose với saccharose (HH1.4)."
         },
         {
@@ -1027,9 +1027,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6",
             "HH3.1"
           ],
-          "knowDesc": "Nêu được trạng thái tự nhiên, cấu tạo và phản ứng màu đặc trưng của hồ tinh bột với dung dịch iodine (HH1.1, HH1.2).",
+          "knowDesc": "Nêu trạng thái tự nhiên và cấu tạo phân tử của tinh bột, cellulose (HH1.1); Trình bày phản ứng màu đặc trưng của hồ tinh bột với dung dịch iodine (HH1.2).",
           "underDesc": "Trình bày tính chất hóa học của tinh bột và cellulose (phản ứng thủy phân, phản ứng của cellulose với HNO3 đặc và nước Schweizer) (HH1.2).",
-          "applyDesc": "Giải bài toán thực tiễn sản xuất xăng sinh học E5 từ tinh bột ngô và nêu ưu điểm của nhiên liệu sinh học E5 (HH1.6, HH3.1)."
+          "applyDesc": "Tính toán lượng ethanol hoặc khối lượng tinh bột trong quá trình lên men sản xuất cồn sinh học (HH1.6); Vận dụng kiến thức giải thích ưu điểm của xăng sinh học E5 trong bảo vệ môi trường (HH3.1)."
         },
         {
           "topic": "Chương 3: Hợp chất chứa nitrogen - Bài 6, 7: Amine và Amino acid – Protein",
@@ -1051,9 +1051,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.3",
             "HH3.1"
           ],
-          "knowDesc": "Nêu được khái niệm, bậc của amine, viết công thức cấu tạo, danh pháp và tính chất vật lí của amine (HH1.1, HH1.3).",
-          "underDesc": "Trình bày tính chất hóa học đặc trưng của amine (tính base, phản ứng thế nhân thơm của aniline với nước bromine, tạo phức với Cu(OH)2); quy trình sản xuất nước mắm truyền thống (HH1.2, HH3.1).",
-          "applyDesc": "Tính khối lượng aniline tổng hợp được từ benzene theo hiệu suất quá trình công nghiệp (HH1.2, HH3.1)."
+          "knowDesc": "Nêu khái niệm, bậc của amine và tính chất vật lí đặc trưng (HH1.1); Viết công thức cấu tạo và gọi tên amine theo danh pháp IUPAC (HH1.3).",
+          "underDesc": "Trình bày tính base và phản ứng thế nhân thơm của aniline với nước bromine (HH1.2); Vận dụng kiến thức amino acid/protein giải thích quy trình ủ chượp nước mắm truyền thống (HH3.1).",
+          "applyDesc": "Xác định PTHH chuỗi phản ứng điều chế aniline từ benzene (HH1.2); Tính khối lượng sản phẩm theo hiệu suất của quá trình công nghiệp (HH3.1)."
         }
       ]
     },
@@ -1079,7 +1079,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.1",
             "HH1.2"
           ],
-          "knowDesc": "Gọi tên và nêu ứng dụng tạo hương của một số ester đơn giản; nêu đặc điểm cấu tạo và thành phần chính của chất giặt rửa tổng hợp (HH1.1, HH1.2).",
+          "knowDesc": "Gọi tên và nêu ứng dụng tạo hương của một số ester đơn giản trong đời sống (HH1.1); Nêu đặc điểm cấu tạo và thành phần chính của chất giặt rửa tổng hợp (HH1.2).",
           "underDesc": "Phân biệt xà phòng với chất giặt rửa tổng hợp dựa vào nhóm đầu ưa nước (-COONa và -SO3Na / -OSO3Na) (HH1.2).",
           "applyDesc": "Vận dụng tính chất chất béo và xà phòng để giải thích cách làm sạch vết dầu mỡ trong đời sống (HH1.2)."
         },
@@ -1105,8 +1105,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.1"
           ],
           "knowDesc": "Nêu cách phân loại carbohydrate, trạng thái tự nhiên của glucose, saccharose và công thức phân tử của tinh bột, cellulose (HH1.1).",
-          "underDesc": "Trình bày tính chất hóa học cơ bản của glucose, saccharose, tinh bột, cellulose; viết PTHH chứng minh glucose có nhóm chức -CHO và nhận biết các dung dịch mất nhãn (HH1.2, HH1.3, HH3.1).",
-          "applyDesc": "Mô tả hiện tượng thực nghiệm phản ứng tráng bạc của glucose với thuốc thử Tollens (HH2.4, HH3.1)."
+          "underDesc": "Trình bày tính chất hóa học cơ bản của glucose, saccharose, tinh bột, cellulose (HH1.2); Viết PTHH chứng minh glucose có tính chất của polyalcohol và aldehyde (HH1.3); Nhận biết các dung dịch carbohydrate mất nhãn trong thực tiễn (HH3.1).",
+          "applyDesc": "Mô tả hiện tượng thực nghiệm phản ứng tráng bạc của glucose với thuốc thử Tollens (HH2.4); Vận dụng giải thích ứng dụng sản xuất gương soi, ruột phích trong công nghiệp (HH3.1)."
         },
         {
           "topic": "Chương 3: Hợp chất chứa nitrogen",
@@ -1127,7 +1127,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.2",
             "HH3.3"
           ],
-          "knowDesc": "Phân loại amine theo bậc amine; nêu phản ứng màu biuret và vai trò của protein đối với sự sống (HH1.1, HH1.2).",
+          "knowDesc": "Phân loại amine theo bậc amine và nhận diện cấu tạo amino acid cơ bản (HH1.1); Trình bày phản ứng màu biuret và vai trò sinh học của protein đối với sự sống (HH1.2).",
           "underDesc": "Trình bày tính chất lưỡng tính của amino acid (phản ứng với KOH và HCl) và tính chất đặc trưng của peptide (HH1.2).",
           "applyDesc": "Tính số mắt xích alanine trung bình trong phân tử protein dựa vào khối lượng sản phẩm thủy phân hoàn toàn (HH3.3)."
         },
@@ -1154,8 +1154,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.1"
           ],
           "knowDesc": "Nêu tính chất vật lí chung của polymer, khái niệm và phân loại tơ, bản chất quá trình lưu hóa cao su và khái niệm keo dán (HH1.1).",
-          "underDesc": "Gọi tên các polymer thông dụng (PE, PP, PS, PVC, PMMA), phân biệt phản ứng trùng hợp và trùng ngưng; tính số mắt xích trong đoạn mạch polyisoprene (HH1.2, HH1.3, HH1.6).",
-          "applyDesc": "Đề xuất và giải thích ý nghĩa kí hiệu tái chế nhựa (như nhựa số 6 PS) và cách sử dụng đồ nhựa an toàn cho sức khỏe (HH2.1, HH3.1)."
+          "underDesc": "Gọi tên các polymer thông dụng (PE, PP, PS, PVC, PMMA) và phân biệt phản ứng trùng hợp, trùng ngưng (HH1.2); Viết PTHH phản ứng trùng hợp monome tạo polymer tiêu biểu (HH1.3); Tính số mắt xích (hệ số polymer hóa) trong đoạn mạch polymer (HH1.6).",
+          "applyDesc": "Đề xuất thí nghiệm phân biệt hoặc thu hồi một số loại polymer thông dụng (HH2.1); Giải thích ý nghĩa mã kí hiệu tái chế nhựa và cách sử dụng đồ nhựa an toàn cho sức khỏe (HH3.1)."
         },
         {
           "topic": "Chương 5: Pin điện và điện phân",
@@ -1178,8 +1178,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.3"
           ],
           "knowDesc": "Viết kí hiệu cặp oxi hóa – khử và nêu cấu tạo, nguyên tắc hoạt động của pin Galvani (HH1.4).",
-          "underDesc": "Tính sức điện động chuẩn E°pin của pin điện hóa tạo bởi hai cặp oxi hóa – khử hoặc tìm thế điện cực chuẩn chưa biết (HH1.4, HH1.7).",
-          "applyDesc": "Vận dụng công thức Faraday để tính khối lượng kim loại Al thu được và hiệu suất quá trình điện phân Al2O3 nóng chảy (HH1.6, HH3.3)."
+          "underDesc": "So sánh tính oxi hóa, tính khử giữa hai cặp oxi hóa – khử để xác định điện cực anode, cathode (HH1.4); Tính sức điện động chuẩn E°pin của pin Galvani hoặc tìm thế điện cực chuẩn chưa biết (HH1.7).",
+          "applyDesc": "Vận dụng công thức Faraday để tính khối lượng kim loại thoát ra ở điện cực (HH1.6); Tính lượng nguyên liệu và hiệu suất quá trình điện phân Al2O3 nóng chảy trong công nghiệp luyện nhôm (HH3.3)."
         }
       ]
     },
@@ -1209,9 +1209,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6",
             "HH3.1"
           ],
-          "knowDesc": "Nêu được liên kết kim loại, những tính chất vật lí chung của kim loại và ứng dụng phổ biến của đồng, nhôm, sắt (HH1.1, HH1.2).",
-          "underDesc": "Sử dụng bảng thế điện cực chuẩn để giải thích các trường hợp kim loại phản ứng với dung dịch acid, nước và dung dịch muối (HH1.3, HH1.5).",
-          "applyDesc": "Xác định số cặp phản ứng thu được kim loại khi cho các kim loại (Na, Zn, Cu, Fe) tác dụng với dung dịch muối và viết PTHH chứng minh (HH1.6, HH3.1)."
+          "knowDesc": "Nêu khái niệm liên kết kim loại và tinh thể kim loại (HH1.1); Trình bày những tính chất vật lí chung của kim loại và ứng dụng phổ biến của Cu, Al, Fe (HH1.2).",
+          "underDesc": "Sử dụng bảng thế điện cực chuẩn để viết PTHH phản ứng giữa kim loại với cation kim loại khác (HH1.3); Giải thích các trường hợp kim loại phản ứng hoặc không phản ứng với dung dịch acid, nước và muối (HH1.5).",
+          "applyDesc": "Xác định số trường hợp phản ứng sinh ra đơn chất kim loại khi cho hỗn hợp kim loại tác dụng với dung dịch muối (HH1.6); Viết PTHH và giải thích hiện tượng kim loại tác dụng với muối trong thực tiễn (HH3.1)."
         },
         {
           "topic": "Chương 6: Đại cương về kim loại - Bài 15: Kim loại trong tự nhiên và phương pháp tách kim loại",
@@ -1233,7 +1233,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.1"
           ],
           "knowDesc": "Nêu được trạng thái tự nhiên của kim loại (kim loại tồn tại dạng đơn chất như Au) và một số quặng phổ biến (HH1.1).",
-          "underDesc": "Trình bày và lựa chọn phương pháp tách kim loại phù hợp (nhiệt luyện, thủy luyện, điện phân nóng chảy) (HH1.4, HH3.1).",
+          "underDesc": "So sánh các phương pháp tách kim loại (nhiệt luyện, thủy luyện, điện phân nóng chảy) (HH1.4); Lựa chọn phương pháp sản xuất kim loại phù hợp và đánh giá tác động môi trường (HH3.1).",
           "applyDesc": "Giải thích nguyên tắc tách và tái chế kim loại trong công nghiệp luyện kim (HH3.1)."
         },
         {
@@ -1256,8 +1256,8 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.4",
             "HH3.1"
           ],
-          "knowDesc": "Nêu khái niệm hợp kim, thành phần và ứng dụng của thép không gỉ, dural; nêu khái niệm ăn mòn kim loại (HH1.1, HH1.4).",
-          "underDesc": "Trình bày các dạng ăn mòn kim loại (ăn mòn hóa học, ăn mòn điện hóa như sắt tây bị xước) và nhận biết mẫu hợp kim bằng dung dịch HCl (HH1.2, HH1.4).",
+          "knowDesc": "Nêu khái niệm hợp kim, thành phần của thép không gỉ, dural và khái niệm ăn mòn kim loại (HH1.1); Phân biệt ưu điểm của hợp kim so với kim loại thành phần (HH1.4).",
+          "underDesc": "Trình bày cơ chế ăn mòn hóa học và ăn mòn điện hóa kim loại (HH1.2); Phân biệt bản chất ăn mòn điện hóa với ăn mòn hóa học và nêu biện pháp bảo vệ kim loại (HH1.4).",
           "applyDesc": "Tính phần trăm khối lượng của carbon trong mẫu hợp kim Fe–C dựa vào độ tăng khối lượng chất rắn khi nung trong không khí (HH3.1)."
         },
         {
@@ -1281,7 +1281,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH3.1"
           ],
           "knowDesc": "Nêu trạng thái tự nhiên, xu hướng biến đổi nhiệt độ nóng chảy/nhiệt độ sôi, tính khử và cách bảo quản kim loại nhóm IA (HH1.1).",
-          "underDesc": "Giải thích nguyên nhân kim loại kiềm có khối lượng riêng nhỏ, độ cứng thấp; giải thích ứng dụng bảo quản thực phẩm của NaCl (HH1.5, HH1.6).",
+          "underDesc": "Giải thích nguyên nhân kim loại kiềm có khối lượng riêng nhỏ, độ cứng thấp dựa vào cấu trúc tinh thể (HH1.5); Giải thích ứng dụng bảo quản thực phẩm của NaCl và ứng dụng của hợp chất kiềm trong đời sống (HH1.6).",
           "applyDesc": "Tính khối lượng NaCl cần dùng để pha chế dung dịch nước muối sinh lí 0,9% dùng trong y tế (HH3.1)."
         }
       ]
@@ -1310,9 +1310,9 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.6",
             "HH2.4"
           ],
-          "knowDesc": "Trình bày bản chất liên kết kim loại; nêu mức độ phản ứng của kim loại với nước và sulfur ở nhiệt độ thường (HH1.1, HH1.2).",
+          "knowDesc": "Trình bày bản chất liên kết kim loại (HH1.1); Nêu mức độ phản ứng của kim loại với nước, phi kim (O2, Cl2, S) ở nhiệt độ thường (HH1.2).",
           "underDesc": "Sử dụng bảng thế điện cực chuẩn để lựa chọn dung dịch làm sạch kim loại; phân loại kim loại theo phương pháp điều chế (nhiệt luyện, thủy luyện, điện phân nóng chảy) (HH1.6).",
-          "applyDesc": "Phân tích thí nghiệm ăn mòn điện hóa Zn – Cu trong dung dịch HCl và giải bài toán hỗn hợp kim loại (Mg, Al) tác dụng với hỗn hợp khí (Cl2, O2) (HH1.2, HH2.4)."
+          "applyDesc": "Giải thích cơ chế ăn mòn điện hóa của cặp Zn – Cu nhúng trong dung dịch acid HCl (HH1.2); Phân tích hiện tượng thí nghiệm thực hành kim loại tác dụng với phi kim (Cl2, O2) (HH2.4)."
         },
         {
           "topic": "Chương 7: Nguyên tố nhóm IA và nhóm IIA (Bài 17: Nhóm IA, Bài 18: Nhóm IIA, Bài 19: Nước cứng)",
@@ -1334,7 +1334,7 @@ const OFFICIAL_BTX_MATRICES = {
             "HH1.4",
             "HH1.6"
           ],
-          "knowDesc": "Nêu xu hướng biến đổi nhiệt độ nóng chảy và khả năng phản ứng với nước của kim loại kiềm; nêu thành phần thạch cao nung, phân loại và tác hại của nước cứng (HH1.1, HH1.2).",
+          "knowDesc": "Nêu xu hướng biến đổi nhiệt độ nóng chảy và khả năng phản ứng với nước của kim loại kiềm (HH1.1); Nêu thành phần thạch cao nung, phân loại và tác hại của nước cứng trong đời sống (HH1.2).",
           "underDesc": "Giải thích nguyên tắc làm mềm nước có tính cứng tạm thời bằng dung dịch Ca(OH)2 vừa đủ và viết PTHH minh họa (HH1.4).",
           "applyDesc": "Nhận diện dung dịch muối hydrogen carbonate (Ca(HCO3)2) qua phản ứng với HCl và Ca(OH)2 (HH1.6)."
         },

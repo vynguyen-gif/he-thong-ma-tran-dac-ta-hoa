@@ -3623,7 +3623,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Nitrogen và sulfur",
     "lesson": "Bài 4: Ammonia và một số hợp chất ammonium",
     "outcome": "Viết phương trình hóa học điều chế NH3 trong phòng thí nghiệm và quy trình Haber - Bosch trong công nghiệp.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4190,7 +4190,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 4: Hydrocarbon",
     "lesson": "Bài 13: Hydrocarbon không no (Alkene & Alkyne)",
     "outcome": "Viết PTHH phản ứng trùng hợp của ethylene, propylene tạo polyethylene (PE), polypropylene (PP).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4271,7 +4271,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 4: Hydrocarbon",
     "lesson": "Bài 14: Arene (Hydrocarbon thơm)",
     "outcome": "Viết PTHH phản ứng oxi hóa mạch nhánh của toluene bằng dung dịch KMnO4 khi đun nóng tạo benzoic acid.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4316,7 +4316,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 5: Dẫn xuất halogen - Alcohol - Phenol",
     "lesson": "Bài 15: Dẫn xuất halogen",
     "outcome": "Viết PTHH phản ứng thế nguyên tử halogen bằng nhóm OH trong dung dịch kiềm nóng: R-X + NaOH -> R-OH + NaX.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4379,7 +4379,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 5: Dẫn xuất halogen - Alcohol - Phenol",
     "lesson": "Bài 16: Alcohol",
     "outcome": "Viết PTHH phản ứng thế H của nhóm OH bằng kim loại kiềm Na, K sinh khí H2.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4523,7 +4523,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 6: Hợp chất carbonyl - Carboxylic acid",
     "lesson": "Bài 18: Hợp chất carbonyl (Aldehyde & Ketone)",
     "outcome": "Viết PTHH phản ứng khử hợp chất carbonyl bằng NaBH4 hoặc LiAlH4 tạo alcohol tương ứng.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4622,7 +4622,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 6: Hợp chất carbonyl - Carboxylic acid",
     "lesson": "Bài 19: Carboxylic acid",
     "outcome": "Viết PTHH phản ứng ester hóa thuận nghịch giữa carboxylic acid và alcohol với xúc tác H2SO4 đặc đun nóng.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4694,7 +4694,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 1: Ester - Lipid",
     "lesson": "Bài 1: Ester",
     "outcome": "Viết PTHH phản ứng thủy phân ester trong môi trường acid (phản ứng thuận nghịch có xúc tác H2SO4 đun nóng).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4703,7 +4703,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 1: Ester - Lipid",
     "lesson": "Bài 1: Ester",
     "outcome": "Viết PTHH phản ứng thủy phân ester trong môi trường kiềm (phản ứng xà phòng hóa một chiều sinh muối carboxylate và alcohol).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4784,7 +4784,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 1: Ester - Lipid",
     "lesson": "Bài 2: Lipid, Chất béo & Xà phòng",
     "outcome": "Viết PTHH phản ứng xà phòng hóa chất béo với NaOH/KOH đun nóng sinh muối và glycerol.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4865,7 +4865,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Carbohydrate",
     "lesson": "Bài 3: Glucose & Fructose",
     "outcome": "Viết PTHH phản ứng của glucose với Cu(OH)2 ở nhiệt độ thường tạo dung dịch phức chất màu xanh lam (chứng minh có nhiều nhóm -OH kề nhau).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4892,7 +4892,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Carbohydrate",
     "lesson": "Bài 3: Glucose & Fructose",
     "outcome": "Viết PTHH phản ứng lên men rượu của glucose tạo ethanol và CO2.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -4955,7 +4955,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Carbohydrate",
     "lesson": "Bài 4: Saccharose & Maltose",
     "outcome": "Viết PTHH phản ứng thủy phân saccharose trong môi trường acid hoặc enzyme sinh ra hỗn hợp glucose và fructose (đường nghịch đảo).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5036,7 +5036,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Carbohydrate",
     "lesson": "Bài 5: Tinh bột & Cellulose",
     "outcome": "Viết PTHH phản ứng thủy phân tinh bột và cellulose đến sản phẩm cuối cùng là glucose.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5054,7 +5054,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 2: Carbohydrate",
     "lesson": "Bài 5: Tinh bột & Cellulose",
     "outcome": "Viết PTHH phản ứng tạo tơ nhân tạo viscose và tơ cellulose acetate.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5135,7 +5135,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 3: Hợp chất chứa nitrogen",
     "lesson": "Bài 6: Amine",
     "outcome": "Viết PTHH phản ứng tạo phức chất màu xanh thẫm của methylamine với Cu(OH)2.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5216,7 +5216,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 3: Hợp chất chứa nitrogen",
     "lesson": "Bài 7: Amino acid & Peptide",
     "outcome": "Viết PTHH phản ứng trùng ngưng của ε-aminocaproic acid hoặc ω-aminoenanthic acid tạo tơ nilon-6, nilon-7.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5360,7 +5360,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 4: Polymer",
     "lesson": "Bài 9: Đại cương về polymer",
     "outcome": "Viết PTHH phản ứng trùng hợp tạo PE, PP, PVC, PS, teflon, cao su buna.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5369,7 +5369,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 4: Polymer",
     "lesson": "Bài 9: Đại cương về polymer",
     "outcome": "Viết PTHH phản ứng trùng ngưng tạo nilon-6,6 (từ hexamethylenediamine và adipic acid), tơ lapsan.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5576,7 +5576,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 5: Pin điện và điện phân",
     "lesson": "Bài 13: Điện phân",
     "outcome": "Viết PTHH điện phân nóng chảy Al2O3 (sản xuất nhôm có cryolite Na3AlF6) và NaCl.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5684,7 +5684,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 6: Đại cương về kim loại",
     "lesson": "Bài 15: Tách kim loại & Tái chế kim loại",
     "outcome": "Viết PTHH điều chế kim loại bằng phương pháp nhiệt luyện (dùng C, CO, H2 khử oxide kim loại sau Al ở nhiệt độ cao).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5693,7 +5693,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 6: Đại cương về kim loại",
     "lesson": "Bài 15: Tách kim loại & Tái chế kim loại",
     "outcome": "Viết PTHH phương pháp thủy luyện (dùng kim loại mạnh đẩy kim loại yếu ra khỏi dung dịch muối).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5810,7 +5810,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 7: Nguyên tố nhóm IA và nhóm IIA",
     "lesson": "Bài 18: Nguyên tố nhóm IA (Kim loại kiềm)",
     "outcome": "Viết PTHH phản ứng mãnh liệt của kim loại kiềm với nước, oxy và halogen.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -5873,7 +5873,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 7: Nguyên tố nhóm IA và nhóm IIA",
     "lesson": "Bài 19: Nguyên tố nhóm IIA (Kim loại kiềm thổ)",
     "outcome": "Nêu tính chất và viết PTHH của các hợp chất: Ca(OH)2, CaCO3 (đá vôi), CaSO4 (thạch cao sống, thạch cao nung CaSO4.0.5H2O đúc tượng bó bột).",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },
@@ -6035,7 +6035,7 @@ const OFFICIAL_KNTT_INDICATORS = [
     "topic": "Chương 8: Kim loại chuyển tiếp dãy thứ nhất & Phức chất",
     "lesson": "Bài 22: Sơ lược về phức chất",
     "outcome": "Viết PTHH tạo phức chất aqua khi hòa tan muối kim loại chuyển tiếp trong nước.",
-    "code": "HH1.2",
+    "code": "HH1.3",
     "level": "Hiểu",
     "comp": "HH1"
   },

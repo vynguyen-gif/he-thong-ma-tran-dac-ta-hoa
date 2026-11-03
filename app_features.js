@@ -837,8 +837,48 @@ function highlightIndicatorCodesInText(text, badgeClass) {
         var items = group.split(/\s*,\s*/);
         return items.map(function(code) {
             return "<span class='inline-block " + badgeClass + " font-bold px-1.5 py-0.2 rounded text-[11px] border mx-0.5'>[" + code + "]</span>";
-        }).join("");
+        }).join(" ");
     });
+}
+
+/* Tách các ý YCCĐ theo từng mã chỉ báo (tránh phân mảnh câu khi có dấu chấm phẩy giữa chừng) */
+function splitSpecBullets(text) {
+    if (!text || text === "—" || text === "-") return [];
+    var rawParts = String(text).split(/[;\n]/).map(function(s) { return s.trim(); }).filter(Boolean);
+    var bullets = [];
+    var temp = "";
+    rawParts.forEach(function(p) {
+        if (!temp) {
+            temp = p;
+        } else {
+            temp += "; " + p;
+        }
+        if (/HH\d\.\d/.test(p)) {
+            bullets.push(temp);
+            temp = "";
+        }
+    });
+    if (temp) {
+        if (bullets.length > 0) {
+            bullets[bullets.length - 1] += "; " + temp;
+        } else {
+            bullets.push(temp);
+        }
+    }
+    return bullets;
+}
+
+/* Định dạng YCCĐ thành các dòng gạch đầu dòng rõ ràng từng chỉ báo nếu có nhiều ý */
+function formatSpecDescWeb(text, badgeClass) {
+    if (!text || text === "—" || text === "-" || text.trim() === "") return "—";
+    var items = splitSpecBullets(text);
+    if (items.length <= 1) {
+        return highlightIndicatorCodesInText(items[0] || "", badgeClass);
+    }
+    return "<div class='space-y-1 mt-0.5 ml-2'>" + items.map(function(item) {
+        var clean = item.replace(/^[-•*]\s*/, "");
+        return "<div class='flex items-start gap-1.5 text-xs text-gray-800 leading-relaxed'><span class='text-gray-400 font-bold select-none'>-</span><span>" + highlightIndicatorCodesInText(clean, badgeClass) + "</span></div>";
+    }).join("") + "</div>";
 }
 
 /* Tra cứu thông tin Đặc tả & Chỉ báo cho từng hàng của Ma trận */
@@ -861,13 +901,13 @@ function resolveRowSpecification(row) {
             var kList = matchedIndicators.filter(function(i) { return i.level === "Biết"; }).map(function(i) { return i.outcome + " (" + i.code + ")"; });
             var uList = matchedIndicators.filter(function(i) { return i.level === "Hiểu"; }).map(function(i) { return i.outcome + " (" + i.code + ")"; });
             var aList = matchedIndicators.filter(function(i) { return i.level === "Vận dụng"; }).map(function(i) { return i.outcome + " (" + i.code + ")"; });
-            knowDesc = kList.join("; ") || "Nhận biết khái niệm, công thức hóa học, danh pháp IUPAC, tính chất vật lý (HH1.1, HH1.2).";
-            underDesc = uList.join("; ") || "Giải thích hiện tượng thí nghiệm, quy luật biến đổi, viết phương trình hóa học (HH1.3, HH1.4).";
-            applyDesc = aList.join("; ") || "Vận dụng tính toán định lượng, hiệu suất phản ứng, bài toán thực tiễn (HH1.6, HH3.1).";
+            knowDesc = kList.join("; ") || "Nhận biết khái niệm, công thức hóa học, danh pháp IUPAC (HH1.1); Trình bày tính chất vật lí đặc trưng (HH1.2).";
+            underDesc = uList.join("; ") || "Trình bày tính chất vật lí, trạng thái tự nhiên (HH1.2); Trình bày tính chất hóa học, viết PTHH minh họa (HH1.3).";
+            applyDesc = aList.join("; ") || "Vận dụng tính toán định lượng, hiệu suất phản ứng (HH1.6); Giải bài toán thực tiễn đời sống (HH3.1).";
         } else {
-            knowDesc = "Nhận biết khái niệm, công thức hóa học, danh pháp IUPAC, tính chất vật lý đặc trưng (HH1.1, HH1.2).";
-            underDesc = "Giải thích hiện tượng thí nghiệm, sự chuyển dịch cân bằng, viết PTHH minh họa (HH1.3, HH1.4).";
-            applyDesc = "Vận dụng tính toán định lượng, biến thiên enthalpy, hiệu suất, bài toán thực tiễn (HH1.6, HH3.1).";
+            knowDesc = "Nhận biết khái niệm, công thức hóa học, danh pháp IUPAC (HH1.1); Trình bày tính chất vật lí đặc trưng (HH1.2).";
+            underDesc = "Trình bày tính chất vật lí, trạng thái tự nhiên (HH1.2); Trình bày tính chất hóa học, viết PTHH minh họa (HH1.3).";
+            applyDesc = "Vận dụng tính toán định lượng, hiệu suất (HH1.6); Giải bài toán thực tiễn đời sống (HH3.1).";
         }
     }
 
@@ -889,9 +929,9 @@ function resolveRowSpecification(row) {
         knowDesc: knowDesc || "—",
         underDesc: underDesc || "—",
         applyDesc: applyDesc || "—",
-        knowWeb: highlightIndicatorCodesInText(knowDesc, "bg-emerald-100 text-emerald-900 border-emerald-300"),
-        underWeb: highlightIndicatorCodesInText(underDesc, "bg-blue-100 text-blue-900 border-blue-300"),
-        applyWeb: highlightIndicatorCodesInText(applyDesc, "bg-purple-100 text-purple-900 border-purple-300"),
+        knowWeb: formatSpecDescWeb(knowDesc, "bg-emerald-100 text-emerald-900 border-emerald-300"),
+        underWeb: formatSpecDescWeb(underDesc, "bg-blue-100 text-blue-900 border-blue-300"),
+        applyWeb: formatSpecDescWeb(applyDesc, "bg-purple-100 text-purple-900 border-purple-300"),
         codes: codesWebHtml,
         codesWord: codesWordHtml,
         kCodes: kCodes,
@@ -1692,10 +1732,10 @@ function renderSpecificationTable() {
             "<i class='fa-solid fa-pen-to-square'></i> <span>Sửa YCCĐ & Chỉ Báo</span>" +
             "</button>" +
             "</td>" +
-            "<td class='space-y-1 leading-relaxed'>" +
-            "<p><strong class='text-emerald-800'>• Nhận biết:</strong> " + spec.knowWeb + "</p>" +
-            "<p><strong class='text-blue-800'>• Thông hiểu:</strong> " + spec.underWeb + "</p>" +
-            "<p><strong class='text-purple-800'>• Vận dụng:</strong> " + spec.applyWeb + "</p>" +
+            "<td class='space-y-1.5 leading-relaxed'>" +
+            (spec.knowDesc && spec.knowDesc !== "—" && spec.knowDesc !== "-" ? "<div><strong class='text-emerald-800'>• Nhận biết:</strong> " + spec.knowWeb + "</div>" : "") +
+            (spec.underDesc && spec.underDesc !== "—" && spec.underDesc !== "-" ? "<div><strong class='text-blue-800'>• Thông hiểu:</strong> " + spec.underWeb + "</div>" : "") +
+            (spec.applyDesc && spec.applyDesc !== "—" && spec.applyDesc !== "-" ? "<div><strong class='text-purple-800'>• Vận dụng:</strong> " + spec.applyWeb + "</div>" : "") +
             "</td>" +
             "<td class='align-middle bg-brand-50/60 p-2 text-center'>" + spec.codes + p2CodesSummary + "</td>" +
             "<td class='space-y-1'>" +
@@ -3160,9 +3200,9 @@ function generateStandardSpecHtml(grade, term, variantCode, timeVal, matrixRows,
         var uDesc = r.underDesc || spec.underDesc || "";
         var aDesc = r.applyDesc || spec.applyDesc || "";
 
-        var knowBullets = kDesc ? kDesc.split(/[;\n]/).map(function(s) { return s.trim(); }).filter(Boolean) : [];
-        var underBullets = uDesc ? uDesc.split(/[;\n]/).map(function(s) { return s.trim(); }).filter(Boolean) : [];
-        var applyBullets = aDesc ? aDesc.split(/[;\n]/).map(function(s) { return s.trim(); }).filter(Boolean) : [];
+        var knowBullets = splitSpecBullets(kDesc);
+        var underBullets = splitSpecBullets(uDesc);
+        var applyBullets = splitSpecBullets(aDesc);
 
         var hasK = (r.p1_k || 0) + (r.p2_k || 0) + (r.p3_k || 0) + (r.p4_k || 0) > 0 || knowBullets.length > 0;
         var hasH = (r.p1_h || 0) + (r.p2_h || 0) + (r.p3_h || 0) + (r.p4_h || 0) > 0 || underBullets.length > 0;
