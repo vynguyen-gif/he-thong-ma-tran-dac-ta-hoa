@@ -1,0 +1,17 @@
+{
+  "name": "he-thong-ma-tran-dac-ta-hoa-hoc",
+  "version": "1.0.0",
+  "description": "Hệ thống Ma trận & Bản đặc tả đề kiểm tra môn Hóa học THPT (CV 7991)",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve ."
+  },
+  "keywords": [
+    "chemistry",
+    "matrix",
+    "exam",
+    "cv7991"
+  ],
+  "author": "Nguyen Vy",
+  "license": "ISC"
+}

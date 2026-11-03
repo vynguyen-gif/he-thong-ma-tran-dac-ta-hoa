@@ -1,0 +1,14 @@
+# Scratch & temporary test files
+scratch/
+backup/
+node_modules/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Output files
+*.log
+*.pdf
+*.zip

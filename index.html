@@ -1,0 +1,2623 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Số Hóa Ma Trận & Tạo Đề Thi Hóa Học GDPT 2018 (CV 7991 - Lớp 10, 11, 12)</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f4f7f6',
+                            100: '#e3ece9',
+                            500: '#1e5f54',
+                            600: '#164a42',
+                            700: '#103731',
+                        },
+                        amber: {
+                            50: '#fffbeb',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        accent: {
+                            blue: '#2563eb',
+                            purple: '#7c3aed',
+                            emerald: '#059669',
+                            rose: '#e11d48'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- FontAwesome CDN (For Icons - NO SVG code used) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.6.0/mammoth.browser.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
+    <!-- KaTeX CSS & JS for Real Chemical Formula & Math Rendering -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/mhchem.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+        body {
+            font-family: 'Lexend', sans-serif;
+            background-color: #f8faf9;
+            color: #1f2937;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 580px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 380px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+
+        .tab-btn.active {
+            border-bottom: 3px solid #1e5f54;
+            color: #1e5f54;
+            font-weight: 600;
+            background-color: #ffffff;
+        }
+
+        /* Printable / Export Styling Simulation */
+        @media print {
+            .no-print { display: none !important; }
+            .print-only { display: block !important; }
+            body { background: white; font-size: 11pt; color: black; }
+            .paper-shadow { box-shadow: none !important; border: none !important; padding: 0 !important; }
+            .page-break { page-break-before: always; }
+        }
+
+        .chemistry-spec-table th, .chemistry-spec-table td {
+            border: 1px solid #cbd5e1;
+            padding: 6px 8px;
+            font-size: 0.825rem;
+        }
+
+        .chemistry-spec-table th {
+            background-color: #f1f5f9;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        /* Atomic Orbital Boxes (Ô lượng tử / Ô orbital) - Hỗ trợ cả thẻ span inline và table */
+        .ao-group {
+            display: inline-block !important;
+            vertical-align: middle !important;
+            margin: 0 4px !important;
+            white-space: nowrap !important;
+        }
+        .ao-box {
+            display: inline-block !important;
+            width: 22px !important;
+            height: 22px !important;
+            line-height: 20px !important;
+            border: 1.5pt solid #000000 !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            font-size: 11pt !important;
+            font-family: "Times New Roman", serif !important;
+            font-weight: bold !important;
+            margin-right: -1.5pt !important;
+            box-sizing: border-box !important;
+            background-color: #ffffff !important;
+            color: #000000 !important;
+        }
+        .ao-box:last-child {
+            margin-right: 0 !important;
+        }
+        .ao-boxes {
+            display: inline-table !important;
+            border-collapse: collapse !important;
+            vertical-align: middle !important;
+            margin: 0 4px !important;
+            border: 1.5pt solid #000000 !important;
+            background-color: #ffffff !important;
+        }
+        .ao-boxes td {
+            border: 1.5pt solid #000000 !important;
+            width: 22px !important;
+            height: 22px !important;
+            min-width: 22px !important;
+            max-width: 22px !important;
+            text-align: center !important;
+            vertical-align: middle !important;
+            font-size: 12pt !important;
+            font-family: "Times New Roman", serif !important;
+            font-weight: bold !important;
+            line-height: 1 !important;
+            padding: 0 !important;
+            color: #000000 !important;
+            background-color: #ffffff !important;
+        }
+
+        /* Ký hiệu đồng vị / nguyên tử chuẩn IUPAC & SGK Hóa học */
+        .isotope-sym {
+            display: inline-block !important;
+            vertical-align: middle !important;
+            text-align: right !important;
+            line-height: 1 !important;
+            margin-right: 1.5px !important;
+        }
+        .isotope-sym sup, .isotope-sym .iso-a {
+            font-size: 8.5pt !important;
+            display: block !important;
+            line-height: 1 !important;
+            margin-bottom: 1px !important;
+            vertical-align: baseline !important;
+            font-family: "Times New Roman", serif !important;
+            font-weight: 600 !important;
+        }
+        .isotope-sym sub, .isotope-sym .iso-z {
+            font-size: 8.5pt !important;
+            display: block !important;
+            line-height: 1 !important;
+            vertical-align: baseline !important;
+            font-family: "Times New Roman", serif !important;
+            font-weight: 600 !important;
+        }
+
+        /* Bảng dữ liệu hóa học chuẩn SGK & Đề thi */
+        .chem-table {
+            border-collapse: collapse !important;
+            width: 100% !important;
+            max-width: 720px !important;
+            margin: 10px 0 !important;
+            background-color: #ffffff !important;
+            font-size: 11pt !important;
+            border: 1.5px solid #94a3b8 !important;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05) !important;
+        }
+        .chem-table th {
+            background-color: #f1f5f9 !important;
+            color: #0f172a !important;
+            font-weight: 700 !important;
+            padding: 7px 12px !important;
+            border: 1px solid #94a3b8 !important;
+            text-align: center !important;
+        }
+        .chem-table td {
+            padding: 6px 12px !important;
+            border: 1px solid #94a3b8 !important;
+            color: #1e293b !important;
+            vertical-align: middle !important;
+        }
+        .chem-table tr:hover {
+            background-color: #f8fafc !important;
+        }
+    </style>
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="bg-brand-500 text-white shadow-md sticky top-0 z-50 no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center font-bold text-white text-xl shadow">
+                        <i class="fa-solid fa-flask-vial"></i>
+                    </div>
+                    <div class="flex items-center gap-2.5 flex-wrap">
+                        <h1 class="font-black text-xl text-white tracking-wide">Hóa Học</h1>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-black bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-amber-950 border border-amber-200 shadow-md uppercase tracking-wide">
+                            <i class="fa-solid fa-chalkboard-user text-amber-950"></i> GV: NGUYỄN VỸ
+                        </span>
+                        <span class="hidden lg:inline-flex items-center gap-1.5 text-xs text-amber-200 font-medium italic pl-2.5 border-l border-brand-500/70">
+                            <i class="fa-solid fa-atom text-amber-300"></i> "Khám phá thế giới qua lăng kính Hóa học"
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex items-center space-x-2">
+                    <button onclick="exportExamToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-semibold">
+                        <i class="fa-solid fa-file-word text-amber-300"></i>
+                        <span>Xuất Đề Thi (.doc)</span>
+                    </button>
+                    <button onclick="exportMatrixToWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-semibold hidden md:flex">
+                        <i class="fa-solid fa-file-word text-amber-300"></i>
+                        <span>Xuất Ma Trận (.doc)</span>
+                    </button>
+                    <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1">
+                        <i class="fa-solid fa-print"></i>
+                        <span class="hidden md:inline">In / Xuất PDF</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MAIN TABS NAVIGATION -->
+        <nav class="bg-white border-b border-gray-200 text-gray-600 text-sm font-medium overflow-x-auto">
+            <div class="max-w-7xl mx-auto px-4 flex space-x-1 min-w-max">
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-layer-group text-amber-600"></i>
+                    <span>1. Khung Năng Lực & Động Từ</span>
+                </button>
+                <button onclick="switchTab('indicators')" id="tab-indicators" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-book-bookmark text-brand-500"></i>
+                    <span>2. Tra Cứu Chỉ Báo (10, 11, 12)</span>
+                </button>
+                <button onclick="switchTab('matrix')" id="tab-matrix" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-table-cells text-accent-blue"></i>
+                    <span>3. Soạn Ma Trận & Bản Đặc Tả</span>
+                </button>
+                <button onclick="switchTab('generator')" id="tab-generator" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-wand-magic-sparkles text-accent-purple"></i>
+                    <span>4. Ngân Hàng & Sinh Đề Thi</span>
+                </button>
+                <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-chart-pie text-accent-emerald"></i>
+                    <span>5. Thống Kê & Phân Tích</span>
+                </button>
+                <button onclick="switchTab('syllabus')" id="tab-syllabus" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-graduation-cap text-rose-600"></i>
+                    <span>6. Đề Cương Ôn Tập (Học Sinh)</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+
+        <!-- ========================================== -->
+        <!-- TAB 1: KHUNG NĂNG LỰC & ĐỘNG TỪ MÔ TẢ -->
+        <!-- ========================================== -->
+        <section id="sec-overview" class="tab-content space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex items-start justify-between flex-wrap gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-bullseye text-brand-500"></i>
+                            Khung Năng Lực Môn Hóa Học THPT (Theo CV 7991/BGDĐT-GDTrH)
+                        </h2>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Quy định chuẩn hóa về 3 thành phần năng lực (HH1, HH2, HH3), bảng động từ mô tả cấp độ nhận thức (Biết, Hiểu, Vận dụng) và hình thức kiểm tra đánh giá (12 câu TN, 2-4 câu Đúng/Sai, 4-6 câu Trả lời ngắn, 2-3 câu Tự luận) cho cả 3 khối lớp 10, 11, 12.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="bg-brand-50 text-brand-700 text-xs px-3 py-1.5 rounded-lg border border-brand-200 font-semibold">
+                            Cập nhật Lớp 10, 11, 12
+                        </span>
+                        <span class="bg-amber-50 text-amber-700 text-xs px-3 py-1.5 rounded-lg border border-amber-200 font-semibold">
+                            Trắc Nghiệm + Tự Luận CV 7991
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Intro Cards -->
+                <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-emerald-50/60 p-4 rounded-lg border border-emerald-100">
+                        <div class="flex items-center gap-2 font-bold text-emerald-800">
+                            <span class="w-6 h-6 rounded-full bg-emerald-600 text-white text-xs flex items-center justify-center">1</span>
+                            Nhận Thức Hóa Học (HH1)
+                        </div>
+                        <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                            Cấu tạo nguyên tử, liên kết, enthalpy, nhóm halogen (Lớp 10), cân bằng hóa học, hydrocarbon, alcohol (Lớp 11), ester, lipid, carbohydrate, điện hóa, phức chất (Lớp 12).
+                        </p>
+                        <div class="mt-3 text-xs font-semibold text-emerald-700">Mã chỉ báo: HH1.1 đến HH1.8</div>
+                    </div>
+
+                    <div class="bg-blue-50/60 p-4 rounded-lg border border-blue-100">
+                        <div class="flex items-center gap-2 font-bold text-blue-800">
+                            <span class="w-6 h-6 rounded-full bg-blue-600 text-white text-xs flex items-center justify-center">2</span>
+                            Tìm Hiểu Thế Giới Tự Nhiên (HH2)
+                        </div>
+                        <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                            Thực hành đo tốc độ phản ứng, thí nghiệm halogen (Lớp 10), chuẩn độ acid-base (Lớp 11), thử nghiệm xà phòng hóa, pin điện, phân biệt chất (Lớp 12).
+                        </p>
+                        <div class="mt-3 text-xs font-semibold text-blue-700">Mã chỉ báo: HH2.1 đến HH2.5</div>
+                    </div>
+
+                    <div class="bg-purple-50/60 p-4 rounded-lg border border-purple-100">
+                        <div class="flex items-center gap-2 font-bold text-purple-800">
+                            <span class="w-6 h-6 rounded-full bg-purple-600 text-white text-xs flex items-center justify-center">3</span>
+                            Vận Dụng Kiến Thức Kỹ Năng (HH3)
+                        </div>
+                        <p class="text-xs text-gray-600 mt-2 leading-relaxed">
+                            Giải quyết bài tập thực tế về nhiệt hóa học $\Delta_r H^\circ_{298}$, phân bón hóa học, bài toán mạ điện, tự luận tính toán hiệu suất & bảo vệ môi trường.
+                        </p>
+                        <div class="mt-3 text-xs font-semibold text-purple-700">Mã chỉ báo: HH3.1 đến HH3.5</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Competence & Verbs Table -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-gray-800 text-lg flex items-center gap-2">
+                        <i class="fa-solid fa-list-check text-amber-500"></i>
+                        Bảng Động Từ Mô Tả Cấp Độ Nhận Thức Lớp 10, 11, 12
+                    </h3>
+                    <div class="relative">
+                        <input type="text" id="verb-search-input" onkeyup="filterVerbsTable()" placeholder="Lọc động từ, enthalpy, halogen, ester..." class="pl-8 pr-3 py-1.5 text-xs border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-gray-400 text-xs"></i>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse chemistry-spec-table" id="verbs-table">
+                        <thead>
+                            <tr>
+                                <th class="w-1/6">Thành Phần Năng Lực</th>
+                                <th class="w-1/6">Chỉ Báo (Biểu Hiện)</th>
+                                <th class="w-2/6 bg-green-50 text-green-900">1. Biết (Recognition)</th>
+                                <th class="w-2/6 bg-blue-50 text-blue-900">2. Hiểu (Understanding)</th>
+                                <th class="w-2/6 bg-purple-50 text-purple-900">3. Vận Dụng (Application)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="verbs-tbody">
+                            <!-- Populated via JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 2: TRA CỨU CHỈ BÁO CỦA LỚP 10, 11 & 12 -->
+        <!-- ========================================== -->
+        <section id="sec-indicators" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-database text-brand-500"></i>
+                            Ngân Hàng Yêu Cầu Cần Đạt (YCCĐ) Hóa Học 10, 11, 12
+                        </h2>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Tra cứu chi tiết mối tương quan giữa Yêu cầu cần đạt theo từng bài học và Mã chỉ báo năng lực môn Hóa học cho cả 3 khối lớp.
+                        </p>
+                    </div>
+
+                    <!-- Filter Controls -->
+                    <div class="flex flex-wrap items-center gap-2">
+                        <select id="filter-grade" onchange="filterIndicators()" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white font-medium focus:ring-2 focus:ring-brand-500">
+                            <option value="ALL">Tất cả khối lớp (10, 11, 12)</option>
+                            <option value="10">Khối 10</option>
+                            <option value="11">Khối 11</option>
+                            <option value="12">Khối 12</option>
+                        </select>
+
+                        <select id="filter-comp" onchange="filterIndicators()" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white font-medium focus:ring-2 focus:ring-brand-500">
+                            <option value="ALL">Tất cả thành phần NL</option>
+                            <option value="HH1">HH1 - Nhận thức hóa học</option>
+                            <option value="HH2">HH2 - Tìm hiểu thế giới tự nhiên</option>
+                            <option value="HH3">HH3 - Vận dụng kiến thức kỹ năng</option>
+                        </select>
+
+                        <input type="text" id="filter-keyword" onkeyup="filterIndicators()" placeholder="Từ khóa (VD: Nguyên tử, Halogen, Enthalpy, Ester)..." class="text-xs border border-gray-300 rounded-lg px-3 py-2 w-48 focus:ring-2 focus:ring-brand-500 outline-none">
+                    </div>
+                </div>
+
+                <!-- Stats summary bar -->
+                <div class="mt-4 flex items-center justify-between bg-brand-50 p-3 rounded-lg border border-brand-100 text-xs">
+                    <span class="text-brand-700 font-medium" id="indicator-count-text">Hiển thị: 0 Yêu cầu cần đạt</span>
+                    <span class="text-gray-500">Dữ liệu chuẩn hóa bám sát Chương trình GDPT 2018</span>
+                </div>
+
+                <!-- Indicator List Container -->
+                <div class="mt-4 space-y-4" id="indicator-cards-container">
+                    <!-- Dynamic rendering -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 3: SOẠN THẢO MA TRẬN & BẢN ĐẶC TẢ (CV 7991) -->
+        <!-- ========================================== -->
+        <section id="sec-matrix" class="tab-content hidden space-y-6">
+            <!-- Configuration Box -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 mb-2">
+                    <i class="fa-solid fa-sliders text-brand-500"></i>
+                    Thống Số Khung Đề Kiểm Tra (Chuẩn Công Văn 7991)
+                </h2>
+                <p class="text-sm text-gray-600 mb-4">
+                    Chọn nhanh cấu trúc mẫu theo CV 7991 (Trắc nghiệm nhiều lựa chọn: 12 câu, Đúng/Sai: 2-4 câu, Trả lời ngắn: 4-6 câu, Tự luận: 2-3 câu).
+                </p>
+
+                <!-- Structure Presets Selector -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
+                        <label class="block text-xs font-bold text-amber-900 mb-1">
+                            <i class="fa-solid fa-book-open text-amber-600 mr-1"></i>
+                            Kỳ Kiểm Tra Chuẩn Sách Kết Nối Tri Thức (KNTT):
+                        </label>
+                        <select id="kntt-term-select" onchange="applyKNTTTermPreset()" class="w-full text-xs p-2 border border-amber-300 rounded-lg font-bold text-amber-900 bg-white">
+                            <option value="GK1">Kiểm Tra Giữa Kỳ 1 (KNTT)</option>
+                            <option value="CK1">Kiểm Tra Cuối Kỳ 1 (KNTT)</option>
+                            <option value="GK2">Kiểm Tra Giữa Kỳ 2 (KNTT)</option>
+                            <option value="CK2">Kiểm Tra Cuối Kỳ 2 (KNTT)</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
+                        <label class="block text-xs font-bold text-blue-900 mb-1">
+                            <i class="fa-solid fa-wand-magic text-blue-600 mr-1"></i>
+                            Cấu Trúc Thang Điểm & Định Dạng Đề (CV 7991):
+                        </label>
+                        <select id="preset-structure-select" onchange="applyPresetStructure()" class="w-full text-xs p-2 border border-blue-300 rounded-lg font-bold text-blue-900 bg-white">
+                            <option value="PRESET_1">Mẫu 1: 12 câu P.I (3.00đ) + 2 câu P.II Đ/S [8 ý] (2.00đ) + 4 câu P.III TLN (2.00đ) + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
+                            <option value="PRESET_2">Mẫu 2: 12 câu P.I (3.00đ) + 2 câu P.II Đ/S [8 ý] (2.00đ) + 4 câu P.III TLN (2.00đ) + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
+                            <option value="PRESET_3">Mẫu 3: 12 câu P.I (3.00đ) + 4 câu P.II Đ/S [16 ý] (4.00đ) + 0 câu P.III + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
+                            <option value="PRESET_4">Mẫu 4: 100% Trắc Nghiệm (18 câu P.I [4.50đ] + 4 câu P.II Đ/S [4.00đ] + 6 câu P.III TLN [1.50đ]) [Tổng 10.00đ - Chuẩn 2025]</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Teacher & School Identification Banner -->
+                <div class="mb-4 bg-gradient-to-r from-amber-50 via-brand-50 to-emerald-50 p-3 rounded-xl border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 text-white flex items-center justify-center font-bold text-base shadow">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                        </div>
+                        <div>
+                            <span class="text-[11px] text-gray-500 font-semibold block uppercase tracking-wider">Hội đồng bộ môn & Biên soạn ma trận:</span>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <span class="text-sm font-black text-brand-900 uppercase">GV: NGUYỄN VỸ</span>
+                                <span class="text-xs text-gray-400">•</span>
+                                <span class="text-xs font-bold text-gray-700">Tổ Hóa Học — THPT Bùi Thị Xuân (Mũi Né)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5 shrink-0 shadow-xs">
+                        <i class="fa-solid fa-certificate text-amber-600"></i>
+                        <span>Chuẩn Khung CV 7991 / 2025</span>
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Tên Kỳ Kiểm Tra</label>
+                        <input type="text" id="exam-title-input" value="ĐỀ KIỂM TRA ĐỊNH KỲ HÓA HỌC" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Chọn Khối Lớp</label>
+                        <select id="exam-grade-select" onchange="onGradeSelectChange()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium">
+                            <option value="10">Hóa Học Lớp 10</option>
+                            <option value="11">Hóa Học Lớp 11</option>
+                            <option value="12" selected>Hóa Học Lớp 12</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Hình Thức Kiểm Tra</label>
+                        <select id="exam-format-select" onchange="toggleEssayColumns()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-brand-700 bg-white">
+                            <option value="MIXED">Kết hợp: Trắc Nghiệm + Tự Luận (Phần IV)</option>
+                            <option value="TN_ONLY">100% Trắc Nghiệm (Phần I, II, III)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1">Thời Gian Làm Bài</label>
+                        <select id="exam-time-select" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium">
+                            <option value="45">45 phút (Định kỳ trường)</option>
+                            <option value="50" selected>50 phút (Chuẩn THPT 2025)</option>
+                            <option value="90">90 phút (Khảo sát / HSG)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Real-time Validation Bar -->
+                <div class="mt-4 p-3 rounded-lg border text-xs flex flex-wrap items-center justify-between gap-2 bg-emerald-50 border-emerald-200 text-emerald-900" id="matrix-summary-bar">
+                    <div class="flex flex-wrap items-center space-x-3 sm:space-x-4">
+                        <span><strong>Phần I (MCQ):</strong> <span id="cnt-part1">12</span> câu (<span id="score-part1">3.00</span>đ)</span>
+                        <span><strong>Phần II (Đ/S - 4 ý a,b,c,d):</strong> <span id="cnt-part2">8 ý (2 câu lớn)</span> (<span id="score-part2">2.00</span>đ)</span>
+                        <span><strong>Phần III (TLN):</strong> <span id="cnt-part3">4</span> câu (<span id="score-part3">2.00</span>đ)</span>
+                        <span id="essay-summary-span" class="font-bold text-accent-rose"><strong>Phần IV (Tự luận):</strong> <span id="cnt-part4">3</span> câu (<span id="score-part4">3.00</span>đ)</span>
+                    </div>
+                    <div class="font-bold text-sm">
+                        Tổng điểm: <span id="cnt-total-score" class="text-brand-600 text-base font-extrabold">10.00</span> / 10.0
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matrix Construction Table -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                        <i class="fa-solid fa-table text-amber-500"></i>
+                        Ma Trận Đề Kiểm Tra (Phụ Lục 1 - CV 7991)
+                    </h3>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openImportMatrixModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow">
+                            <i class="fa-solid fa-file-import text-amber-200"></i> Nhập Ma Trận & Bản Đặc Tả (Word / Excel / Ảnh)
+                        </button>
+                        <button onclick="exportMatrixToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-file-word text-amber-300"></i> Xuất Ma Trận & Bản Đặc Tả Word
+                        </button>
+                        <button onclick="openAddNewTopicWithPicker()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow">
+                            <i class="fa-solid fa-plus-circle text-amber-200"></i> Thêm Bài Mới Từ SGK KNTT
+                        </button>
+                        <button onclick="addMatrixRow()" class="bg-gray-600 hover:bg-gray-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1">
+                            <i class="fa-solid fa-plus"></i> Thêm Dòng Trống
+                        </button>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse chemistry-spec-table" id="matrix-editor-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2" class="w-1/4">Chủ Đề / Mạch Kiến Thức</th>
+                                <th colspan="3" class="bg-green-100 text-green-900 text-center">Phần I: MCQ (0.25đ/câu)</th>
+                                <th colspan="3" class="bg-blue-100 text-blue-900 text-center font-bold">Phần II: Đúng/Sai (4 ý a, b, c, d - 1.0đ/câu lớn)</th>
+                                <th colspan="3" class="bg-purple-100 text-purple-900 text-center">Phần III: TL Ngắn (0.5đ/câu)</th>
+                                <th colspan="3" class="bg-rose-100 text-rose-900 essay-col text-center">Phần IV: Tự Luận</th>
+                                <th rowspan="2" class="w-10 text-center">Xóa</th>
+                            </tr>
+                            <tr>
+                                <th class="bg-green-50 text-center">B</th><th class="bg-green-50 text-center">H</th><th class="bg-green-50 text-center">VD</th>
+                                <th class="bg-blue-50 text-center text-blue-950 font-bold" title="Lệnh hỏi mức Biết (ý a, b...)">B (Ý)</th>
+                                <th class="bg-blue-50 text-center text-blue-950 font-bold" title="Lệnh hỏi mức Hiểu (ý b, c...)">H (Ý)</th>
+                                <th class="bg-blue-50 text-center text-blue-950 font-bold" title="Lệnh hỏi mức Vận dụng (ý d...)">VD (Ý)</th>
+                                <th class="bg-purple-50 text-center">B</th><th class="bg-purple-50 text-center">H</th><th class="bg-purple-50 text-center">VD</th>
+                                <th class="bg-rose-50 essay-col text-center">B</th><th class="bg-rose-50 essay-col text-center">H</th><th class="bg-rose-50 essay-col text-center">VD</th>
+                            </tr>
+                        </thead>
+                        <tbody id="matrix-editor-tbody">
+                            <!-- Dynamic Matrix Rows -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Generated Specification Sheet Preview (Phụ Lục 2) -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 border-b border-gray-100 pb-3">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-file-contract text-brand-500"></i>
+                            Bản Đặc Tả Đề Kiểm Tra & Gán Câu Hỏi (Phụ Lục 2 - CV 7991)
+                        </h3>
+                        <p class="text-xs text-gray-500 mt-0.5">Tự động lấy câu hỏi từ ngân hàng hoặc tự chọn câu hỏi cho từng bài học vào ma trận.</p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="renderSpecificationTable()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1 border border-gray-300">
+                            <i class="fa-solid fa-rotate"></i> Làm Mới
+                        </button>
+                        <button onclick="autoAssignAllMatrixQuestions()" class="bg-teal-600 hover:bg-teal-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-bolt text-amber-300"></i>
+                            <span>⚡ Tự Động Lấy Cho Toàn Bộ Ma Trận</span>
+                        </button>
+                        <button onclick="clearAllAssignedQuestions()" class="bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1">
+                            <i class="fa-solid fa-trash-can"></i> Xóa Câu Đã Gán
+                        </button>
+                        <button onclick="generateExamFromAssignedMatrix()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-file-signature text-amber-300"></i>
+                            <span>Sinh Đề Thi Từ Ma Trận Này</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Info banner -->
+                <div class="bg-gradient-to-r from-teal-50 via-emerald-50 to-blue-50 p-3 rounded-xl border border-teal-200 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+                    <div class="flex items-center gap-2 text-teal-900">
+                        <i class="fa-solid fa-database text-teal-600 text-base"></i>
+                        <span>Ngân hàng câu hỏi hiện có: <strong class="text-teal-800" id="matrix-bank-total-badge">1.562+ câu</strong> (Đầy đủ 4 dạng thức: MCQ, Đúng/Sai, Trả lời ngắn, Tự luận kèm chuẩn KNTT).</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span class="text-gray-500 font-medium">Trạng thái gán:</span>
+                        <span id="matrix-assigned-summary-badge" class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">Chưa gán câu hỏi</span>
+                    </div>
+                </div>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border-collapse chemistry-spec-table" id="specification-table">
+                        <thead>
+                            <tr>
+                                <th class="w-8">STT</th>
+                                <th class="w-1/6">Chủ Đề Kiến Thức</th>
+                                <th class="w-1/4">Mức Độ Đánh Giá & YCCĐ</th>
+                                <th class="w-16">Mã Chỉ Báo</th>
+                                <th class="w-1/6">Số Câu Theo Ma Trận</th>
+                                <th>Câu Hỏi Gán Từ Ngân Hàng (Tự Động / Tự Chọn)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="specification-tbody">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 4: NGÂN HÀNG CÂU HỎI & SINH ĐỀ THI -->
+        <!-- ========================================== -->
+        <section id="sec-generator" class="tab-content hidden space-y-6">
+            <!-- NẠP CÂU HỎI TỪ TÀI LIỆU MÁY TÍNH -->
+            <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 p-5 rounded-xl border border-emerald-200 shadow-sm">
+                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                    <div>
+                        <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                            <i class="fa-solid fa-file-import text-emerald-600"></i>
+                            Nhập Câu Hỏi Từ File Máy Tính (Word .docx / .txt) Vào Ngân Hàng
+                        </h3>
+                        <p class="text-xs text-gray-600 mt-1">
+                            Tự động trích xuất các câu trắc nghiệm (Phần I), Đúng/Sai (Phần II), Trả lời ngắn (Phần III) và Tự luận (Phần IV) từ đề thi/đề cương trong máy bạn để ghép vào ma trận.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="openImportMatrixModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-200"></i>
+                            <span>Nhập Ma Trận & Sinh Đề Tự Động</span>
+                        </button>
+                        <label class="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                            <span>Chọn File Word (.docx)</span>
+                            <input type="file" id="user-docx-input" accept=".docx,.txt" onchange="handleUserDocxUpload(event)" class="hidden">
+                        </label>
+                        <button onclick="openPasteModal()" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold text-xs px-3 py-2 rounded-lg border border-gray-300 shadow-sm transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-paste text-blue-600"></i>
+                            <span>Dán Văn Bản Đề Thi</span>
+                        </button>
+                    </div>
+                </div>
+                <div id="upload-status-badge" class="mt-2 text-xs text-emerald-800 font-medium hidden"></div>
+            </div>
+
+            <!-- SUB-TABS NAVIGATION: SINH ĐỀ THI VS KHAI THÁC NGÂN HÀNG CÂU HỎI -->
+            <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-gray-200 shadow-sm no-print">
+                <div class="flex items-center space-x-2">
+                    <button onclick="switchTab4View('exam')" id="tab4-btn-exam" class="px-4 py-2 text-xs font-bold rounded-lg bg-brand-500 text-white shadow-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-file-signature text-amber-300"></i>
+                        <span>1. Xem Đề Thi Sinh Theo Ma Trận</span>
+                    </button>
+                    <button onclick="switchTab4View('bank')" id="tab4-btn-bank" class="px-4 py-2 text-xs font-bold rounded-lg text-gray-700 hover:bg-gray-100 transition flex items-center gap-2 border border-transparent">
+                        <i class="fa-solid fa-database text-blue-600"></i>
+                        <span>2. Ngân Hàng Câu Hỏi 10 - 11 - 12 (1.562 Câu Phân Loại)</span>
+                        <span id="bank-badge-count" class="bg-blue-100 text-blue-800 text-[10px] px-1.5 py-0.5 rounded-full font-bold">1562+</span>
+                    </button>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="openAddQuestionModal()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1 shadow-sm">
+                        <i class="fa-solid fa-plus-circle"></i> Tự Thêm Câu Hỏi Mới
+                    </button>
+                </div>
+            </div>
+
+            <!-- PHÂN HỆ QUẢN LÝ & TRA CỨU NGÂN HÀNG CÂU HỎI (Ẩn theo mặc định, hiện khi chọn Tab 2) -->
+            <div id="tab4-bank-view" class="hidden space-y-5">
+                <div class="bg-white p-5 rounded-xl shadow-sm border border-gray-200 space-y-4">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-gray-100 pb-3">
+                        <div>
+                            <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
+                                <i class="fa-solid fa-layer-group text-brand-600"></i>
+                                Bộ Lọc Ngân Hàng Câu Hỏi Hóa Học (KNTT - GDPT 2018)
+                            </h3>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                Phân loại chi tiết theo Khối lớp, Chuyên đề, Dạng thức câu hỏi, Mức độ nhận thức (Biết - Hiểu - Vận dụng) và Mã chỉ báo năng lực (HH1.1 - HH3.3).
+                            </p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="exportFilteredBankToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3.5 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow">
+                                <i class="fa-solid fa-file-word text-amber-300"></i> Xuất Câu Hỏi Đã Lọc Ra Word (.doc)
+                            </button>
+                            <button onclick="resetBankFilters()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg font-medium transition flex items-center gap-1">
+                                <i class="fa-solid fa-rotate-left"></i> Đặt Lại
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Filter Controls Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Khối Lớp</label>
+                            <select id="bank-filter-grade" onchange="onBankGradeChange()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-semibold text-brand-700 bg-white">
+                                <option value="ALL">Tất cả khối lớp</option>
+                                <option value="10">Hóa Học 10</option>
+                                <option value="11">Hóa Học 11</option>
+                                <option value="12">Hóa Học 12</option>
+                            </select>
+                        </div>
+                        <div class="col-span-2">
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Chương / Chuyên Đề</label>
+                            <select id="bank-filter-chapter" onchange="filterBankQuestions()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-gray-800 bg-white truncate">
+                                <option value="ALL">Tất cả các chương</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Dạng Câu Hỏi</label>
+                            <select id="bank-filter-part" onchange="filterBankQuestions()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-gray-800 bg-white">
+                                <option value="ALL">Tất cả dạng thức</option>
+                                <option value="1">Phần I (MCQ 4 lựa chọn)</option>
+                                <option value="2">Phần II (Đúng / Sai)</option>
+                                <option value="3">Phần III (Trả lời ngắn)</option>
+                                <option value="4">Phần IV (Tự luận)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Mức Độ Nhận Thức</label>
+                            <select id="bank-filter-level" onchange="filterBankQuestions()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-gray-800 bg-white">
+                                <option value="ALL">Tất cả mức độ</option>
+                                <option value="Biết">1. Nhận Biết</option>
+                                <option value="Hiểu">2. Thông Hiểu</option>
+                                <option value="Vận dụng">3. Vận Dụng</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold text-gray-700 mb-1">Mã Chỉ Báo NL</label>
+                            <select id="bank-filter-indicator" onchange="filterBankQuestions()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-gray-800 bg-white">
+                                <option value="ALL">Tất cả chỉ báo</option>
+                                <option value="HH1.1">HH1.1 (Khái niệm, danh pháp)</option>
+                                <option value="HH1.2">HH1.2 (Thành phần, tính chất, PTHH)</option>
+                                <option value="HH1.3">HH1.3 (Cấu tạo, orbital, mô hình)</option>
+                                <option value="HH1.4">HH1.4 (So sánh, phân biệt, đồng phân)</option>
+                                <option value="HH1.5">HH1.5 (Phân loại, bậc phản ứng)</option>
+                                <option value="HH1.6">HH1.6 (Giải thích quy luật, xu hướng)</option>
+                                <option value="HH1.7">HH1.7 (Cân bằng, số oxi hóa, pin)</option>
+                                <option value="HH2.4">HH2.4 (Thí nghiệm, hiện tượng)</option>
+                                <option value="HH3.1">HH3.1 (Tính toán định lượng, enthalpy)</option>
+                                <option value="HH3.2">HH3.2 (Thực tiễn, đời sống, an toàn)</option>
+                                <option value="HH3.3">HH3.3 (Quy trình tổng hợp, sản xuất)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Search Input Row -->
+                    <div class="relative">
+                        <input type="text" id="bank-filter-keyword" onkeyup="filterBankQuestions()" placeholder="Tìm kiếm nội dung câu hỏi, công thức hóa học, chất phản ứng (VD: Fe3O4, ester, enthalpy, pH, thế điện cực)..." class="w-full text-xs pl-8 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none">
+                        <i class="fa-solid fa-magnifying-glass absolute left-2.5 top-2.5 text-gray-400 text-xs"></i>
+                    </div>
+
+                    <!-- Dynamic Bank Stats Bar -->
+                    <div class="flex flex-wrap items-center justify-between bg-brand-50/70 p-2.5 rounded-lg border border-brand-100 text-xs font-medium text-brand-900">
+                        <span id="bank-stats-summary">Đang tải ngân hàng câu hỏi...</span>
+                        <div class="flex items-center space-x-3 text-[11px]">
+                            <span class="text-emerald-700">● Biết: <strong id="bank-cnt-know">0</strong></span>
+                            <span class="text-blue-700">● Hiểu: <strong id="bank-cnt-under">0</strong></span>
+                            <span class="text-purple-700">● Vận dụng: <strong id="bank-cnt-apply">0</strong></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Questions List Container -->
+                <div id="bank-questions-container" class="space-y-3">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+                <!-- Pagination / Load more -->
+                <div class="flex items-center justify-center pt-2 pb-6">
+                    <button id="bank-load-more-btn" onclick="loadMoreBankQuestions()" class="bg-white hover:bg-gray-50 border border-gray-300 text-gray-700 text-xs font-bold px-6 py-2.5 rounded-xl shadow-sm transition flex items-center gap-2">
+                        <i class="fa-solid fa-angles-down text-brand-600"></i> Xem Thêm Câu Hỏi Tiếp Theo
+                    </button>
+                </div>
+            </div>
+
+            <!-- CHẾ ĐỘ 1: XEM & SINH ĐỀ THI THEO MA TRẬN (Hiện mặc định) -->
+            <div id="tab4-exam-view" class="space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-4">
+                    <div>
+                        <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                            <i class="fa-solid fa-microchip text-accent-purple"></i>
+                            Thuật Toán Sinh Đề Thi & Xáo Trộn Mã Đề
+                        </h2>
+                        <p class="text-sm text-gray-600 mt-1">
+                            Trích xuất câu hỏi từ Ngân hàng Lớp 10, 11, 12 (KNTT) & câu hỏi nạp từ máy tính. Áp dụng thuật toán Fisher-Yates, bảo toàn logic câu Tự luận và Đúng/Sai.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="generateExamFromMatrix()" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 hover:to-emerald-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-bolt text-amber-300"></i>
+                            TẠO ĐỀ THEO MA TRẬN
+                        </button>
+                        <button onclick="exportExamToWord()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-file-word text-amber-300"></i>
+                            XUẤT ĐỀ THI WORD (.DOC)
+                        </button>
+                        <button onclick="exportAllInOneWord()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                            <i class="fa-solid fa-file-zipper text-amber-300"></i>
+                            XUẤT TRỌN BỘ HỒ SƠ
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Exam Variants Bar -->
+                <div class="mt-4 flex items-center justify-between bg-purple-50 p-3 rounded-lg border border-purple-100 text-xs">
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-purple-900">Chọn Mã Đề Thi:</span>
+                        <select id="exam-variant-select" onchange="renderGeneratedExam()" class="bg-white border border-purple-300 rounded px-2 py-1 text-xs font-semibold text-purple-800">
+                            <option value="101">Mã đề 101 (Đề gốc)</option>
+                            <option value="102">Mã đề 102 (Fisher-Yates)</option>
+                            <option value="103">Mã đề 103 (Fisher-Yates)</option>
+                            <option value="104">Mã đề 104 (Fisher-Yates)</option>
+                        </select>
+                    </div>
+                    <span class="text-purple-700 font-medium">Bảo toàn thang điểm Tự Luận & Mệnh đề Đúng/Sai</span>
+                </div>
+            </div>
+
+            <!-- Generated Paper Simulation Container -->
+            <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-300 paper-shadow space-y-6" id="exam-paper-container">
+                <!-- Header of Exam Sheet -->
+                <div class="border-b-2 border-gray-800 pb-4 grid grid-cols-2 text-center text-xs sm:text-sm font-bold uppercase">
+                    <div class="space-y-1">
+                        <p>TRƯỜNG THPT BÙI THỊ XUÂN - MŨI NÉ</p>
+                        <p class="text-brand-700">TỔ HÓA HỌC • <span class="text-amber-800 font-extrabold">GV: NGUYỄN VỸ</span></p>
+                        <p class="normal-case font-normal text-gray-500">(Đề thi gồm có 03 trang)</p>
+                    </div>
+                    <div class="space-y-1">
+                        <p id="paper-header-title">ĐỀ KIỂM TRA ĐỊNH KỲ HÓA HỌC</p>
+                        <p class="normal-case text-gray-700">Năm học: 2025 - 2026</p>
+                        <p class="text-red-600 font-extrabold">MÃ ĐỀ THI: <span id="paper-code-display">101</span></p>
+                    </div>
+                </div>
+
+                <div class="text-xs text-gray-600 italic text-center">
+                    Thời gian làm bài: <span id="paper-time-display">50</span> phút (Không kể thời gian phát đề) - Thí sinh được sử dụng Bảng tuần hoàn
+                </div>
+
+                <!-- PART I SECTION -->
+                <div class="space-y-4" id="section-part1">
+                    <div class="bg-gray-100 p-2.5 rounded font-bold text-xs sm:text-sm text-gray-800 border-l-4 border-brand-500 flex justify-between">
+                        <span>PHẦN I. Câu trắc nghiệm nhiều phương án lựa chọn.</span>
+                        <span class="text-brand-700" id="part1-score-label">(12 câu - 3.0 điểm)</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">Thí sinh trả lời các câu hỏi lựa chọn duy nhất một phương án đúng.</p>
+                    <div id="part1-questions-list" class="space-y-4 text-xs sm:text-sm">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- PART II SECTION -->
+                <div class="space-y-4" id="section-part2">
+                    <div class="bg-gray-100 p-2.5 rounded font-bold text-xs sm:text-sm text-gray-800 border-l-4 border-blue-500 flex justify-between">
+                        <span>PHẦN II. Câu trắc nghiệm Đúng/Sai.</span>
+                        <span class="text-blue-700" id="part2-score-label">(2 câu lớn - 2.0 điểm)</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">Trong mỗi ý a), b), c), d) ở mỗi câu, thí sinh chọn Đúng hoặc Sai.</p>
+                    <div id="part2-questions-list" class="space-y-6 text-xs sm:text-sm">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- PART III SECTION -->
+                <div class="space-y-4" id="section-part3">
+                    <div class="bg-gray-100 p-2.5 rounded font-bold text-xs sm:text-sm text-gray-800 border-l-4 border-purple-500 flex justify-between">
+                        <span>PHẦN III. Câu trắc nghiệm trả lời ngắn.</span>
+                        <span class="text-purple-700" id="part3-score-label">(4 câu - 2.0 điểm)</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">Thí sinh điền kết quả tính toán hoặc đáp số vào ô trống tương ứng.</p>
+                    <div id="part3-questions-list" class="space-y-4 text-xs sm:text-sm">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- PART IV SECTION: ESSAY (TỰ LUẬN) -->
+                <div class="space-y-4" id="section-part4">
+                    <div class="bg-gray-100 p-2.5 rounded font-bold text-xs sm:text-sm text-gray-800 border-l-4 border-rose-500 flex justify-between">
+                        <span>PHẦN IV. Câu hỏi Tự Luận.</span>
+                        <span class="text-rose-700" id="part4-score-label">(2 câu - 3.0 điểm)</span>
+                    </div>
+                    <p class="text-xs text-gray-600 italic">Thí sinh trình bày chi tiết lời giải, PTHH và các bước tính toán vào giấy làm bài.</p>
+                    <div id="part4-questions-list" class="space-y-6 text-xs sm:text-sm">
+                        <!-- Rendered by JS -->
+                    </div>
+                </div>
+
+                <!-- ANSWER KEY TABLE -->
+                <div class="border-t-2 border-gray-300 pt-6 space-y-4 page-break">
+                    <h3 class="font-bold text-sm text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-key text-amber-500"></i>
+                        BẢNG ĐÁP ÁN, HƯỚNG DẪN CHẤM & MÃ CHỈ BÁO NĂNG LỰC
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-center text-xs border-collapse chemistry-spec-table" id="answer-key-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-24">Phần / Câu</th>
+                                    <th>Đáp Án / Hướng Dẫn Chấm Chi Tiết</th>
+                                    <th>Chủ Đề Kiến Thức</th>
+                                    <th class="w-20">Cấp Độ</th>
+                                    <th class="w-20">Mã Chỉ Báo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="answer-key-tbody">
+                                <!-- Rendered dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 5: THỐNG KÊ & PHÂN TÍCH DASHBOARD -->
+        <!-- ========================================== -->
+        <section id="sec-analytics" class="tab-content hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 mb-1">
+                    <i class="fa-solid fa-chart-column text-accent-emerald"></i>
+                    Thống Kê Phân Bố Năng Lực & Tỷ Lệ Điểm Ma Trận
+                </h2>
+                <p class="text-sm text-gray-600 mb-6">
+                    Trực quan hóa sự phân bổ mức độ tư duy (Biết, Hiểu, Vận dụng) và ma trận chỉ báo năng lực môn Hóa học Lớp 10, 11, 12 theo Công văn 7991.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- Chart 1: Cognitive Levels -->
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center">
+                        <h3 class="font-bold text-xs sm:text-sm text-gray-700 mb-3 text-center">
+                            Tỷ Lệ Mức Độ Nhận Thức (Biết - Hiểu - Vận Dụng)
+                        </h3>
+                        <div class="chart-container">
+                            <canvas id="cognitiveChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Chart 2: Competence Breakdown -->
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center">
+                        <h3 class="font-bold text-xs sm:text-sm text-gray-700 mb-3 text-center">
+                            Phân Bố Thành Phần Năng Lực (HH1 - HH2 - HH3)
+                        </h3>
+                        <div class="chart-container">
+                            <canvas id="competenceChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Summary Text Explanation Box -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <h3 class="font-bold text-base text-gray-800 mb-3 flex items-center gap-2">
+                    <i class="fa-solid fa-file-shield text-brand-500"></i>
+                    Đánh Giá Độ Tương Thích Chuẩn Công Văn 7991
+                </h3>
+                <div class="space-y-2 text-xs text-gray-700 leading-relaxed" id="analytics-summary-text">
+                    <!-- Populated dynamically -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- TAB 6: ĐỀ CƯƠNG ÔN TẬP DÀNH CHO HỌC SINH -->
+        <!-- ========================================== -->
+        <section id="sec-syllabus" class="tab-content hidden space-y-6">
+            <!-- Configuration Box -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-gray-100 pb-4 mb-4">
+                    <div>
+                        <div class="flex items-center gap-2.5 flex-wrap">
+                            <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
+                                <i class="fa-solid fa-graduation-cap text-rose-600"></i>
+                                Biên Soạn Đề Cương Ôn Tập Hóa Học (Kết Nối Tri Thức & CV 7991)
+                            </h2>
+                            <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-black bg-gradient-to-r from-rose-600 via-amber-500 to-amber-600 text-white shadow-sm uppercase tracking-wide">
+                                <i class="fa-solid fa-chalkboard-user"></i> GV: NGUYỄN VỸ
+                            </span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">
+                            Tổng hợp Lý thuyết cốt lõi, Bảng YCCĐ & Chỉ báo năng lực, cùng Hệ thống Bài tập tự luyện 4 phần chuẩn định dạng để phát cho học sinh ôn tập hoặc tài liệu giáo viên.
+                        </p>
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2">
+                        <button onclick="renderSyllabus()" class="bg-rose-600 hover:bg-rose-700 text-white text-xs px-4 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                            <span>⚡ Sinh Đề Cương Ôn Tập</span>
+                        </button>
+                        <button onclick="exportSyllabusToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-4 py-2 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-file-word text-white"></i>
+                            <span>📥 Xuất File Word (.doc)</span>
+                        </button>
+                        <button onclick="window.print()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-2 rounded-lg font-medium transition flex items-center gap-1 border border-gray-300">
+                            <i class="fa-solid fa-print"></i>
+                            <span>In / PDF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Syllabus Options -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200 text-xs">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-school text-brand-600 mr-1"></i> Khối Lớp
+                        </label>
+                        <select id="syllabus-grade-select" onchange="onSyllabusGradeChange()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium text-gray-800">
+                            <option value="10">Hóa Học 10 (KNTT)</option>
+                            <option value="11">Hóa Học 11 (KNTT)</option>
+                            <option value="12" selected>Hóa Học 12 (KNTT)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-calendar-check text-amber-600 mr-1"></i> Kỳ Kiểm Tra
+                        </label>
+                        <select id="syllabus-term-select" onchange="onSyllabusTermChange()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium text-gray-800">
+                            <option value="GK1" selected>Kiểm Tra Giữa Kỳ 1</option>
+                            <option value="CK1">Kiểm Tra Cuối Kỳ 1</option>
+                            <option value="GK2">Kiểm Tra Giữa Kỳ 2</option>
+                            <option value="CK2">Kiểm Tra Cuối Kỳ 2</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-user-tag text-purple-600 mr-1"></i> Đối Tượng & Chế Độ
+                        </label>
+                        <select id="syllabus-audience-select" onchange="renderSyllabus()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium text-gray-800">
+                            <option value="STUDENT_NO_ANS">Bản phát cho học sinh (Không kèm đáp án)</option>
+                            <option value="STUDENT_ANS_END" selected>Bản học sinh tự học (Kèm bảng đáp án ở cuối)</option>
+                            <option value="TEACHER_KEY">Bản giáo viên (Kèm đáp án & Lời giải chi tiết)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-list-ol text-emerald-600 mr-1"></i> Số Lượng Đề Ôn Tập / Quy Mô
+                        </label>
+                        <select id="syllabus-scale-select" onchange="renderSyllabus()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium text-gray-800">
+                            <option value="EXAM_SET_5" selected>Bộ 5 Đề Ôn Tập Toàn Diện (Đề 1 đến Đề 5 - Chuẩn CV 7991)</option>
+                            <option value="EXAM_SET_4">Bộ 4 Đề Ôn Tập Rèn Luyện (Đề 1 đến Đề 4 - Chuẩn CV 7991)</option>
+                            <option value="EXAM_1">Đề Ôn Tập Số 1 (12 MCQ + 2 Đ/S + 4 TLN + 3 Tự luận - 10.0đ)</option>
+                            <option value="EXAM_2">Đề Ôn Tập Số 2 (12 MCQ + 2 Đ/S + 4 TLN + 3 Tự luận - 10.0đ)</option>
+                            <option value="EXAM_3">Đề Ôn Tập Số 3 (12 MCQ + 2 Đ/S + 4 TLN + 3 Tự luận - 10.0đ)</option>
+                            <option value="EXAM_4">Đề Ôn Tập Số 4 (12 MCQ + 2 Đ/S + 4 TLN + 3 Tự luận - 10.0đ)</option>
+                            <option value="EXAM_5">Đề Ôn Tập Số 5 (12 MCQ + 2 Đ/S + 4 TLN + 3 Tự luận - 10.0đ)</option>
+                            <option value="TOPICAL_BANK">Hệ Thống Câu Hỏi Theo Chủ Đề (Gói 32 MCQ + 6 Đ/S + 8 TLN + 6 Tự luận)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-3 text-xs">
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-layer-group text-brand-600 mr-1"></i> Phạm Vi Nội Dung Bài Học:
+                        </label>
+                        <select id="syllabus-scope-select" onchange="onSyllabusScopeChange()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium text-gray-800">
+                            <option value="CUSTOM_RANGE" selected>⭐ 1. Tự chọn từ bài đến bài (Tùy chỉnh linh hoạt theo tiến độ trường)</option>
+                            <option value="MATRIX_TOPICS">2. Bám sát các bài học đang có trong Ma Trận & Bản Đặc Tả hiện tại</option>
+                            <option value="FULL_TERM">3. Toàn bộ chương trình chuẩn SGK Kết Nối Tri Thức của Kỳ này</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-heading text-rose-600 mr-1"></i> Tiêu Đề Đề Cương Ôn Tập:
+                        </label>
+                        <input type="text" id="syllabus-title-input" value="ĐỀ CƯƠNG ÔN TẬP KIỂM TRA ĐỊNH KỲ HÓA HỌC" class="w-full p-2 border border-gray-300 rounded-lg font-medium text-gray-800 focus:ring-2 focus:ring-rose-500">
+                    </div>
+                </div>
+
+                <!-- Custom Lesson Range Picker (Từ bài nào đến bài nào của mỗi khối) -->
+                <div id="syllabus-lesson-range-box" class="mt-3 p-3.5 bg-gradient-to-r from-rose-50/70 via-amber-50/40 to-rose-50/70 rounded-xl border border-rose-200 text-xs transition-opacity duration-200">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 mb-2.5">
+                        <div class="flex items-center gap-2 flex-wrap">
+                            <span class="w-6 h-6 rounded-lg bg-rose-600 text-white flex items-center justify-center font-bold text-xs shadow-xs">
+                                <i class="fa-solid fa-sliders"></i>
+                            </span>
+                            <span class="font-bold text-gray-800">Phạm vi bài học ôn tập (Tự chọn từ bài đến bài của mỗi khối):</span>
+                            <span id="syllabus-range-badge" class="px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-rose-100 text-rose-800 border border-rose-300">
+                                Đang chọn: Từ Bài 1 đến Bài 7 (7 bài học)
+                            </span>
+                        </div>
+                        <div class="flex items-center gap-1.5 flex-wrap">
+                            <button type="button" onclick="applySyllabusGK1DefaultPreset()" class="px-2.5 py-1 rounded-lg bg-white hover:bg-rose-100 text-rose-700 font-semibold border border-rose-300 transition text-[11px] flex items-center gap-1 shadow-xs">
+                                <i class="fa-solid fa-rotate-left"></i> Chuẩn GK1
+                            </button>
+                            <button type="button" onclick="applySyllabusSelectAllLessons()" class="px-2.5 py-1 rounded-lg bg-white hover:bg-amber-100 text-amber-800 font-semibold border border-amber-300 transition text-[11px] flex items-center gap-1 shadow-xs">
+                                <i class="fa-solid fa-list-check"></i> Toàn bộ bài
+                            </button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-play text-emerald-600"></i> Từ bài bắt đầu:
+                            </label>
+                            <select id="syllabus-start-lesson-select" onchange="onSyllabusLessonRangeChange()" class="w-full p-2 border border-rose-300 rounded-lg bg-white font-medium text-gray-800 shadow-2xs focus:ring-2 focus:ring-rose-500">
+                                <!-- Populated dynamically by initSyllabusLessonRangePickers() -->
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block font-bold text-gray-700 mb-1 flex items-center gap-1">
+                                <i class="fa-solid fa-circle-stop text-rose-600"></i> Đến bài kết thúc:
+                            </label>
+                            <select id="syllabus-end-lesson-select" onchange="onSyllabusLessonRangeChange()" class="w-full p-2 border border-rose-300 rounded-lg bg-white font-medium text-gray-800 shadow-2xs focus:ring-2 focus:ring-rose-500">
+                                <!-- Populated dynamically by initSyllabusLessonRangePickers() -->
+                            </select>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-gray-500 mt-2 italic flex items-center gap-1">
+                        <i class="fa-solid fa-circle-info text-blue-500"></i>
+                        Hệ thống tự động lọc Lý thuyết cốt lõi, Bảng YCCĐ & Đề thi 4 phần bám sát 100% các bài học trong khoảng lựa chọn.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Syllabus Preview Container -->
+            <div class="bg-white p-6 sm:p-8 rounded-xl shadow-sm border border-gray-200 paper-shadow" id="syllabus-container">
+                <div id="syllabus-preview-container" class="space-y-6">
+                    <!-- Populated dynamically by renderSyllabus() -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-gray-800 text-gray-300 text-xs py-6 border-t border-gray-700 no-print mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-medium text-gray-200">
+                Hệ Thống Số Hóa Ma Trận & Thiết Kế Đề Thi Hóa Học THPT (Chương Trình GDPT 2018)
+            </p>
+            <p class="text-amber-400 font-bold text-xs sm:text-sm">
+                <i class="fa-solid fa-chalkboard-user mr-1 text-amber-300"></i> Biên soạn: <strong>GV. NGUYỄN VỸ</strong> — Tổ Hóa Học Trường THPT Bùi Thị Xuân (Mũi Né)
+            </p>
+            <p class="text-gray-400">
+                Tích hợp Công văn 7991/BGDĐT-GDTrH • Lớp 10, 11, 12 • Tùy chọn Trắc Nghiệm & Tự Luận • KaTeX Chemical Render Engine
+            </p>
+        </div>
+    </footer>
+
+    <!-- JS LOGIC CODE -->
+    <script>
+        /* ==========================================================================
+           DATA STRUCTURES: COMPETENCE INDICATORS & ACTION VERBS
+           ========================================================================== */
+        const VERBS_DATA = [
+            {
+                comp_code: "HH1",
+                comp_name: "Nhận thức hóa học",
+                indicator: "HH1.1. Nhận biết và nêu được tên các đối tượng, sự kiện, khái niệm hoặc quá trình hóa học.",
+                know: "Gọi tên nguyên tố, công thức chất đơn giản; Nêu cấu hình electron (Lớp 10), công thức alkane/alkene (Lớp 11), ester/lipid (Lớp 12).",
+                understand: "Mô tả sự biến đổi bán kính nguyên tử, độ âm điện; Mô tả phản ứng xà phòng hóa, phản ứng thế halogen.",
+                apply: "Giải thích quy luật biến đổi tính chất nhóm Halogen, tính acid/base của hợp chất hữu cơ."
+            },
+            {
+                comp_code: "HH1",
+                comp_name: "Nhận thức hóa học",
+                indicator: "HH1.3. Mô tả được đối tượng bằng các hình thức nói, viết, công thức, sơ đồ, biểu đồ, bảng.",
+                know: "Viết được công thức Lewis, công thức electron, công thức cấu tạo.",
+                understand: "Mô tả phản ứng oxi hóa - khử bằng phương pháp thăng bằng electron; Trình bày sơ đồ điều chế.",
+                apply: "Giải thích dữ liệu nhiệt hóa học enthalpy \\(\\Delta_r H^\\circ_{298}\\), đồ thị chuẩn độ acid-base, phổ IR, MS."
+            },
+            {
+                comp_code: "HH1",
+                comp_name: "Nhận thức hóa học",
+                indicator: "HH1.6. Giải thích và lập luận được về mối quan hệ giữa các đối tượng (cấu tạo - tính chất).",
+                know: "Nêu mối liên hệ giữa số electron lớp ngoài cùng và tính kim loại/phi kim.",
+                understand: "Giải thích sự hình thành liên kết cộng hóa trị, liên kết hydrogen, liên kết ionic.",
+                apply: "Lập luận mối quan hệ giữa cấu trúc tinh thể, năng lượng liên kết và độ bền nhiệt."
+            },
+            {
+                comp_code: "HH2",
+                comp_name: "Tìm hiểu thế giới tự nhiên",
+                indicator: "HH2.4. Thực hiện kế hoạch: thu thập sự kiện, chứng cứ, phân tích dữ liệu, rút ra kết luận.",
+                know: "Nêu dụng cụ và hóa chất trong thí nghiệm điều chế \\(\\ce{Cl2}\\), \\(\\ce{HCl}\\) hoặc ester.",
+                understand: "Liệt kê chứng cứ thực nghiệm chứng minh tính oxi hóa mạnh của Halogen hoặc tính khử của \\(\\ce{SO2}\\).",
+                apply: "Xử lý số liệu đo tốc độ phản ứng, tính hằng số cân bằng \\(K_c\\), tính hiệu suất phản ứng tự luận."
+            },
+            {
+                comp_code: "HH3",
+                comp_name: "Vận dụng kiến thức kỹ năng",
+                indicator: "HH3.1 & HH3.3. Vận dụng kiến thức tổng hợp giải quyết bài toán thực tiễn & tự luận STEM.",
+                know: "Nêu ứng dụng của muối \\(\\ce{NaCl}\\), \\(\\ce{Cl2}\\), \\(\\ce{O3}\\), \\(\\ce{H2SO4}\\), phân bón hóa học.",
+                understand: "Hiểu tác hại của mưa acid, hiệu ứng nhà kính, rác thải nhựa đối với môi trường.",
+                apply: "Giải bài toán tự luận tính lượng hóa chất tiêu thụ trong công nghiệp, bài toán nhiệt hóa học, pin điện."
+            }
+        ];
+
+        /* ==========================================================================
+           CURRICULUM TOPICS & INDICATORS DATABASE (CLASSES 10, 11 & 12)
+           ========================================================================== */
+        const INDICATORS_DATABASE = [
+            // CLASS 10
+            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Trình bày được thành Chương 1: Cấu tạo nguyên tử (proton, neutron, electron), hạt nhân và vỏ nguyên tử.", code: "HH1.1", comp: "HH1" },
+            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Viết được cấu hình electron nguyên tử theo lớp, phân lớp (Z ≤ 20).", code: "HH1.3", comp: "HH1" },
+            { grade: "10", topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học", outcome: "Giải thích được quy luật biến đổi bán kính nguyên tử, độ âm điện, tính kim loại - phi kim trong chu kỳ và nhóm.", code: "HH1.6", comp: "HH1" },
+            { grade: "10", topic: "Chương 3: Liên kết hóa học", outcome: "Trình bày sự hình thành liên kết ionic, liên kết cộng hóa trị và liên kết hydrogen.", code: "HH1.2", comp: "HH1" },
+            { grade: "10", topic: "Chương 4: Phản ứng oxi hóa - khử", outcome: "Xác định được số oxi hóa, chất oxi hóa, chất khử và cân bằng phương pháp thăng bằng electron.", code: "HH1.5", comp: "HH1" },
+            { grade: "10", topic: "Chương 5: Năng lượng hóa học", outcome: "Tính được biến thiên enthalpy chuẩn của phản ứng \\(\\Delta_r H^\\circ_{298}\\) theo enthalpy tạo thành \\(\\Delta_f H^\\circ_{298}\\) và năng lượng liên kết \\(E_b\\).", code: "HH3.3", comp: "HH3" },
+            { grade: "10", topic: "Chương 6: Tốc độ phản ứng hóa học", outcome: "Thực hiện thí nghiệm và giải thích ảnh hưởng của nồng độ, nhiệt độ, diện tích tiếp xúc, chất xúc tác đến tốc độ phản ứng.", code: "HH2.4", comp: "HH2" },
+            { grade: "10", topic: "Chương 7: Nhóm Halogen", outcome: "So sánh tính chất hóa học và tính oxi hóa của \\(\\ce{F2, Cl2, Br2, I2}\\); Viết PTHH chứng minh.", code: "HH1.4", comp: "HH1" },
+
+            // CLASS 11
+            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Trình bày khái niệm phản ứng thuận nghịch và nguyên lý Le Chatelier.", code: "HH1.2", comp: "HH1" },
+            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Thực hiện thí nghiệm chuẩn độ acid - base bằng dung dịch \\(\\ce{NaOH}\\) chuẩn.", code: "HH2.4", comp: "HH2" },
+            { grade: "11", topic: "Chương 4: Hydrocarbon", outcome: "Viết CTCT và gọi tên danh pháp IUPAC của Alkane, Alkene, Alkyne, Arene.", code: "HH1.3", comp: "HH1" },
+            { grade: "11", topic: "Chương 5: Dẫn xuất halogen - Alcohol - Phenol", outcome: "Giải thích ảnh hưởng của liên kết hydrogen đến nhiệt độ sôi và độ tan của alcohol.", code: "HH1.6", comp: "HH1" },
+
+            // CLASS 12
+            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Nêu khái niệm lipid, chất béo, acid béo; đặc điểm cấu tạo ester.", code: "HH1.1", comp: "HH1" },
+            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Trình bày tính chất hóa học của ester (thủy phân acid và xà phòng hóa).", code: "HH1.2", comp: "HH1" },
+            { grade: "12", topic: "Chương 2: Carbohydrate", outcome: "Trình bày tính chất hóa học đặc trưng của glucose, saccharose, tinh bột, cellulose.", code: "HH1.2", comp: "HH1" },
+            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Sử dụng bảng thế điện cực chuẩn để tính \\(E^\\circ_{\\text{pin}}\\) và dự đoán chiều phản ứng.", code: "HH1.7", comp: "HH1" },
+            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Vận dụng phương pháp điện phân giải thích quy trình mạ điện và tinh chế kim loại.", code: "HH3.1", comp: "HH3" }
+        ];
+
+        /* ==========================================================================
+           RICH QUESTION BANK (FULL SAMPLES FOR CLASSES 10, 11, 12 ACROSS PARTS I, II, III, IV)
+           ========================================================================== */
+        const QUESTION_BANK = {
+            "10": [
+                // PART I (MCQ)
+                {
+                    id: "q10_p1_1", part: 1, grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", level: "Biết", indicator: "HH1.1",
+                    content: "Hạt nhân của hầu hết các nguyên tử được cấu tạo từ những loại hạt nào sau đây?",
+                    options: ["Proton và electron", "Proton và neutron", "Neutron và electron", "Proton, neutron và electron"],
+                    correct: 1, explain: "Hạt nhân nguyên tử gồm hạt proton (mang điện dương) và neutron (không mang điện)."
+                },
+                {
+                    id: "q10_p1_2", part: 1, grade: "10", topic: "Chương 7: Nhóm Halogen", level: "Hiểu", indicator: "HH1.4",
+                    content: "Dãy gồm các đơn chất halogen được xếp theo chiều tính oxi hóa giảm dần là:",
+                    options: ["\\(\\ce{F2, Cl2, Br2, I2}\\)", "\\(\\ce{I2, Br2, Cl2, F2}\\)", "\\(\\ce{Cl2, F2, Br2, I2}\\)", "\\(\\ce{F2, Br2, Cl2, I2}\\)"],
+                    correct: 0, explain: "Trong nhóm VIIA, từ F đến I bán kính nguyên tử tăng, độ âm điện giảm nên tính oxi hóa giảm dần."
+                },
+                {
+                    id: "q10_p1_3", part: 1, grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", level: "Biết", indicator: "HH1.3",
+                    content: "Cấu hình electron nguyên tử của nguyên tố Potassium (Z = 19) là:",
+                    options: ["\\(\\ce{1s^2 2s^2 2p^6 3s^2 3p^6 4s^1}\\)", "\\(\\ce{1s^2 2s^2 2p^6 3s^2 3p^5}\\)", "\\(\\ce{1s^2 2s^2 2p^6 3s^2 3p^6 3d^1}\\)", "\\(\\ce{1s^2 2s^2 2p^6 3s^2 3p^6 4s^2}\\)"],
+                    correct: 0, explain: "Potassium có Z = 19, electron cuối cùng điền vào phân lớp 4s1."
+                },
+                {
+                    id: "q10_p1_4", part: 1, grade: "10", topic: "Chương 4: Phản ứng oxi hóa - khử", level: "Hiểu", indicator: "HH1.5",
+                    content: "Trong phản ứng: \\(\\ce{2Fe + 3Cl2 ->[t^\\circ] 2FeCl3}\\), chất đóng vai trò là chất khử là:",
+                    options: ["\\(\\ce{Fe}\\)", "\\(\\ce{Cl2}\\)", "\\(\\ce{FeCl3}\\)", "Cả \\(\\ce{Fe}\\) và \\(\\ce{Cl2}\\)"],
+                    correct: 0, explain: "Sắt (Fe) tăng số oxi hóa từ 0 lên +3 nên đóng vai trò là chất khử."
+                },
+
+                // PART II (TRUE / FALSE)
+                {
+                    id: "q10_p2_1", part: 2, grade: "10", topic: "Chương 4: Phản ứng oxi hóa - khử", level: "Hiểu", indicator: "HH1.5",
+                    content: "Cho phản ứng hóa học sau: \\(\\ce{MnO2 + 4HCl ->[t^\\circ] MnCl2 + Cl2 + 2H2O}\\).",
+                    statements: [
+                        { text: "a) \\(\\ce{MnO2}\\) đóng vai trò là chất oxi hóa.", correct: true },
+                        { text: "b) \\(\\ce{HCl}\\) đóng vai trò vừa là chất khử vừa là môi trường tạo muối.", correct: true },
+                        { text: "c) Trong phản ứng trên, 1 mol \\(\\ce{MnO2}\\) đã nhường 2 mol electron.", correct: false },
+                        { text: "d) Khí \\(\\ce{Cl2}\\) sinh ra có màu vàng lục và làm xanh hồ tinh bột có chứa KI.", correct: true }
+                    ]
+                },
+                {
+                    id: "q10_p2_2", part: 2, grade: "10", topic: "Chương 7: Nhóm Halogen", level: "Biết", indicator: "HH1.4",
+                    content: "Xét tính chất vật lý và hóa học của các nguyên tố nhóm Halogen (VIIA):",
+                    statements: [
+                        { text: "a) Ở điều kiện thường, \\(\\ce{F2}\\) và \\(\\ce{Cl2}\\) là các chất khí.", correct: true },
+                        { text: "b) Bán kính nguyên tử của các halogen giảm dần từ fluorine đến iodine.", correct: false },
+                        { text: "c) Hydrochloric acid (\\(\\ce{HCl}\\)) là một acid mạnh có tính khử.", correct: true },
+                        { text: "d) Có thể dùng dung dịch \\(\\ce{AgNO3}\\) để phân biệt các dung dịch muối \\(\\ce{NaF, NaCl, NaBr, NaI}\\).", correct: true }
+                    ]
+                },
+
+                // PART III (SHORT ANSWER)
+                {
+                    id: "q10_p3_1", part: 3, grade: "10", topic: "Chương 5: Năng lượng hóa học", level: "Vận dụng", indicator: "HH3.3",
+                    content: "Cho phản ứng tổng hợp ammonia: \\(\\ce{N2(g) + 3H2(g) -> 2NH3(g)}\\) có biến thiên enthalpy chuẩn \\(\\Delta_r H^\\circ_{298} = -92.4\\text{ kJ}\\). Tính lượng nhiệt tỏa ra (theo kJ) khi tạo thành 0.4 mol \\(\\ce{NH3(g)}\\)?",
+                    answer: "18.48", explain: "Tạo 2 mol NH3 tỏa 92.4 kJ. Do đó 0.4 mol NH3 tỏa: \\(0.4 \\times 92.4 / 2 = 18.48\\text{ kJ}\\)."
+                },
+                {
+                    id: "q10_p3_2", part: 3, grade: "10", topic: "Chương 6: Tốc độ phản ứng hóa học", level: "Hiểu", indicator: "HH2.4",
+                    content: "Khi nồng độ chất phản ứng tăng 2 lần thì tốc độ phản ứng bậc một tăng lên bao nhiêu lần?",
+                    answer: "2", explain: "Với phản ứng bậc 1: \\(v = k [A] \\implies\\) nồng độ tăng 2 lần thì v tăng 2 lần."
+                },
+
+                // PART IV (ESSAY)
+                {
+                    id: "q10_p4_1", part: 4, grade: "10", topic: "Chương 5: Năng lượng hóa học", level: "Vận dụng", indicator: "HH3.3",
+                    content: "Cho phản ứng đốt cháy methane: \\(\\ce{CH4(g) + 2O2(g) -> CO2(g) + 2H2O(g)}\\).\nBiết năng lượng liên kết \\(E_b\\) ở điều kiện chuẩn: \\(E_b(\\ce{C-H}) = 414\\text{ kJ/mol}\\); \\(E_b(\\ce{O=O}) = 498\\text{ kJ/mol}\\); \\(E_b(\\ce{C=O}) = 799\\text{ kJ/mol}\\); \\(E_b(\\ce{O-H}) = 464\\text{ kJ/mol}\\).\na) Tính biến thiên enthalpy chuẩn \\(\\Delta_r H^\\circ_{298}\\) của phản ứng trên theo năng lượng liên kết.\nb) Phản ứng trên tỏa nhiệt hay thu nhiệt? Vì sao?",
+                    solution: "a) \\(\\Delta_r H^\\circ_{298} = [4 E_b(\\ce{C-H}) + 2 E_b(\\ce{O=O})] - [2 E_b(\\ce{C=O}) + 4 E_b(\\ce{O-H})]\\)\n\\(= [4(414) + 2(498)] - [2(799) + 4(464)] = 2652 - 3454 = -802\\text{ kJ}\\).\nb) Phản ứng tỏa nhiệt vì \\(\\Delta_r H^\\circ_{298} = -802\\text{ kJ} < 0\\)."
+                },
+                {
+                    id: "q10_p4_2", part: 4, grade: "10", topic: "Chương 7: Nhóm Halogen", level: "Vận dụng", indicator: "HH3.1",
+                    content: "Cho 10.0 gram hỗn hợp gồm \\(\\ce{Fe}\\) và \\(\\ce{Cu}\\) tác dụng hoàn toàn với dung dịch \\(\\ce{HCl}\\) dư, thu được 2.479 liters khí \\(\\ce{H2}\\) (ở điều kiện chuẩn 25°C, 1 bar) và m gram chất rắn không tan.\na) Viết phương trình hóa học xảy ra.\nb) Tính phần trăm khối lượng của từng kim loại trong hỗn hợp ban đầu.",
+                    solution: "a) \\(\\ce{Fe + 2HCl -> FeCl2 + H2 \\uparrow}\\); \\(\\ce{Cu}\\) không phản ứng.\nb) \\(n_{\\ce{H2}} = 2.479 / 24.79 = 0.1\\text{ mol} \\implies n_{\\ce{Fe}} = 0.1\\text{ mol}\\).\n\\(m_{\\ce{Fe}} = 0.1 \\times 56 = 5.6\\text{ g} \\implies \\%m_{\\ce{Fe}} = (5.6 / 10.0) \\times 100\\% = 56\\%\\).\n\\%m_{\\ce{Cu}} = 100\\% - 56\\% = 44\\%."
+                }
+            ],
+            "11": [
+                // PART I (MCQ)
+                {
+                    id: "q11_p1_1", part: 1, grade: "11", topic: "Chương 4: Hydrocarbon", level: "Biết", indicator: "HH1.3",
+                    content: "Công thức phân tử chung của alkane mạch hở là:",
+                    options: ["\\(\\ce{C_nH_{2n+2}}\\)(n ≥ 1)", "\\(\\ce{C_nH_{2n}}\\)(n ≥ 2)", "\\(\\ce{C_nH_{2n-2}}\\)(n ≥ 2)", "\\(\\ce{C_nH_{2n-6}}\\)(n ≥ 6)"],
+                    correct: 0, explain: "Alkane là hydrocarbon mạch hở no có CTPT chung \\(\\ce{C_nH_{2n+2}}\\)."
+                },
+                {
+                    id: "q11_p1_2", part: 1, grade: "11", topic: "Chương 1: Cân bằng hóa học", level: "Hiểu", indicator: "HH1.2",
+                    content: "Cho phản ứng thuận nghịch: \\(\\ce{N2(g) + 3H2(g) <=> 2NH3(g)}\\) \\(\\Delta_r H^\\circ_{298} < 0\\). Để tăng hiệu suất tổng hợp \\(\\ce{NH3}\\), biện pháp nào sau đây là đúng?",
+                    options: ["Tăng nhiệt độ và giảm áp suất", "Tăng áp suất và giảm nhiệt độ", "Giảm áp suất và giảm nhiệt độ", "Thêm chất xúc tác Fe"],
+                    correct: 1, explain: "Phản ứng tỏa nhiệt (\\(\\Delta H < 0\\)) và giảm số mol khí, nên hạ nhiệt độ và tăng áp suất làm cân bằng chuyển dịch sang chiều thuận."
+                },
+                {
+                    id: "q11_p1_3", part: 1, grade: "11", topic: "Chương 5: Dẫn xuất halogen - Alcohol - Phenol", level: "Biết", indicator: "HH1.1",
+                    content: "Chất nào sau đây thuộc loại alcohol no, đơn chức, mạch hở?",
+                    options: ["\\(\\ce{CH3OH}\\)", "\\(\\ce{C6H5OH}\\)", "\\(\\ce{C2H4(OH)2}\\)", "\\(\\ce{CH2=CH-CH2OH}\\)"],
+                    correct: 0, explain: "\\(\\ce{CH3OH}\\) (Methanol) là alcohol no, đơn chức, mạch hở."
+                },
+
+                // PART II (TRUE / FALSE)
+                {
+                    id: "q11_p2_1", part: 2, grade: "11", topic: "Chương 1: Cân bằng hóa học", level: "Hiểu", indicator: "HH2.4",
+                    content: "Tiến hành chuẩn độ 10.0 mL dung dịch \\(\\ce{HCl}\\) chưa biết nồng độ bằng dung dịch \\(\\ce{NaOH}\\) 0.10 M với chỉ thị phenolphthalein.",
+                    statements: [
+                        { text: "a) Dung dịch \\(\\ce{NaOH}\\) chuẩn được đựng trên buret.", correct: true },
+                        { text: "b) Điểm tương đương đạt được khi dung dịch trong bình tam giác chuyển sang màu hồng nhạt bền vững.", correct: true },
+                        { text: "c) Nếu thể tích \\(\\ce{NaOH}\\) tiêu tốn trung bình là 12.5 mL, nồng độ của dung dịch \\(\\ce{HCl}\\) là 0.125 M.", correct: true },
+                        { text: "d) Phenolphthalein chuyển sang màu xanh khi môi trường có pH < 7.", correct: false }
+                    ]
+                },
+
+                // PART III (SHORT ANSWER)
+                {
+                    id: "q11_p3_1", part: 3, grade: "11", topic: "Chương 1: Cân bằng hóa học", level: "Vận dụng", indicator: "HH1.6",
+                    content: "Cho phản ứng thuận nghịch: \\(\\ce{N2O4(g) <=> 2NO2(g)}\\). Ở nhiệt độ T, nồng độ cân bằng của \\(\\ce{N2O4}\\) là 0.02 M và \\(\\ce{NO2}\\) là 0.04 M. Tính giá trị hằng số cân bằng \\(K_c\\)?",
+                    answer: "0.08", explain: "\\(K_c = [\\ce{NO2}]^2 / [\\ce{N2O4}] = (0.04)^2 / 0.02 = 0.08\\)."
+                },
+
+                // PART IV (ESSAY)
+                {
+                    id: "q11_p4_1", part: 4, grade: "11", topic: "Chương 4: Hydrocarbon", level: "Vận dụng", indicator: "HH3.3",
+                    content: "Đốt cháy hoàn toàn 4.4 gram một hydrocarbon X (mạch hở) thu được 13.2 gram \\(\\ce{CO2}\\) và 7.2 gram \\(\\ce{H2O}\\).\na) Lập công thức thực nghiệm và tìm CTPT của X biết tỉ khối hơi của X so với \\(\\ce{H2}\\) bằng 22.\nb) Viết các công thức cấu tạo có thể có của X và gọi tên theo danh pháp IUPAC.",
+                    solution: "a) \\(n_{\\ce{C}} = n_{\\ce{CO2}} = 0.3\\text{ mol}\\); \\(n_{\\ce{H}} = 2 n_{\\ce{H2O}} = 0.8\\text{ mol}\\).\nTỉ lệ \\(n_{\\ce{C}} : n_{\\ce{H}} = 3 : 8 \\implies\\) CTĐGN là \\(\\ce{(C3H8)_n}\\).\n\\(M_X = 22 \\times 2 = 44\\text{ g/mol} \\implies n = 1 \\implies\\) CTPT X là \\(\\ce{C3H8}\\).\nb) CTCT duy nhất: \\(\\ce{CH3-CH2-CH3}\\) (propane)."
+                }
+            ],
+            "12": [
+                // PART I (MCQ)
+                {
+                    id: "q12_p1_1", part: 1, grade: "12", topic: "Chương 1: Ester - Lipid", level: "Biết", indicator: "HH1.1",
+                    content: "Ester nào sau đây có công thức phân tử là \\(\\ce{C4H8O2}\\)?",
+                    options: ["Ethyl acetate", "Methyl formate", "Vinyl acetate", "Methyl acrylate"],
+                    correct: 0, explain: "Ethyl acetate có công thức là \\(\\ce{CH3COOC2H5}\\) tương ứng với CTPT \\(\\ce{C4H8O2}\\)."
+                },
+                {
+                    id: "q12_p1_2", part: 1, grade: "12", topic: "Chương 1: Ester - Lipid", level: "Hiểu", indicator: "HH1.2",
+                    content: "Đun nóng ester \\(\\ce{CH3COOC2H5}\\) trong dung dịch \\(\\ce{NaOH}\\) thu được sản phẩm gồm:",
+                    options: [
+                        "\\(\\ce{CH3COONa}\\) và \\(\\ce{C2H5OH}\\)",
+                        "\\(\\ce{HCOONa}\\) và \\(\\ce{C2H5OH}\\)",
+                        "\\(\\ce{CH3COOH}\\) và \\(\\ce{C2H5ONa}\\)",
+                        "\\(\\ce{C2H5COONa}\\) và \\(\\ce{CH3OH}\\)"
+                    ],
+                    correct: 0, explain: "Phản ứng xà phòng hóa: \\(\\ce{CH3COOC2H5 + NaOH ->[t^\\circ] CH3COONa + C2H5OH}\\)."
+                },
+                {
+                    id: "q12_p1_3", part: 1, grade: "12", topic: "Chương 2: Carbohydrate", level: "Biết", indicator: "HH1.1",
+                    content: "Carbohydrate nào sau đây thuộc loại disaccharide?",
+                    options: ["Saccharose", "Glucose", "Fructose", "Tinh bột"],
+                    correct: 0, explain: "Saccharose có CTPT \\(\\ce{C12H22O11}\\) thuộc loại disaccharide."
+                },
+                {
+                    id: "q12_p1_4", part: 1, grade: "12", topic: "Chương 5: Pin điện và điện phân", level: "Hiểu", indicator: "HH1.7",
+                    content: "Trong pin điện hóa Zn - Cu, ở cực âm (anode) xảy ra quá trình nào?",
+                    options: [
+                        "Oxi hóa Zn (\\(\\ce{Zn -> Zn^2+ + 2e}\\))",
+                        "Khử Zn (\\(\\ce{Zn^2+ + 2e -> Zn}\\))",
+                        "Khử Cu (\\(\\ce{Cu^2+ + 2e -> Cu}\\))",
+                        "Oxi hóa Cu (\\(\\ce{Cu -> Cu^2+ + 2e}\\))"
+                    ],
+                    correct: 0, explain: "Tại anode cực âm của pin điện hóa diễn ra sự oxi hóa kim loại hoạt động mạnh hơn (Zn)."
+                },
+
+                // PART II (TRUE / FALSE)
+                {
+                    id: "q12_p2_1", part: 2, grade: "12", topic: "Chương 1: Ester - Lipid", level: "Hiểu", indicator: "HH2.4",
+                    content: "Tiến hành thí nghiệm điều chế ethyl acetate: Cho 1 mL \\(\\ce{C2H5OH}\\), 1 mL \\(\\ce{CH3COOH}\\) và 1 mL \\(\\ce{H2SO4}\\) đặc vào ống nghiệm, đun nhẹ.",
+                    statements: [
+                        { text: "a) \\(\\ce{H2SO4}\\) đặc đóng vai trò vừa là chất xúc tác vừa hút nước để chuyển dịch cân bằng.", correct: true },
+                        { text: "b) Có thể thay thế \\(\\ce{H2SO4}\\) đặc bằng \\(\\ce{HCl}\\) đặc mà hiệu suất không thay đổi.", correct: false },
+                        { text: "c) Sau khi kết thúc đun nóng, chất lỏng trong ống nghiệm tách thành 2 lớp, lớp trên là ethyl acetate.", correct: true },
+                        { text: "d) Thêm dung dịch \\(\\ce{NaCl}\\) bão hòa giúp tách ethyl acetate dễ dàng hơn do giảm độ tan của este.", correct: true }
+                    ]
+                },
+                {
+                    id: "q12_p2_2", part: 2, grade: "12", topic: "Chương 2: Carbohydrate", level: "Hiểu", indicator: "HH1.2",
+                    content: "Cho các phát biểu sau về Glucose và Saccharose:",
+                    statements: [
+                        { text: "a) Glucose và Fructose là hai chất đồng phân của nhau.", correct: true },
+                        { text: "b) Cả Glucose và Saccharose đều tham gia phản ứng tráng bạc với \\(\\ce{[Ag(NH3)2]OH}\\).", correct: false },
+                        { text: "c) Bị thủy phân hoàn toàn trong môi trường acid đun nóng thu được monosaccharide.", correct: true },
+                        { text: "d) Trong y học, glucose 5% được dùng làm dịch truyền giải độc và cấp năng lượng.", correct: true }
+                    ]
+                },
+
+                // PART III (SHORT ANSWER)
+                {
+                    id: "q12_p3_1", part: 3, grade: "12", topic: "Chương 1: Ester - Lipid", level: "Vận dụng", indicator: "HH3.3",
+                    content: "Đun nóng 8.8 gram ethyl acetate (\\(\\ce{CH3COOC2H5}\\)) với 100 mL dung dịch \\(\\ce{NaOH}\\) 1.5 M. Sau khi phản ứng xảy ra hoàn toàn, cô cạn dung dịch thu được bao nhiêu gram chất rắn khô?",
+                    answer: "10.2", explain: "\\(n_{\\text{ester}} = 8.8 / 88 = 0.1\\text{ mol}\\); \\(n_{\\ce{NaOH}} = 0.15\\text{ mol}\\). Chất rắn khô gồm \\(\\ce{CH3COONa}\\) (0.1 mol) và \\(\\ce{NaOH}\\) dư (0.05 mol). \\(m = 0.1 \\times 82 + 0.05 \\times 40 = 10.2\\text{ g}\\)."
+                },
+                {
+                    id: "q12_p3_2", part: 3, grade: "12", topic: "Chương 5: Pin điện và điện phân", level: "Vận dụng", indicator: "HH1.7",
+                    content: "Cho thế điện cực chuẩn: \\(E^\\circ_{\\ce{Zn^2+/Zn}} = -0.76\\text{ V}\\) và \\(E^\\circ_{\\ce{Cu^2+/Cu}} = +0.34\\text{ V}\\). Tính sức điện động chuẩn \\(E^\\circ_{\\text{pin}}\\) (theo V) của pin điện hóa Zn - Cu?",
+                    answer: "1.10", explain: "\\(E^\\circ_{\\text{pin}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = 0.34 - (-0.76) = 1.10\\text{ V}\\)."
+                },
+
+                // PART IV (ESSAY)
+                {
+                    id: "q12_p4_1", part: 4, grade: "12", topic: "Chương 5: Pin điện và điện phân", level: "Vận dụng", indicator: "HH3.3",
+                    content: "Cho một pin điện hóa Zinc - Copper (Zn - Cu) hoạt động ở điều kiện chuẩn. Biết thế điện cực chuẩn: \\(E^\\circ_{\\ce{Zn^2+/Zn}} = -0.76\\text{ V}\\) và \\(E^\\circ_{\\ce{Cu^2+/Cu}} = +0.34\\text{ V}\\).\na) Viết phương trình hóa học biểu diễn phản ứng xảy ra trong pin khi pin hoạt động và tính sức điện động chuẩn \\(E^\\circ_{\\text{pin}}\\).\nb) Cho biết sự thay đổi khối lượng của thanh Zn và thanh Cu sau một thời gian pin hoạt động.",
+                    solution: "a) Anode (-): \\(\\ce{Zn -> Zn^2+ + 2e}\\); Cathode (+): \\(\\ce{Cu^2+ + 2e -> Cu}\\).\nPTHH: \\(\\ce{Zn + Cu^2+ -> Zn^2+ + Cu}\\).\nSức điện động: \\(E^\\circ_{\\text{pin}} = E^\\circ_{\\text{cathode}} - E^\\circ_{\\text{anode}} = 0.34 - (-0.76) = 1.10\\text{ V}\\).\nb) Thanh Zn giảm khối lượng do Zn tan thành \\(\\ce{Zn^2+}\\); Thanh Cu tăng khối lượng do \\(\\ce{Cu^2+}\\) bám vào."
+                },
+                {
+                    id: "q12_p4_2", part: 4, grade: "12", topic: "Chương 1: Ester - Lipid", level: "Vận dụng", indicator: "HH3.1",
+                    content: "Thủy phân hoàn toàn 17.8 gram một chất béo X (triglyceride) bằng dung dịch \\(\\ce{NaOH}\\) vừa đủ, thu được 1.84 gram glycerol và m gram muối xà phòng.\na) Viết phương trình hóa học tổng quát biểu diễn phản ứng xà phòng hóa chất béo.\nb) Tính giá trị của m gram muối xà phòng thu được.",
+                    solution: "a) \\(\\ce{(RCOO)3C3H5 + 3NaOH ->[t^\\circ] 3RCOONa + C3H5(OH)3}\\).\nb) \\(n_{\\text{glycerol}} = 1.84 / 92 = 0.02\\text{ mol} \\implies n_{\\ce{NaOH}} = 3 \\times 0.02 = 0.06\\text{ mol}\\).\nÁp dụng định luật bảo toàn khối lượng:\n\\(m_{\\text{chất béo}} + m_{\\ce{NaOH}} = m_{\\text{muối}} + m_{\\text{glycerol}}\\)\n\\(\\implies 17.8 + (0.06 \\times 40) = m + 1.84 \\implies m = 18.36\\text{ gram}\\)."
+                }
+            ]
+        };
+
+        /* ==========================================================================
+           MATRIX ROW CONFIGURATION STATE
+           ========================================================================== */
+        let currentGrade = "12";
+        let matrixRows = [];
+
+        function getDefaultMatrixRows(grade) {
+            if (grade === "10") {
+                return [
+                    { topic: "Chương 1: Cấu tạo nguyên tử - Bài 1, 2: Thành phần của nguyên tử", p1_k: 1, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 1, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.4"] },
+                    { topic: "Chương 1: Cấu tạo nguyên tử - Bài 3: Nguyên tố hóa học & Đồng vị", p1_k: 1, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 1, codes: ["HH1.1", "HH1.2", "HH1.4"] },
+                    { topic: "Chương 1: Cấu tạo nguyên tử - Bài 4, 5: Cấu trúc lớp vỏ electron", p1_k: 1, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.3"] },
+                    { topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học - Bài 6: Cấu tạo bảng tuần hoàn", p1_k: 1, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.3", "HH1.4"] },
+                    { topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học - Bài 7: Xu hướng biến đổi tính chất", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.5", "HH1.6"] },
+                    { topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học - Bài 8: Định luật tuần hoàn & Ý nghĩa", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.6"] }
+                ];
+            } else if (grade === "11") {
+                return [
+                    { topic: "Chương 1: Cân bằng hóa học - Bài 1: Mở đầu về cân bằng hóa học", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.6"] },
+                    { topic: "Chương 1: Cân bằng hóa học - Bài 2: Sự điện li, pH & Chuẩn độ", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 1, codes: ["HH1.1", "HH1.4", "HH2.4"] },
+                    { topic: "Chương 2: Nitrogen và sulfur - Bài 3, 4: Đơn chất N2 & Ammonia", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.6"] },
+                    { topic: "Chương 2: Nitrogen và sulfur - Bài 5: Hợp chất oxygen của N & HNO3", p1_k: 2, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 1, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.2", "HH1.3", "HH1.6"] }
+                ];
+            } else {
+                return [
+                    { topic: "Chương 1: Ester - Lipid - Bài 1: Ester – Lipid", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 1: Ester - Lipid - Bài 2: Xà phòng và chất giặt rửa", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.6"] },
+                    { topic: "Chương 2: Carbohydrate - Bài 3: Glucose và fructose", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 1, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 2: Carbohydrate - Bài 4: Saccharose và maltose", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2"] },
+                    { topic: "Chương 2: Carbohydrate - Bài 5: Tinh bột và cellulose", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 3: Hợp chất chứa nitrogen - Bài 6, 7: Amine & Amino acid", p1_k: 2, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 1, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] }
+                ];
+            }
+        }
+
+        let chartCognitiveInstance = null;
+        let chartCompetenceInstance = null;
+
+        /* ==========================================================================
+           INITIALIZATION & TAB SWITCHING LOGIC
+           ========================================================================== */
+        document.addEventListener("DOMContentLoaded", () => {
+            matrixRows = getDefaultMatrixRows("12");
+            renderVerbsTable();
+            renderIndicators();
+            renderMatrixEditor();
+            renderSpecificationTable();
+            renderGeneratedExam();
+            initAnalyticsCharts();
+            renderAnalyticsText();
+            triggerKaTeX();
+        });
+
+        function switchTab(tabKey) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+
+            document.getElementById(`tab-${tabKey}`).classList.add('active');
+            document.getElementById(`sec-${tabKey}`).classList.remove('hidden');
+
+            if (tabKey === 'analytics') {
+                updateCharts();
+            }
+            if (tabKey === 'syllabus') {
+                if (typeof initSyllabusLessonRangePickers === 'function') {
+                    initSyllabusLessonRangePickers();
+                }
+                if (typeof renderSyllabus === 'function') {
+                    renderSyllabus();
+                }
+            }
+            triggerKaTeX();
+        }
+
+        function triggerKaTeX() {
+            setTimeout(() => {
+                if (window.renderMathInElement) {
+                    renderMathInElement(document.body, {
+                        delimiters: [
+                            {left: '$$', right: '$$', display: true},
+                            {left: '\\(', right: '\\)', display: false}
+                        ],
+                        throwOnError: false
+                    });
+                }
+            }, 60);
+        }
+
+        /* ==========================================================================
+           MODULE 1: VERBS & INDICATOR TABLE
+           ========================================================================== */
+        function renderVerbsTable() {
+            const tbody = document.getElementById("verbs-tbody");
+            tbody.innerHTML = VERBS_DATA.map(item => `
+                <tr class="hover:bg-gray-50 border-b border-gray-200">
+                    <td class="font-bold text-gray-800 bg-gray-50/50">${item.comp_name}</td>
+                    <td class="font-medium text-brand-700">${item.indicator}</td>
+                    <td class="bg-green-50/30 text-gray-700">${item.know}</td>
+                    <td class="bg-blue-50/30 text-gray-700">${item.understand}</td>
+                    <td class="bg-purple-50/30 text-gray-700">${item.apply}</td>
+                </tr>
+            `).join('');
+        }
+
+        function filterVerbsTable() {
+            const val = document.getElementById("verb-search-input").value.toLowerCase();
+            const rows = document.querySelectorAll("#verbs-tbody tr");
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                row.style.display = text.includes(val) ? "" : "none";
+            });
+        }
+
+        /* ==========================================================================
+           MODULE 2: INDICATOR DATABASE LOOKUP
+           ========================================================================== */
+        function renderIndicators() {
+            const gradeFilter = document.getElementById("filter-grade").value;
+            const compFilter = document.getElementById("filter-comp").value;
+            const keyFilter = document.getElementById("filter-keyword").value.toLowerCase();
+
+            const container = document.getElementById("indicator-cards-container");
+            
+            const filtered = INDICATORS_DATABASE.filter(item => {
+                if (gradeFilter !== "ALL" && item.grade !== gradeFilter) return false;
+                if (compFilter !== "ALL" && item.comp !== compFilter) return false;
+                if (keyFilter && !item.topic.toLowerCase().includes(keyFilter) && !item.outcome.toLowerCase().includes(keyFilter)) return false;
+                return true;
+            });
+
+            document.getElementById("indicator-count-text").innerText = `Hiển thị: ${filtered.length} Yêu cầu cần đạt`;
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<div class="text-center text-xs text-gray-500 py-8">Không tìm thấy yêu cầu cần đạt khớp với bộ lọc.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(item => `
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-brand-300 transition">
+                    <div class="space-y-1">
+                        <div class="flex items-center gap-2">
+                            <span class="bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded font-bold">Lớp ${item.grade}</span>
+                            <span class="text-xs font-bold text-gray-800">${item.topic}</span>
+                        </div>
+                        <p class="text-xs text-gray-600">${item.outcome}</p>
+                    </div>
+                    <div class="flex items-center gap-2 shrink-0">
+                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-200">
+                            Mã: ${item.code}
+                        </span>
+                    </div>
+                </div>
+            `).join('');
+            triggerKaTeX();
+        }
+
+        function filterIndicators() {
+            renderIndicators();
+        }
+
+        /* ==========================================================================
+           MODULE 3: PRESETS, MATRIX & SPECIFICATION EDITOR (CV 7991)
+           ========================================================================== */
+        function applyPresetStructure() {
+            const preset = document.getElementById("preset-structure-select").value;
+            const formatSelect = document.getElementById("exam-format-select");
+
+            if (preset === "PRESET_4") {
+                formatSelect.value = "TN_ONLY";
+            } else {
+                formatSelect.value = "MIXED";
+            }
+
+            // Adjust row numbers depending on preset
+            if (preset === "PRESET_1" || preset === "PRESET_2") {
+                // 12 MCQ (3.00đ) + 2 câu Đ/S [8 ý] (2.00đ) + 4 câu TLN (2.00đ) + 3 câu Tự luận (3.00đ) = 10.00đ
+                matrixRows = [
+                    { topic: "Chương 1: Ester - Lipid", p1_k: 4, p1_h: 2, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 1, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 2: Carbohydrate", p1_k: 4, p1_h: 2, p1_v: 0, p2_k: 0, p2_h: 4, p2_v: 0, p3_k: 1, p3_h: 1, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 5: Pin điện và điện phân", p1_k: 0, p1_h: 0, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 1, codes: ["HH1.4", "HH3.1"] }
+                ];
+            } else if (preset === "PRESET_3") {
+                // 12 MCQ (3.00đ) + 4 câu Đ/S [16 ý] (4.00đ) + 0 câu TLN + 3 câu Tự luận (3.00đ) = 10.00đ
+                matrixRows = [
+                    { topic: "Chương 1: Ester - Lipid", p1_k: 4, p1_h: 2, p1_v: 0, p2_k: 0, p2_h: 8, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 2: Carbohydrate & Kim loại", p1_k: 4, p1_h: 2, p1_v: 0, p2_k: 0, p2_h: 8, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 1, p4_v: 1, codes: ["HH1.4", "HH2.4", "HH3.1"] }
+                ];
+            } else if (preset === "PRESET_4") {
+                // 18 MCQ (4.50đ) + 4 câu Đ/S [16 ý] (4.00đ) + 6 câu TLN (1.50đ) = 10.00đ
+                matrixRows = [
+                    { topic: "Chương 1: Ester - Lipid", p1_k: 6, p1_h: 3, p1_v: 0, p2_k: 0, p2_h: 8, p2_v: 0, p3_k: 1, p3_h: 2, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1", "HH1.2", "HH1.3"] },
+                    { topic: "Chương 2: Carbohydrate & Pin", p1_k: 6, p1_h: 3, p1_v: 0, p2_k: 0, p2_h: 8, p2_v: 0, p3_k: 1, p3_h: 1, p3_v: 1, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.4", "HH2.4", "HH3.1"] }
+                ];
+            }
+
+            toggleEssayColumns();
+            renderMatrixEditor();
+            renderSpecificationTable();
+        }
+
+        function onGradeSelectChange() {
+            currentGrade = document.getElementById("exam-grade-select").value;
+            matrixRows = getDefaultMatrixRows(currentGrade);
+            
+            const titleInput = document.getElementById("exam-title-input");
+            titleInput.value = `ĐỀ KIỂM TRA ĐỊNH KỲ HÓA HỌC ${currentGrade}`;
+            
+            renderMatrixEditor();
+            renderSpecificationTable();
+        }
+
+        function toggleEssayColumns() {
+            const format = document.getElementById("exam-format-select").value;
+            const essayCols = document.querySelectorAll(".essay-col");
+            const essaySpan = document.getElementById("essay-summary-span");
+
+            if (format === "TN_ONLY") {
+                essayCols.forEach(el => el.classList.add("hidden"));
+                essaySpan.classList.add("hidden");
+            } else {
+                essayCols.forEach(el => el.classList.remove("hidden"));
+                essaySpan.classList.remove("hidden");
+            }
+            recalculateMatrixTotals();
+        }
+
+        function renderMatrixEditor() {
+            const format = document.getElementById("exam-format-select").value;
+            const isEssayHidden = format === "TN_ONLY" ? "hidden" : "";
+
+            const tbody = document.getElementById("matrix-editor-tbody");
+            tbody.innerHTML = matrixRows.map((row, idx) => {
+                const codesBadge = (row.codes && row.codes.length > 0) ? row.codes.slice(0, 3).join(", ") : "Chưa chọn YCCĐ";
+                const p2Total = (row.p2_k || 0) + (row.p2_h || 0) + (row.p2_v || 0);
+
+                let p2BadgeHtml = "";
+                let kLetters = "";
+                let hLetters = "";
+                let vLetters = "";
+
+                if (p2Total > 0) {
+                    const p2Stmts = (typeof resolveRowP2Statements === "function")
+                        ? resolveRowP2Statements(row, null, matrixRows)
+                        : (row.p2_statements || []);
+
+                    const kStmts = p2Stmts.filter(s => s.level === "Biết");
+                    const hStmts = p2Stmts.filter(s => s.level === "Hiểu");
+                    const vStmts = p2Stmts.filter(s => s.level === "Vận dụng");
+
+                    const formatStmtsShort = (stmts) => {
+                        if (!stmts || stmts.length === 0) return "";
+                        return stmts.map(s => s.shortLabel || s.label).join(",");
+                    };
+
+                    kLetters = formatStmtsShort(kStmts);
+                    hLetters = formatStmtsShort(hStmts);
+                    vLetters = formatStmtsShort(vStmts);
+
+                    const isSingleTopicFull = (p2Total === 4 && p2Stmts.length === 4 && !p2Stmts[0].isIntegrated);
+
+                    p2BadgeHtml = `
+                        <div class="mt-1 p-1.5 bg-blue-50/90 rounded border border-blue-200 text-[10.5px] leading-tight space-y-1">
+                            <div class="font-bold text-blue-900 flex items-center justify-between border-b border-blue-200/70 pb-0.5">
+                                <span class="flex items-center gap-1">
+                                    <i class="fa-solid fa-list-check text-blue-600"></i>
+                                    ${isSingleTopicFull ? '<span class="text-emerald-800 font-bold">Phần II (Cùng bài - 4 ý a,b,c,d):</span>' : '<span class="text-amber-800 font-bold">Phần II (Liên bài - ' + p2Total + ' ý ghép câu):</span>'}
+                                </span>
+                                <span class="text-[9.5px] bg-blue-200/80 text-blue-900 px-1.5 rounded font-bold">${p2Total} ý</span>
+                            </div>
+                            <div class="grid grid-cols-2 gap-x-1.5 gap-y-0.5 text-[10px]">
+                                ${p2Stmts.map(s => {
+                                    const lvlCls = (s.level === "Biết") ? "text-emerald-800 bg-emerald-100 border-emerald-300"
+                                                 : (s.level === "Hiểu") ? "text-blue-800 bg-blue-100 border-blue-300"
+                                                 : "text-purple-800 bg-purple-100 border-purple-300";
+                                    return `<div class="truncate" title="${s.fullLabel} (${s.level}) - [${s.indicator}]">
+                                        <strong>${s.label}:</strong> <span class="px-1 rounded border font-semibold ${lvlCls}">${s.level}</span> <span class="font-mono font-bold text-brand-700">[${s.indicator}]</span>
+                                    </div>`;
+                                }).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                return `
+                <tr>
+                    <td class="font-medium text-gray-800">
+                        <div class="space-y-1">
+                            <input type="text" value="${row.topic}" onchange="updateRowTopic(${idx}, this.value)" class="w-full text-xs p-1 border rounded font-semibold text-gray-800 focus:ring-1 focus:ring-brand-500">
+                            <div class="flex items-center justify-between gap-1">
+                                <button type="button" onclick="openSpecPicker(${idx})" class="px-2 py-0.5 bg-brand-500 hover:bg-brand-600 text-white rounded text-[11px] font-bold flex items-center gap-1 shadow-sm transition">
+                                    <i class="fa-solid fa-list-check text-amber-300"></i>
+                                    <span>Tự chọn YCCĐ & Chỉ báo</span>
+                                </button>
+                                <span class="text-[10px] text-gray-500 font-mono truncate max-w-[130px]" title="Mã chỉ báo: ${row.codes ? row.codes.join(', ') : ''}">[${codesBadge}]</span>
+                            </div>
+                            ${p2BadgeHtml}
+                        </div>
+                    </td>
+                    <td><input type="number" min="0" value="${row.p1_k}" onchange="updateMatrixCell(${idx}, 'p1_k', this.value)" class="w-9 text-center border rounded"></td>
+                    <td><input type="number" min="0" value="${row.p1_h}" onchange="updateMatrixCell(${idx}, 'p1_h', this.value)" class="w-9 text-center border rounded"></td>
+                    <td><input type="number" min="0" value="${row.p1_v}" onchange="updateMatrixCell(${idx}, 'p1_v', this.value)" class="w-9 text-center border rounded"></td>
+
+                    <td class="text-center bg-blue-50/20">
+                        <input type="number" min="0" value="${row.p2_k}" onchange="updateMatrixCell(${idx}, 'p2_k', this.value)" class="w-9 text-center border rounded font-semibold text-emerald-800">
+                        ${kLetters ? `<div class="text-[9px] text-emerald-800 font-bold bg-emerald-100/90 border border-emerald-300 rounded px-0.5 py-0.2 mt-0.5 mx-auto max-w-[55px] truncate" title="Ý nhận biết: ${kLetters}">${kLetters}</div>` : ''}
+                    </td>
+                    <td class="text-center bg-blue-50/20">
+                        <input type="number" min="0" value="${row.p2_h}" onchange="updateMatrixCell(${idx}, 'p2_h', this.value)" class="w-9 text-center border rounded font-semibold text-blue-800">
+                        ${hLetters ? `<div class="text-[9px] text-blue-800 font-bold bg-blue-100/90 border border-blue-300 rounded px-0.5 py-0.2 mt-0.5 mx-auto max-w-[55px] truncate" title="Ý thông hiểu: ${hLetters}">${hLetters}</div>` : ''}
+                    </td>
+                    <td class="text-center bg-blue-50/20">
+                        <input type="number" min="0" value="${row.p2_v}" onchange="updateMatrixCell(${idx}, 'p2_v', this.value)" class="w-9 text-center border rounded font-semibold text-purple-800">
+                        ${vLetters ? `<div class="text-[9px] text-purple-800 font-bold bg-purple-100/90 border border-purple-300 rounded px-0.5 py-0.2 mt-0.5 mx-auto max-w-[55px] truncate" title="Ý vận dụng: ${vLetters}">${vLetters}</div>` : ''}
+                    </td>
+
+                    <td><input type="number" min="0" value="${row.p3_k}" onchange="updateMatrixCell(${idx}, 'p3_k', this.value)" class="w-9 text-center border rounded"></td>
+                    <td><input type="number" min="0" value="${row.p3_h}" onchange="updateMatrixCell(${idx}, 'p3_h', this.value)" class="w-9 text-center border rounded"></td>
+                    <td><input type="number" min="0" value="${row.p3_v}" onchange="updateMatrixCell(${idx}, 'p3_v', this.value)" class="w-9 text-center border rounded"></td>
+
+                    <td class="essay-col ${isEssayHidden}"><input type="number" min="0" value="${row.p4_k || 0}" onchange="updateMatrixCell(${idx}, 'p4_k', this.value)" class="w-9 text-center border rounded"></td>
+                    <td class="essay-col ${isEssayHidden}"><input type="number" min="0" value="${row.p4_h || 0}" onchange="updateMatrixCell(${idx}, 'p4_h', this.value)" class="w-9 text-center border rounded"></td>
+                    <td class="essay-col ${isEssayHidden}"><input type="number" min="0" value="${row.p4_v || 0}" onchange="updateMatrixCell(${idx}, 'p4_v', this.value)" class="w-9 text-center border rounded"></td>
+
+                    <td class="text-center">
+                        <button onclick="deleteMatrixRow(${idx})" class="text-red-500 hover:text-red-700 p-1"><i class="fa-solid fa-trash-can"></i></button>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            recalculateMatrixTotals();
+        }
+
+        function updateRowTopic(idx, val) {
+            matrixRows[idx].topic = val;
+            renderSpecificationTable();
+        }
+
+        function updateMatrixCell(idx, field, val) {
+            matrixRows[idx][field] = parseInt(val) || 0;
+            if (field.startsWith("p2_")) {
+                delete matrixRows[idx].p2_statements;
+                renderMatrixEditor();
+            }
+            recalculateMatrixTotals();
+            renderSpecificationTable();
+        }
+
+        function addMatrixRow() {
+            matrixRows.push({ topic: "Chủ đề mới", p1_k: 1, p1_h: 1, p1_v: 0, p2_k: 0, p2_h: 0, p2_v: 0, p3_k: 0, p3_h: 0, p3_v: 0, p4_k: 0, p4_h: 0, p4_v: 0, codes: ["HH1.1"] });
+            renderMatrixEditor();
+            renderSpecificationTable();
+        }
+
+        function deleteMatrixRow(idx) {
+            matrixRows.splice(idx, 1);
+            renderMatrixEditor();
+            renderSpecificationTable();
+        }
+
+        function recalculateMatrixTotals() {
+            const format = document.getElementById("exam-format-select").value;
+            let p1 = 0, p2 = 0, p3 = 0, p4 = 0;
+
+            matrixRows.forEach(r => {
+                p1 += (r.p1_k + r.p1_h + r.p1_v);
+                p2 += (r.p2_k + r.p2_h + r.p2_v);
+                p3 += (r.p3_k + r.p3_h + r.p3_v);
+                p4 += ((r.p4_k || 0) + (r.p4_h || 0) + (r.p4_v || 0));
+            });
+
+            document.getElementById("cnt-part1").innerText = p1;
+            document.getElementById("cnt-part2").innerText = (p2 >= 4)
+                ? (p2 + " ý (" + Math.round(p2 / 4) + " câu lớn)")
+                : (p2 > 0 ? (p2 + " ý (" + (p2 / 4).toFixed(1) + " câu)") : "0 câu");
+            document.getElementById("cnt-part3").innerText = p3;
+            document.getElementById("cnt-part4").innerText = p4;
+
+            const score1 = p1 * 0.25;
+            const score2 = (p2 >= 4) ? (Math.round(p2 / 4) * 1.0) : (p2 * 0.25);
+            const score3 = (p3 === 6 && format === "TN_ONLY") ? 1.5 : (p3 * 0.5);
+            const score4 = format === "TN_ONLY" ? 0 : (p4 === 3 ? 3.0 : (p4 === 2 ? 3.0 : (p4 * 1.0)));
+
+            document.getElementById("score-part1").innerText = score1.toFixed(2);
+            document.getElementById("score-part2").innerText = score2.toFixed(2);
+            document.getElementById("score-part3").innerText = score3.toFixed(2);
+            document.getElementById("score-part4").innerText = score4.toFixed(2);
+
+            const totalScore = score1 + score2 + score3 + score4;
+            const summaryBar = document.getElementById("matrix-summary-bar");
+            const totalDisplay = document.getElementById("cnt-total-score");
+            
+            totalDisplay.innerText = totalScore.toFixed(2);
+
+            if (Math.abs(totalScore - 10.0) < 0.05) {
+                summaryBar.className = "mt-4 p-3 rounded-lg border text-xs flex flex-wrap items-center justify-between gap-2 bg-emerald-50 border-emerald-200 text-emerald-900 font-medium";
+            } else {
+                summaryBar.className = "mt-4 p-3 rounded-lg border text-xs flex flex-wrap items-center justify-between gap-2 bg-amber-50 border-amber-300 text-amber-900 font-medium";
+            }
+        }
+
+        function renderSpecificationTable() {
+            const format = document.getElementById("exam-format-select").value;
+            const tbody = document.getElementById("specification-tbody");
+
+            tbody.innerHTML = matrixRows.map((row, idx) => {
+                const p1_cnt = row.p1_k + row.p1_h + row.p1_v;
+                const p2_cnt = row.p2_k + row.p2_h + row.p2_v;
+                const p3_cnt = row.p3_k + row.p3_h + row.p3_v;
+                const p4_cnt = (row.p4_k || 0) + (row.p4_h || 0) + (row.p4_v || 0);
+
+                return `
+                    <tr>
+                        <td class="text-center font-bold">${idx + 1}</td>
+                        <td class="font-bold text-gray-800">${row.topic}</td>
+                        <td class="space-y-1">
+                            <p><strong>Biết:</strong> Nhận biết công thức, cấu hình electron, danh pháp IUPAC, tính chất vật lý.</p>
+                            <p><strong>Hiểu:</strong> Giải thích hiện tượng thí nghiệm, sự chuyển dịch cân bằng, hoàn thành PTHH.</p>
+                            <p><strong>Vận dụng:</strong> Bài toán nhiệt hóa học, điện phân, hiệu suất este hóa, bảo vệ môi trường.</p>
+                        </td>
+                        <td class="text-center font-semibold text-brand-700 bg-brand-50">
+                            HH1.1<br>HH1.3<br>HH3.3
+                        </td>
+                        <td>
+                            <p>- Phần I (MCQ): <strong>${p1_cnt}</strong> câu (B: ${row.p1_k}, H: ${row.p1_h}, VD: ${row.p1_v})</p>
+                            <p>- Phần II (Đ/S): <strong>${p2_cnt}</strong> câu lớn (B: ${row.p2_k}, H: ${row.p2_h}, VD: ${row.p2_v})</p>
+                            <p>- Phần III (Trả lời ngắn): <strong>${p3_cnt}</strong> câu (B: ${row.p3_k}, H: ${row.p3_h}, VD: ${row.p3_v})</p>
+                            ${format !== "TN_ONLY" ? `<p class="text-rose-700 font-semibold">- Phần IV (Tự luận): <strong>${p4_cnt}</strong> câu (B: ${row.p4_k || 0}, H: ${row.p4_h || 0}, VD: ${row.p4_v || 0})</p>` : ''}
+                        </td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        /* ==========================================================================
+           MODULE 4: FISHER-YATES EXAM GENERATION & RENDER
+           ========================================================================== */
+        function fisherYatesShuffle(array) {
+            let currentIndex = array.length, randomIndex;
+            let arr = [...array];
+            while (currentIndex !== 0) {
+                randomIndex = Math.floor(Math.random() * currentIndex);
+                currentIndex--;
+                [arr[currentIndex], arr[randomIndex]] = [arr[randomIndex], arr[currentIndex]];
+            }
+            return arr;
+        }
+
+        function generateExamFromMatrix() {
+            switchTab('generator');
+            renderGeneratedExam();
+        }
+
+        function renderGeneratedExam() {
+            const variantCode = document.getElementById("exam-variant-select").value;
+            const format = document.getElementById("exam-format-select").value;
+            const examTime = document.getElementById("exam-time-select").value;
+            const examTitle = document.getElementById("exam-title-input").value;
+
+            document.getElementById("paper-code-display").innerText = variantCode;
+            document.getElementById("paper-time-display").innerText = examTime;
+            document.getElementById("paper-header-title").innerText = examTitle;
+
+            const pool = QUESTION_BANK[currentGrade] || QUESTION_BANK["12"];
+
+            // Partition Questions
+            const selected = (typeof selectQuestionsByMatrix === "function") ? selectQuestionsByMatrix(pool) : { part1: pool.filter(q => q.part === 1), part2: pool.filter(q => q.part === 2), part3: pool.filter(q => q.part === 3), part4: pool.filter(q => q.part === 4) };
+            let part1 = selected.part1;
+            let part2 = selected.part2;
+            let part3 = selected.part3;
+            let part4 = selected.part4;
+            // ignore standard pool filter
+            // part2 handled above
+            // part3 handled above
+            // part4 handled above
+
+            // Calculate label counts dynamically
+            const p1Score = (part1.length * 0.25).toFixed(1);
+            const p2Score = (part2.length * 1.0).toFixed(1);
+            const p3Score = (part3.length * 0.5).toFixed(1);
+            const p4Score = (part4.length === 3 ? 3.0 : (part4.length * 1.5)).toFixed(1);
+
+            document.getElementById("part1-score-label").innerText = `(${part1.length} câu - ${p1Score} điểm)`;
+            document.getElementById("part2-score-label").innerText = `(${part2.length} câu lớn - ${p2Score} điểm)`;
+            document.getElementById("part3-score-label").innerText = `(${part3.length} câu - ${p3Score} điểm)`;
+            document.getElementById("part4-score-label").innerText = `(${part4.length} câu - ${p4Score} điểm)`;
+
+            // Apply Fisher-Yates Shuffling for non-base variants
+            if (variantCode !== "101") {
+                part1 = fisherYatesShuffle(part1);
+                part3 = fisherYatesShuffle(part3);
+            }
+
+            // Render Part I
+            const p1Container = document.getElementById("part1-questions-list");
+            p1Container.innerHTML = part1.map((q, idx) => `
+                <div class="space-y-1 bg-gray-50/50 p-3 rounded-lg border border-gray-100">
+                    <p class="font-bold text-gray-800">
+                        Câu ${idx + 1} <span class="font-normal text-gray-600">(${q.topic} - ${q.level}):</span> ${typeof cleanLatexForWord === "function" ? cleanLatexForWord(q.content) : q.content}
+                    </p>
+                    <div class="space-y-1.5 pt-1.5 pl-4 text-xs sm:text-sm text-gray-800">
+                        ${q.options.map((opt, i) => `
+                            <div><strong>${String.fromCharCode(65 + i)}.</strong> ${typeof cleanLatexForWord === "function" ? cleanLatexForWord(opt) : opt}</div>
+                        `).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Part II
+            const p2Container = document.getElementById("part2-questions-list");
+            p2Container.innerHTML = part2.map((q, idx) => `
+                <div class="space-y-2 bg-gray-50/50 p-3 rounded-lg border border-gray-100">
+                    <p class="font-bold text-gray-800">
+                        Câu ${idx + 1} <span class="font-normal text-gray-600">(${q.topic} - ${q.level}):</span> ${typeof cleanLatexForWord === "function" ? cleanLatexForWord(q.content) : q.content}
+                    </p>
+                    <div class="pl-4 space-y-1.5">
+                        ${q.statements.map((s, sIdx) => {
+                            const meta = (typeof getStatementMeta === "function") ? getStatementMeta(q, sIdx) : { level: "Biết", indicator: "HH1.1" };
+                            const lvlColor = (meta.level === "Biết") ? "bg-emerald-50 text-emerald-800 border-emerald-200" : (meta.level === "Hiểu" ? "bg-blue-50 text-blue-800 border-blue-200" : "bg-purple-50 text-purple-800 border-purple-200");
+                            const badge = `<span class="inline-block ${lvlColor} border text-[10px] px-1.5 py-0.2 rounded font-bold mr-1">[${meta.level} - ${meta.indicator}]</span>`;
+                            return `<div class="flex items-start space-x-2">
+                                <span>${badge} ${typeof cleanLatexForWord === "function" ? cleanLatexForWord(s.text) : s.text}</span>
+                            </div>`;
+                        }).join('')}
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Part III
+            const p3Container = document.getElementById("part3-questions-list");
+            p3Container.innerHTML = part3.map((q, idx) => `
+                <div class="space-y-1 bg-gray-50/50 p-3 rounded-lg border border-gray-100">
+                    <p class="font-bold text-gray-800">
+                        Câu ${idx + 1} <span class="font-normal text-gray-600">(${q.topic} - ${q.level}):</span> ${typeof cleanLatexForWord === "function" ? cleanLatexForWord(q.content) : q.content}
+                    </p>
+                    <div class="pt-1 pl-2 font-semibold text-brand-700">
+                        Đáp số: ______________
+                    </div>
+                </div>
+            `).join('');
+
+            // Render Part IV (Essay)
+            const p4Section = document.getElementById("section-part4");
+            const p4Container = document.getElementById("part4-questions-list");
+
+            if (format === "TN_ONLY" || part4.length === 0) {
+                p4Section.classList.add("hidden");
+            } else {
+                p4Section.classList.remove("hidden");
+                p4Container.innerHTML = part4.map((q, idx) => `
+                    <div class="space-y-2 bg-rose-50/30 p-3 rounded-lg border border-rose-100">
+                        <p class="font-bold text-gray-800">
+                            Câu ${idx + 1} Tự Luận <span class="font-normal text-gray-600">(${q.topic} - ${q.level}):</span>
+                        </p>
+                        <div class="whitespace-pre-line text-gray-800 pl-2 leading-relaxed">${typeof cleanLatexForWord === "function" ? cleanLatexForWord(q.content) : q.content}</div>
+                    </div>
+                `).join('');
+            }
+
+            // Render Answer Key Table
+            const keyTbody = document.getElementById("answer-key-tbody");
+            let keyRowsHTML = [];
+
+            part1.forEach((q, i) => {
+                keyRowsHTML.push(`
+                    <tr>
+                        <td class="font-bold">Câu ${i + 1} (P.I)</td>
+                        <td class="font-bold text-emerald-700 text-sm">${String.fromCharCode(65 + q.correct)}</td>
+                        <td>${q.topic}</td>
+                        <td>${q.level}</td>
+                        <td class="font-semibold text-brand-700">${q.indicator}</td>
+                    </tr>
+                `);
+            });
+
+            part2.forEach((q, i) => {
+                const ansHtml = q.statements.map((s, sIdx) => {
+                    const meta = (typeof getStatementMeta === "function") ? getStatementMeta(q, sIdx) : { level: "Biết", indicator: "HH1.1" };
+                    const ltr = String.fromCharCode(97 + sIdx);
+                    const isTrue = (s.correct === true || s.correct === "Đúng" || s.correct === "Đ");
+                    return `<div class="flex items-center gap-1.5"><strong>${ltr})</strong> ${isTrue ? '<span class="text-emerald-700 font-bold">Đúng</span>' : '<span class="text-rose-600 font-bold">Sai</span>'} <span class="text-[10px] text-gray-500 font-semibold">[${meta.level} - ${meta.indicator}]</span></div>`;
+                }).join("");
+                const indList = q.statements.map((s, sIdx) => ((typeof getStatementMeta === "function") ? getStatementMeta(q, sIdx).indicator : q.indicator)).join(", ");
+                keyRowsHTML.push(`
+                    <tr>
+                        <td class="font-bold">Câu ${i + 1} (P.II)</td>
+                        <td class="text-xs space-y-1">${ansHtml}</td>
+                        <td>${q.topic}</td>
+                        <td class="text-center font-bold text-xs"><span class="bg-blue-100 text-blue-800 px-1.5 py-0.5 rounded">4 ý a,b,c,d</span></td>
+                        <td class="font-semibold text-brand-700 text-xs">${indList}</td>
+                    </tr>
+                `);
+            });
+
+            part3.forEach((q, i) => {
+                keyRowsHTML.push(`
+                    <tr>
+                        <td class="font-bold">Câu ${i + 1} (P.III)</td>
+                        <td class="font-bold text-purple-700 text-sm">${q.answer}</td>
+                        <td>${q.topic}</td>
+                        <td>${q.level}</td>
+                        <td class="font-semibold text-brand-700">${q.indicator}</td>
+                    </tr>
+                `);
+            });
+
+            if (format !== "TN_ONLY") {
+                part4.forEach((q, i) => {
+                    keyRowsHTML.push(`
+                        <tr>
+                            <td class="font-bold">Câu ${i + 1} (P.IV Tự luận)</td>
+                            <td class="text-left font-normal text-gray-800 p-2.5 leading-relaxed">${(typeof formatSolutionHtml === 'function') ? formatSolutionHtml(q.solution) : q.solution}</td>
+                            <td>${q.topic}</td>
+                            <td>${q.level}</td>
+                            <td class="font-semibold text-brand-700">${q.indicator}</td>
+                        </tr>
+                    `);
+                });
+            }
+
+            keyTbody.innerHTML = keyRowsHTML.join('');
+            triggerKaTeX();
+        }
+
+        /* ==========================================================================
+           MODULE 5: CHART.JS ANALYTICS DASHBOARD
+           ========================================================================== */
+        function initAnalyticsCharts() {
+            // Cognitive Chart
+            const ctx1 = document.getElementById('cognitiveChart').getContext('2d');
+            chartCognitiveInstance = new Chart(ctx1, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Nhận Biết (40%)', 'Thông Hiểu (30%)', 'Vận Dụng (30%)'],
+                    datasets: [{
+                        data: [40, 30, 30],
+                        backgroundColor: ['#10b981', '#3b82f6', '#8b5cf6'],
+                        borderWidth: 2,
+                        borderColor: '#ffffff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' }
+                    }
+                }
+            });
+
+            // Competence Chart
+            const ctx2 = document.getElementById('competenceChart').getContext('2d');
+            chartCompetenceInstance = new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                    labels: ['HH1. Nhận Thức Hóa Học', 'HH2. Tìm Hiểu Tự Nhiên', 'HH3. Vận Dụng Kỹ Năng'],
+                    datasets: [{
+                        label: 'Số Lượng Lệnh Hỏi / Điểm',
+                        data: [16, 6, 6],
+                        backgroundColor: '#1e5f54',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    },
+                    plugins: {
+                        legend: { display: false }
+                    }
+                }
+            });
+        }
+
+        function updateCharts() {
+            if (chartCognitiveInstance && chartCompetenceInstance) {
+                chartCognitiveInstance.update();
+                chartCompetenceInstance.update();
+            }
+        }
+
+        function renderAnalyticsText() {
+            const container = document.getElementById("analytics-summary-text");
+            container.innerHTML = `
+                <p>• <strong>Đạt chuẩn Công văn 7991/BGDĐT-GDTrH:</strong> Tích hợp đầy đủ các mẫu định dạng kiểm tra định kỳ (12 câu Trắc nghiệm lựa chọn, 2-4 câu Đúng/Sai, 4-6 câu Trả lời ngắn và 2-3 câu Tự luận bài tập thực tế).</p>
+                <p>• <strong>Bao phủ chương trình Lớp 10, 11, 12:</strong> Chuẩn hóa toàn bộ công thức hóa học hữu cơ và vô cơ bằng engine KaTeX (mhchem), đảm bảo độ chính xác tuyệt đối về ký hiệu và phương trình phản ứng.</p>
+                <p>• <strong>Thuật toán Fisher-Yates & Bảo toàn thang điểm:</strong> Tự động xáo trộn câu hỏi và đáp án cho nhiều mã đề mà vẫn đảm bảo tính chuẩn xác của bản đặc tả ma trận.</p>
+            `;
+        }
+    </script>
+
+    <!-- MODAL DÁN VĂN BẢN ĐỀ THI -->
+    <div id="paste-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden no-print">
+        <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 space-y-4">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-bold text-base text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-paste text-blue-600"></i>
+                    Dán Trực Tiếp Nội Dung Đề Thi / Câu Hỏi Từ Word
+                </h3>
+                <button onclick="closePasteModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+            <p class="text-xs text-gray-600 leading-relaxed">
+                Copy nội dung các câu hỏi trong file Word của bạn và dán vào ô dưới đây (Hỗ trợ định dạng: <em>Câu 1:... A.... B.... C.... D....</em> hoặc các ý a, b, c, d hoặc câu Tự luận).
+            </p>
+            <textarea id="paste-textarea" rows="10" placeholder="Ví dụ:
+Câu 1: Chất nào sau đây là ester?
+A. CH3COOH
+B. CH3COOCH3
+C. C2H5OH
+D. HCHO
+
+Câu 2 (Đúng/Sai): Cho các phát biểu sau:
+a) Chất béo nhẹ hơn nước.
+b) Phản ứng xà phòng hóa là thuận nghịch." class="w-full text-xs p-3 border rounded-lg focus:ring-2 focus:ring-brand-500 font-mono"></textarea>
+            <div class="flex items-center justify-between">
+                <select id="paste-target-topic" class="text-xs p-2 border rounded-lg font-medium text-gray-700">
+                    <option value="Chủ đề từ tài liệu">Gán cho: Chủ đề từ tài liệu</option>
+                    <option value="Ester - Lipid">Gán cho: Ester - Lipid (Lớp 12)</option>
+                    <option value="Carbohydrate">Gán cho: Carbohydrate (Lớp 12)</option>
+                    <option value="Pin Điện & Điện Phân">Gán cho: Pin Điện & Điện Phân (Lớp 12)</option>
+                    <option value="Cân Bằng Hóa Học">Gán cho: Cân Bằng Hóa Học (Lớp 11)</option>
+                    <option value="Hydrocarbon">Gán cho: Hydrocarbon (Lớp 11)</option>
+                    <option value="Cấu Tạo Nguyên Tử">Gán cho: Chương 1: Cấu tạo nguyên tử (Lớp 10)</option>
+                    <option value="Phản Ứng Oxi Hóa - Khử">Gán cho: Oxi Hóa - Khử (Lớp 10)</option>
+                </select>
+                <div class="flex items-center gap-2">
+                    <button onclick="closePasteModal()" class="px-3 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded-lg">Hủy</button>
+                    <button onclick="processPastedText()" class="px-4 py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow">Nạp Vào Ngân Hàng Đề</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL THÊM CÂU HỎI THỦ CÔNG VÀO NGÂN HÀNG -->
+    <div id="manual-question-modal" class="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 hidden no-print">
+        <div class="bg-white rounded-xl shadow-xl max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center justify-between border-b pb-3">
+                <h3 class="font-bold text-base text-gray-800 flex items-center gap-2">
+                    <i class="fa-solid fa-plus-circle text-emerald-600"></i>
+                    Thêm Câu Hỏi Mới Vào Ngân Hàng (Kèm Mức Độ & Chỉ Báo NL)
+                </h3>
+                <button onclick="closeAddQuestionModal()" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Khối Lớp</label>
+                    <select id="manual-q-grade" class="w-full text-xs p-2 border rounded-lg bg-white font-semibold text-brand-700">
+                        <option value="10">Hóa Học Lớp 10</option>
+                        <option value="11">Hóa Học Lớp 11</option>
+                        <option value="12" selected>Hóa Học Lớp 12</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Dạng Câu Hỏi</label>
+                    <select id="manual-q-part" onchange="onManualQPartChange()" class="w-full text-xs p-2 border rounded-lg bg-white font-medium">
+                        <option value="1">Phần I: MCQ (4 phương án)</option>
+                        <option value="2">Phần II: Đúng / Sai</option>
+                        <option value="3">Phần III: Trả lời ngắn</option>
+                        <option value="4">Phần IV: Tự luận</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Mức Độ Nhận Thức</label>
+                    <select id="manual-q-level" class="w-full text-xs p-2 border rounded-lg bg-white font-medium">
+                        <option value="Biết">1. Nhận Biết</option>
+                        <option value="Hiểu" selected>2. Thông Hiểu</option>
+                        <option value="Vận dụng">3. Vận Dụng</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Chương / Chủ Đề</label>
+                    <input type="text" id="manual-q-chapter" placeholder="VD: Ester - Lipid, Bảng tuần hoàn..." class="w-full text-xs p-2 border rounded-lg focus:ring-2 focus:ring-brand-500">
+                </div>
+                <div>
+                    <label class="block text-xs font-bold text-gray-700 mb-1">Mã Chỉ Báo Năng Lực</label>
+                    <select id="manual-q-indicator" class="w-full text-xs p-2 border rounded-lg bg-white font-medium">
+                        <option value="HH1.1">HH1.1 (Khái niệm, định nghĩa, danh pháp)</option>
+                        <option value="HH1.2">HH1.2 (Thành phần, tính chất, PTHH)</option>
+                        <option value="HH1.3">HH1.3 (Cấu tạo, orbital, mô hình)</option>
+                        <option value="HH1.4">HH1.4 (So sánh, phân biệt, đồng phân)</option>
+                        <option value="HH1.5">HH1.5 (Phân loại các chất/phản ứng)</option>
+                        <option value="HH1.6">HH1.6 (Giải thích quy luật, xu hướng)</option>
+                        <option value="HH1.7">HH1.7 (Cân bằng phản ứng, số oxi hóa)</option>
+                        <option value="HH2.4">HH2.4 (Thí nghiệm, hiện tượng)</option>
+                        <option value="HH3.1">HH3.1 (Tính toán định lượng, hiệu suất)</option>
+                        <option value="HH3.2">HH3.2 (Thực tiễn, đời sống, an toàn)</option>
+                        <option value="HH3.3">HH3.3 (Quy trình sản xuất, tổng hợp)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">Nội Dung Câu Hỏi (Hỗ trợ công thức KaTeX \ce{...} hoặc bình thường)</label>
+                <textarea id="manual-q-content" rows="3" placeholder="Nhập đề bài câu hỏi tại đây..." class="w-full text-xs p-2.5 border rounded-lg focus:ring-2 focus:ring-brand-500 font-sans"></textarea>
+            </div>
+
+            <!-- OPTIONS CHO PHẦN I (MCQ) -->
+            <div id="manual-q-part1-box" class="space-y-2">
+                <label class="block text-xs font-bold text-gray-700">4 Phương Án Lựa Chọn & Đáp Án Đúng</label>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                    <div class="flex items-center gap-1.5"><strong class="text-xs">A.</strong><input type="text" id="manual-opt-a" placeholder="Phương án A" class="w-full text-xs p-1.5 border rounded"></div>
+                    <div class="flex items-center gap-1.5"><strong class="text-xs">B.</strong><input type="text" id="manual-opt-b" placeholder="Phương án B" class="w-full text-xs p-1.5 border rounded"></div>
+                    <div class="flex items-center gap-1.5"><strong class="text-xs">C.</strong><input type="text" id="manual-opt-c" placeholder="Phương án C" class="w-full text-xs p-1.5 border rounded"></div>
+                    <div class="flex items-center gap-1.5"><strong class="text-xs">D.</strong><input type="text" id="manual-opt-d" placeholder="Phương án D" class="w-full text-xs p-1.5 border rounded"></div>
+                </div>
+                <div class="flex items-center gap-2 pt-1">
+                    <span class="text-xs font-bold text-emerald-800">Chọn Đáp Án Đúng:</span>
+                    <select id="manual-opt-correct" class="text-xs p-1 border rounded bg-emerald-50 text-emerald-900 font-bold">
+                        <option value="0">Phương án A</option>
+                        <option value="1">Phương án B</option>
+                        <option value="2">Phương án C</option>
+                        <option value="3">Phương án D</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- PHẦN II: 4 Ý ĐÚNG / SAI -->
+            <div id="manual-q-part2-box" class="space-y-2 hidden">
+                <label class="block text-xs font-bold text-gray-700">4 Nhận Định & Trạng Thái Đúng / Sai</label>
+                <div class="space-y-1.5">
+                    <div class="flex items-center gap-2"><strong class="text-xs">a)</strong><input type="text" id="manual-stmt-a" placeholder="Ý a..." class="flex-grow text-xs p-1.5 border rounded"><select id="manual-stmt-a-val" class="text-xs p-1 border rounded font-bold"><option value="true">Đúng</option><option value="false">Sai</option></select></div>
+                    <div class="flex items-center gap-2"><strong class="text-xs">b)</strong><input type="text" id="manual-stmt-b" placeholder="Ý b..." class="flex-grow text-xs p-1.5 border rounded"><select id="manual-stmt-b-val" class="text-xs p-1 border rounded font-bold"><option value="false">Sai</option><option value="true">Đúng</option></select></div>
+                    <div class="flex items-center gap-2"><strong class="text-xs">c)</strong><input type="text" id="manual-stmt-c" placeholder="Ý c..." class="flex-grow text-xs p-1.5 border rounded"><select id="manual-stmt-c-val" class="text-xs p-1 border rounded font-bold"><option value="true">Đúng</option><option value="false">Sai</option></select></div>
+                    <div class="flex items-center gap-2"><strong class="text-xs">d)</strong><input type="text" id="manual-stmt-d" placeholder="Ý d..." class="flex-grow text-xs p-1.5 border rounded"><select id="manual-stmt-d-val" class="text-xs p-1 border rounded font-bold"><option value="false">Sai</option><option value="true">Đúng</option></select></div>
+                </div>
+            </div>
+
+            <!-- PHẦN III: TRẢ LỜI NGẮN -->
+            <div id="manual-q-part3-box" class="space-y-2 hidden">
+                <label class="block text-xs font-bold text-gray-700">Đáp Số Ngắn</label>
+                <input type="text" id="manual-short-ans" placeholder="Ví dụ: 12 hoặc 3,45 hoặc 2..." class="w-full text-xs p-2 border rounded-lg font-bold text-purple-700">
+            </div>
+
+            <!-- HƯỚNG DẪN GIẢI / CHI TIẾT -->
+            <div>
+                <label class="block text-xs font-bold text-gray-700 mb-1">Hướng Dẫn Giải / Lời Giải Chi Tiết (Cho P.IV hoặc ghi chú)</label>
+                <textarea id="manual-q-solution" rows="2" placeholder="Nhập lời giải hoặc hướng dẫn chấm..." class="w-full text-xs p-2 border rounded-lg font-sans"></textarea>
+            </div>
+
+            <div class="flex items-center justify-end gap-2 border-t pt-3">
+                <button onclick="closeAddQuestionModal()" class="px-3.5 py-1.5 text-xs text-gray-600 hover:bg-gray-100 rounded-lg">Hủy</button>
+                <button onclick="saveManualQuestion()" class="px-4 py-1.5 text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg shadow">Lưu Vào Ngân Hàng Câu Hỏi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TỰ CHỌN MỨC ĐỘ ĐÁNH GIÁ, YCCĐ VÀ CHỈ BÁO NĂNG LỰC (KNTT & CV 7991) -->
+    <div id="modal-spec-picker" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 sm:p-4 hidden no-print backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-4xl w-full p-5 sm:p-6 space-y-4 max-h-[92vh] overflow-y-auto border border-gray-100">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center text-lg font-bold shadow-inner border border-brand-200">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-gray-900 flex items-center gap-2">
+                            Thiết Lập Mức Độ Đánh Giá, YCCĐ & Chỉ Báo Năng Lực
+                            <span class="bg-brand-100 text-brand-800 text-[11px] px-2 py-0.5 rounded-full font-bold">KNTT & CV 7991</span>
+                        </h3>
+                        <p class="text-xs text-gray-500">Tự chọn hoặc chỉnh sửa các yêu cầu cần đạt (YCCĐ) và mã chỉ báo (HH1.1 - HH3.3) cho từng bài học.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeSpecPickerModal()" class="text-gray-400 hover:text-gray-700 p-1.5 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Bước 1: Chọn Bài Học từ Sách KNTT & Tên hiển thị -->
+            <div class="bg-brand-50/50 p-4 rounded-xl border border-brand-200/60 space-y-3">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-xs font-bold text-brand-900 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-book text-brand-600"></i>
+                            1. Chọn Bài Học từ SGK Kết Nối Tri Thức (Khối Lớp <span id="spec-picker-grade-badge">12</span>):
+                        </label>
+                        <select id="spec-picker-lesson-select" onchange="onSpecPickerLessonSelectChange()" class="w-full text-xs p-2 border border-brand-300 rounded-lg bg-white font-medium text-gray-800 focus:ring-2 focus:ring-brand-500">
+                            <!-- Populated dynamically based on currentGrade -->
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-gray-700 mb-1 flex items-center gap-1.5">
+                            <i class="fa-solid fa-heading text-amber-600"></i>
+                            2. Tên Chủ Đề / Bài Học hiển thị trên Ma Trận & Bản Đặc Tả:
+                        </label>
+                        <input type="text" id="spec-picker-topic-input" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-bold text-gray-800 focus:ring-2 focus:ring-brand-500" placeholder="Tên bài học...">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bước 2: Chọn Mức Độ Đánh Giá & YCCĐ -->
+            <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                    <span class="text-xs font-bold text-gray-700 uppercase tracking-wider flex items-center gap-1.5">
+                        <i class="fa-solid fa-layer-group text-brand-600"></i>
+                        3. Yêu Cầu Cần Đạt (YCCĐ) theo từng mức độ nhận thức:
+                    </span>
+                    <span class="text-[11px] text-gray-500 italic">Tích chọn để tự động thêm vào đặc tả, hoặc tự gõ chỉnh sửa nội dung bên dưới</span>
+                </div>
+
+                <!-- 1. NHẬN BIẾT -->
+                <div class="border border-emerald-200 rounded-xl p-3.5 bg-emerald-50/30 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-emerald-900 flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block"></span>
+                            🟢 Mức độ NHẬN BIẾT (Biết):
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[11px] text-emerald-700 mr-1">Chèn nhanh mã:</span>
+                            <button type="button" onclick="insertBadgeToSpec('know', 'HH1.1')" class="px-1.5 py-0.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] font-bold rounded border border-emerald-300">+ HH1.1</button>
+                            <button type="button" onclick="insertBadgeToSpec('know', 'HH1.2')" class="px-1.5 py-0.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] font-bold rounded border border-emerald-300">+ HH1.2</button>
+                            <button type="button" onclick="insertBadgeToSpec('know', 'HH1.3')" class="px-1.5 py-0.5 bg-emerald-100 hover:bg-emerald-200 text-emerald-800 text-[10px] font-bold rounded border border-emerald-300">+ HH1.3</button>
+                        </div>
+                    </div>
+                    <!-- Checklist YCCĐ Biết -->
+                    <div id="spec-picker-know-checklist" class="space-y-1.5 max-h-36 overflow-y-auto p-2 bg-white rounded-lg border border-emerald-200 text-xs">
+                        <!-- Checkboxes inserted dynamically -->
+                    </div>
+                    <!-- Textarea Biết -->
+                    <textarea id="spec-picker-know-textarea" rows="2" class="w-full text-xs p-2 border border-emerald-300 rounded-lg focus:ring-2 focus:ring-emerald-500 text-gray-800 leading-relaxed" placeholder="Nội dung YCCĐ mức độ Nhận biết..."></textarea>
+                </div>
+
+                <!-- 2. THÔNG HIỂU -->
+                <div class="border border-blue-200 rounded-xl p-3.5 bg-blue-50/30 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-blue-500 inline-block"></span>
+                            🔵 Mức độ THÔNG HIỂU (Hiểu):
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[11px] text-blue-700 mr-1">Chèn nhanh mã:</span>
+                            <button type="button" onclick="insertBadgeToSpec('under', 'HH1.4')" class="px-1.5 py-0.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-[10px] font-bold rounded border border-blue-300">+ HH1.4</button>
+                            <button type="button" onclick="insertBadgeToSpec('under', 'HH1.5')" class="px-1.5 py-0.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-[10px] font-bold rounded border border-blue-300">+ HH1.5</button>
+                            <button type="button" onclick="insertBadgeToSpec('under', 'HH1.6')" class="px-1.5 py-0.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-[10px] font-bold rounded border border-blue-300">+ HH1.6</button>
+                            <button type="button" onclick="insertBadgeToSpec('under', 'HH2.4')" class="px-1.5 py-0.5 bg-blue-100 hover:bg-blue-200 text-blue-800 text-[10px] font-bold rounded border border-blue-300">+ HH2.4</button>
+                        </div>
+                    </div>
+                    <!-- Checklist YCCĐ Hiểu -->
+                    <div id="spec-picker-under-checklist" class="space-y-1.5 max-h-36 overflow-y-auto p-2 bg-white rounded-lg border border-blue-200 text-xs">
+                        <!-- Checkboxes inserted dynamically -->
+                    </div>
+                    <!-- Textarea Hiểu -->
+                    <textarea id="spec-picker-under-textarea" rows="2" class="w-full text-xs p-2 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 text-gray-800 leading-relaxed" placeholder="Nội dung YCCĐ mức độ Thông hiểu..."></textarea>
+                </div>
+
+                <!-- 3. VẬN DỤNG -->
+                <div class="border border-purple-200 rounded-xl p-3.5 bg-purple-50/30 space-y-2">
+                    <div class="flex items-center justify-between">
+                        <label class="text-xs font-bold text-purple-900 flex items-center gap-1.5">
+                            <span class="w-2.5 h-2.5 rounded-full bg-purple-500 inline-block"></span>
+                            🟣 Mức độ VẬN DỤNG (Vận dụng / Vận dụng cao):
+                        </label>
+                        <div class="flex items-center gap-1">
+                            <span class="text-[11px] text-purple-700 mr-1">Chèn nhanh mã:</span>
+                            <button type="button" onclick="insertBadgeToSpec('apply', 'HH3.1')" class="px-1.5 py-0.5 bg-purple-100 hover:bg-purple-200 text-purple-800 text-[10px] font-bold rounded border border-purple-300">+ HH3.1</button>
+                            <button type="button" onclick="insertBadgeToSpec('apply', 'HH3.2')" class="px-1.5 py-0.5 bg-purple-100 hover:bg-purple-200 text-purple-800 text-[10px] font-bold rounded border border-purple-300">+ HH3.2</button>
+                            <button type="button" onclick="insertBadgeToSpec('apply', 'HH3.3')" class="px-1.5 py-0.5 bg-purple-100 hover:bg-purple-200 text-purple-800 text-[10px] font-bold rounded border border-purple-300">+ HH3.3</button>
+                            <button type="button" onclick="insertBadgeToSpec('apply', 'HH2.4')" class="px-1.5 py-0.5 bg-purple-100 hover:bg-purple-200 text-purple-800 text-[10px] font-bold rounded border border-purple-300">+ HH2.4</button>
+                        </div>
+                    </div>
+                    <!-- Checklist YCCĐ Vận dụng -->
+                    <div id="spec-picker-apply-checklist" class="space-y-1.5 max-h-36 overflow-y-auto p-2 bg-white rounded-lg border border-purple-200 text-xs">
+                        <!-- Checkboxes inserted dynamically -->
+                    </div>
+                    <!-- Textarea Vận dụng -->
+                    <textarea id="spec-picker-apply-textarea" rows="2" class="w-full text-xs p-2 border border-purple-300 rounded-lg focus:ring-2 focus:ring-purple-500 text-gray-800 leading-relaxed" placeholder="Nội dung YCCĐ mức độ Vận dụng..."></textarea>
+                </div>
+            </div>
+
+            <!-- Bước 3: Phân Phối Số Lượng Câu Hỏi Cho Bài Này -->
+            <div class="bg-gray-50 p-3.5 rounded-xl border border-gray-200 space-y-2">
+                <span class="text-xs font-bold text-gray-700 flex items-center gap-1.5">
+                    <i class="fa-solid fa-sliders text-brand-600"></i>
+                    4. Số câu hỏi phân phối cho bài này trên Ma Trận:
+                </span>
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
+                    <div class="bg-green-50 p-2 rounded-lg border border-green-200 text-center">
+                        <span class="font-bold text-green-900 block mb-1">P.I (MCQ)</span>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-[10px]">B:</span><input type="number" id="spec-p1-k" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">H:</span><input type="number" id="spec-p1-h" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">VD:</span><input type="number" id="spec-p1-v" min="0" class="w-8 text-center border rounded">
+                        </div>
+                    </div>
+                    <div class="bg-blue-50 p-2 rounded-lg border border-blue-200 text-center">
+                        <span class="font-bold text-blue-900 block mb-1">P.II (Đ/S - Ý)</span>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-[10px]">B:</span><input type="number" id="spec-p2-k" min="0" oninput="onSpecP2CountsInputChange()" class="w-8 text-center border rounded font-semibold text-emerald-800">
+                            <span class="text-[10px]">H:</span><input type="number" id="spec-p2-h" min="0" oninput="onSpecP2CountsInputChange()" class="w-8 text-center border rounded font-semibold text-blue-800">
+                            <span class="text-[10px]">VD:</span><input type="number" id="spec-p2-v" min="0" oninput="onSpecP2CountsInputChange()" class="w-8 text-center border rounded font-semibold text-purple-800">
+                        </div>
+                    </div>
+                    <div class="bg-purple-50 p-2 rounded-lg border border-purple-200 text-center">
+                        <span class="font-bold text-purple-900 block mb-1">P.III (TLN)</span>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-[10px]">B:</span><input type="number" id="spec-p3-k" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">H:</span><input type="number" id="spec-p3-h" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">VD:</span><input type="number" id="spec-p3-v" min="0" class="w-8 text-center border rounded">
+                        </div>
+                    </div>
+                    <div class="bg-rose-50 p-2 rounded-lg border border-rose-200 text-center">
+                        <span class="font-bold text-rose-900 block mb-1">P.IV (Tự Luận)</span>
+                        <div class="flex items-center justify-center gap-1">
+                            <span class="text-[10px]">B:</span><input type="number" id="spec-p4-k" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">H:</span><input type="number" id="spec-p4-h" min="0" class="w-8 text-center border rounded">
+                            <span class="text-[10px]">VD:</span><input type="number" id="spec-p4-v" min="0" class="w-8 text-center border rounded">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bước 5: Chi tiết các ý (a, b, c, d) cho Câu trắc nghiệm Đúng/Sai (Phần II) theo CV 7991 -->
+            <div id="spec-picker-p2-container" class="bg-blue-50/50 p-3.5 rounded-xl border border-blue-200 space-y-2.5">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-blue-200/80 pb-2">
+                    <div>
+                        <span class="text-xs font-bold text-blue-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-list-check text-blue-600"></i>
+                            5. Cấu hình các ý Đúng/Sai (Phần II - CV 7991):
+                        </span>
+                        <p class="text-[10.5px] text-gray-600 mt-0.5">
+                            Hỗ trợ linh hoạt: <strong>Cùng 1 bài</strong> (trọn vẹn 4 ý a,b,c,d) hoặc <strong>Liên bài</strong> (các ý ghép từ nhiều bài học khác nhau).
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-1.5 flex-wrap">
+                        <button type="button" onclick="setRowP2Mode('full4')" title="Bài học này trọn vẹn 1 câu lớn (4 ý a, b, c, d)" class="text-[11px] bg-emerald-100 hover:bg-emerald-200 text-emerald-900 px-2 py-1 rounded font-bold border border-emerald-300 shadow-xs flex items-center gap-1 transition">
+                            <i class="fa-solid fa-circle-check text-emerald-600"></i> Trọn vẹn 4 ý (Cùng bài)
+                        </button>
+                        <button type="button" onclick="setRowP2Mode('single1')" title="Bài học này đóng góp 1 ý vào câu hỏi liên bài" class="text-[11px] bg-blue-100 hover:bg-blue-200 text-blue-900 px-2 py-1 rounded font-bold border border-blue-300 shadow-xs flex items-center gap-1 transition">
+                            <i class="fa-solid fa-plus text-blue-600"></i> 1 ý liên bài
+                        </button>
+                        <button type="button" onclick="setRowP2Mode('split2')" title="Bài học này đóng góp 2 ý vào câu hỏi liên bài" class="text-[11px] bg-purple-100 hover:bg-purple-200 text-purple-900 px-2 py-1 rounded font-bold border border-purple-300 shadow-xs flex items-center gap-1 transition">
+                            <i class="fa-solid fa-plus text-purple-600"></i> 2 ý liên bài
+                        </button>
+                        <button type="button" onclick="setRowP2Mode('clear')" title="Bài học này không có câu hỏi Phần II" class="text-[11px] bg-gray-100 hover:bg-gray-200 text-gray-700 px-2 py-1 rounded font-bold border border-gray-300 shadow-xs flex items-center gap-1 transition">
+                            <i class="fa-solid fa-xmark"></i> Bỏ ý Đ/S
+                        </button>
+                    </div>
+                </div>
+                <div id="spec-picker-p2-dynamic-list" class="space-y-2 max-h-64 overflow-y-auto pr-1">
+                    <!-- Rendered dynamically by renderSpecP2DynamicSection() -->
+                </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-end gap-3 border-t border-gray-200 pt-3">
+                <button type="button" onclick="closeSpecPickerModal()" class="px-4 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 text-xs font-semibold transition">
+                    Hủy bỏ
+                </button>
+                <button type="button" onclick="saveSpecPickerChanges()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold transition flex items-center gap-1.5 shadow-md">
+                    <i class="fa-solid fa-floppy-disk text-amber-300"></i>
+                    Lưu & Áp Dụng Vào Bản Đặc Tả
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: TỰ CHỌN CÂU HỎI TỪ NGÂN HÀNG CHO TỪNG HÀNG MA TRẬN & BẢN ĐẶC TẢ -->
+    <div id="modal-row-question-picker" class="fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-3 sm:p-4 hidden no-print backdrop-blur-sm">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full p-5 sm:p-6 space-y-4 max-h-[92vh] flex flex-col border border-gray-100">
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-gray-200 pb-3 flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-lg font-bold shadow-inner border border-blue-200">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base text-gray-900 flex items-center gap-2">
+                            <span>Tự Chọn Câu Hỏi Cho Chủ Đề Ma Trận</span>
+                            <span id="row-picker-topic-badge" class="bg-blue-100 text-blue-800 text-[11px] px-2.5 py-0.5 rounded-full font-bold max-w-md truncate">...</span>
+                        </h3>
+                        <p class="text-xs text-gray-500">Duyệt và tích chọn câu hỏi từ Ngân hàng (1.562+ câu) gán vào bài học này theo từng phần & mức độ.</p>
+                    </div>
+                </div>
+                <button type="button" onclick="closeRowQuestionPickerModal()" class="text-gray-400 hover:text-gray-700 p-1.5 rounded-lg hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Summary of target counts vs currently selected -->
+            <div class="bg-gray-50 p-3 rounded-xl border border-gray-200 flex flex-wrap items-center justify-between gap-2 text-xs flex-shrink-0">
+                <div class="flex flex-wrap items-center gap-3 font-semibold text-gray-700">
+                    <span>Số câu cần chọn theo ma trận:</span>
+                    <span id="row-picker-p1-stat" class="bg-green-100 text-green-800 px-2 py-0.5 rounded">P.I (MCQ): 0/0</span>
+                    <span id="row-picker-p2-stat" class="bg-blue-100 text-blue-800 px-2 py-0.5 rounded">P.II (Đ/S): 0/0</span>
+                    <span id="row-picker-p3-stat" class="bg-purple-100 text-purple-800 px-2 py-0.5 rounded">P.III (TLN): 0/0</span>
+                    <span id="row-picker-p4-stat" class="bg-rose-100 text-rose-800 px-2 py-0.5 rounded">P.IV (TL): 0/0</span>
+                </div>
+                <div>
+                    <button onclick="autoFillCurrentRowPicker()" class="bg-teal-600 hover:bg-teal-700 text-white font-bold text-[11px] px-3 py-1 rounded-lg transition flex items-center gap-1 shadow-sm">
+                        <i class="fa-solid fa-bolt text-amber-300"></i>
+                        <span>⚡ Tự Động Chọn Đủ Câu Cho Bài Này</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-2 text-xs flex-shrink-0">
+                <div>
+                    <select id="row-picker-filter-part" onchange="renderRowPickerCandidates()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium">
+                        <option value="ALL">Tất cả các dạng thức</option>
+                        <option value="1">Phần I: Trắc nghiệm 4 phương án</option>
+                        <option value="2">Phần II: Đúng / Sai (4 ý)</option>
+                        <option value="3">Phần III: Trả lời ngắn</option>
+                        <option value="4">Phần IV: Tự luận</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="row-picker-filter-level" onchange="renderRowPickerCandidates()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium">
+                        <option value="ALL">Tất cả mức độ</option>
+                        <option value="Biết">Mức độ Biết</option>
+                        <option value="Hiểu">Mức độ Hiểu</option>
+                        <option value="Vận dụng">Mức độ Vận dụng</option>
+                    </select>
+                </div>
+                <div>
+                    <select id="row-picker-filter-scope" onchange="renderRowPickerCandidates()" class="w-full p-2 border border-gray-300 rounded-lg bg-white font-medium">
+                        <option value="TOPIC_FIRST" selected>Ưu tiên đúng bài học này</option>
+                        <option value="ALL_GRADE">Toàn bộ ngân hàng khối lớp này</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="text" id="row-picker-filter-search" oninput="renderRowPickerCandidates()" placeholder="Tìm theo từ khóa, chất, PTHH..." class="w-full p-2 border border-gray-300 rounded-lg">
+                </div>
+            </div>
+
+            <!-- Candidates Question List (Scrollable) -->
+            <div id="row-picker-candidates-container" class="flex-grow overflow-y-auto space-y-3 pr-1 min-h-[320px]">
+                <!-- Populated dynamically -->
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-between border-t border-gray-200 pt-3 flex-shrink-0 text-xs">
+                <div class="text-gray-600">
+                    Tổng số câu đang chọn cho bài này: <strong id="row-picker-total-selected-count" class="text-brand-700 text-sm">0</strong> câu
+                </div>
+                <div class="flex items-center gap-2">
+                    <button type="button" onclick="closeRowQuestionPickerModal()" class="px-4 py-2 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 font-semibold transition">
+                        Đóng / Hủy
+                    </button>
+                    <button type="button" onclick="saveRowQuestionPickerSelection()" class="px-5 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold transition flex items-center gap-1.5 shadow-md">
+                        <i class="fa-solid fa-check text-amber-300"></i>
+                        <span>Xác Nhận & Gán Vào Bản Đặc Tả</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- External Clean Features Script -->
+    <script src="kntt_standards_data.js?v=20261025a"></script>
+    <script src="official_btx_data.js?v=20261025a"></script>
+    <script src="master_question_bank.js?v=20261025a"></script>
+    <script src="app_features.js?v=20261025a"></script>
+    <script src="matrix_importer.js?v=20261025a"></script>
+</body>
+</html>
