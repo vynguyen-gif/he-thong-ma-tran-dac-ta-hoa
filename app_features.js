@@ -2103,27 +2103,62 @@ function openAddNewTopicWithPicker() {
 }
 
 /* Ghi đè hàm hiển thị Ngân hàng Chỉ báo YCCĐ (Tab 2) để hiển thị đầy đủ mức độ nhận thức & chỉ báo KNTT */
+function getIndicatorLevel(item) {
+    if (item.level) return item.level;
+    var code = item.code || "";
+    var outcome = (item.outcome || "").toLowerCase();
+    if (code.startsWith("HH3") || /vận dụng|tính được|thiết kế|thực hiện được|áp dụng/i.test(outcome)) {
+        return "Vận dụng";
+    }
+    if (code === "HH1.1" || code === "HH1.2") {
+        return "Biết";
+    }
+    return "Hiểu";
+}
+
 function renderIndicators() {
     var gradeFilterEl = document.getElementById("filter-grade");
     var compFilterEl = document.getElementById("filter-comp");
+    var levelFilterEl = document.getElementById("filter-level");
     var keyFilterEl = document.getElementById("filter-keyword");
     var container = document.getElementById("indicator-cards-container");
     if (!container) return;
 
     var gradeFilter = gradeFilterEl ? gradeFilterEl.value : "ALL";
     var compFilter = compFilterEl ? compFilterEl.value : "ALL";
+    var levelFilter = levelFilterEl ? levelFilterEl.value : "ALL";
     var keyFilter = keyFilterEl ? keyFilterEl.value.toLowerCase() : "";
 
-    var filtered = INDICATORS_DATABASE.filter(function(item) {
+    var dataSource = (typeof INDICATORS_DATABASE !== "undefined") ? [...INDICATORS_DATABASE] : [];
+    if (typeof OFFICIAL_KNTT_INDICATORS !== "undefined" && Array.isArray(OFFICIAL_KNTT_INDICATORS)) {
+        var existingKeys = new Set(dataSource.map(function(i) { return i.grade + "_" + i.code + "_" + (i.outcome || "").slice(0, 30); }));
+        OFFICIAL_KNTT_INDICATORS.forEach(function(item) {
+            var k = item.grade + "_" + item.code + "_" + (item.outcome || "").slice(0, 30);
+            if (!existingKeys.has(k)) {
+                dataSource.push(item);
+                existingKeys.add(k);
+            }
+        });
+    }
+
+    var filtered = dataSource.filter(function(item) {
         if (gradeFilter !== "ALL" && item.grade !== gradeFilter) return false;
         if (compFilter !== "ALL" && item.comp !== compFilter) return false;
-        if (keyFilter && item.topic.toLowerCase().indexOf(keyFilter) === -1 && item.outcome.toLowerCase().indexOf(keyFilter) === -1 && item.code.toLowerCase().indexOf(keyFilter) === -1) return false;
+        var lvl = item.level || getIndicatorLevel(item);
+        if (levelFilter !== "ALL" && lvl !== levelFilter) return false;
+        if (keyFilter) {
+            var matchTopic = item.topic && item.topic.toLowerCase().indexOf(keyFilter) !== -1;
+            var matchOutcome = item.outcome && item.outcome.toLowerCase().indexOf(keyFilter) !== -1;
+            var matchCode = item.code && item.code.toLowerCase().indexOf(keyFilter) !== -1;
+            var matchLevel = lvl && lvl.toLowerCase().indexOf(keyFilter) !== -1;
+            if (!matchTopic && !matchOutcome && !matchCode && !matchLevel) return false;
+        }
         return true;
     });
 
     var countText = document.getElementById("indicator-count-text");
     if (countText) {
-        countText.innerText = "Hiển thị: " + filtered.length + " Yêu cầu cần đạt (Chuẩn KNTT & CV 7991)";
+        countText.innerText = "Hiển thị: " + filtered.length + " Yêu cầu cần đạt (Chuẩn SGK KNTT & CV 7991)";
     }
 
     if (filtered.length === 0) {
@@ -2132,23 +2167,30 @@ function renderIndicators() {
     }
 
     container.innerHTML = filtered.map(function(item) {
+        var lvl = item.level || getIndicatorLevel(item);
         var levelBadge = "";
-        if (item.level) {
-            var badgeColor = item.level === "Biết" ? "bg-emerald-100 text-emerald-800 border-emerald-200" :
-                (item.level === "Hiểu" ? "bg-blue-100 text-blue-800 border-blue-200" : "bg-purple-100 text-purple-800 border-purple-200");
-            levelBadge = "<span class='" + badgeColor + " text-xs px-2 py-0.5 rounded font-semibold border'>" + item.level + "</span>";
+        if (lvl === "Biết" || lvl === "Nhận biết") {
+            levelBadge = "<span class='bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm'><i class='fa-solid fa-check text-[10px]'></i> Biết</span>";
+        } else if (lvl === "Hiểu" || lvl === "Thông hiểu") {
+            levelBadge = "<span class='bg-blue-100 text-blue-800 border border-blue-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm'><i class='fa-solid fa-brain text-[10px]'></i> Hiểu</span>";
+        } else if (lvl === "Vận dụng" || lvl === "VD") {
+            levelBadge = "<span class='bg-purple-100 text-purple-800 border border-purple-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm'><i class='fa-solid fa-bolt text-[10px]'></i> Vận dụng</span>";
         }
-        return "<div class='bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-brand-300 transition'>" +
-            "<div class='space-y-1'>" +
+
+        var lessonHtml = item.lesson ? ("<span class='text-xs text-gray-500 font-medium italic'>• " + item.lesson + "</span>") : "";
+
+        return "<div class='bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-brand-300 hover:shadow-md transition'>" +
+            "<div class='space-y-1.5'>" +
             "<div class='flex flex-wrap items-center gap-2'>" +
-            "<span class='bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded font-bold'>Lớp " + item.grade + "</span>" +
+            "<span class='bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded font-bold border border-brand-200'>Lớp " + item.grade + "</span>" +
             levelBadge +
             "<span class='text-xs font-bold text-gray-800'>" + item.topic + "</span>" +
+            lessonHtml +
             "</div>" +
-            "<p class='text-xs text-gray-600 leading-relaxed'>" + item.outcome + "</p>" +
+            "<p class='text-xs text-gray-700 leading-relaxed'>" + item.outcome + "</p>" +
             "</div>" +
             "<div class='flex items-center gap-2 shrink-0'>" +
-            "<span class='bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-200'>Mã: " + item.code + "</span>" +
+            "<span class='bg-amber-100 text-amber-900 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-300 shadow-sm'>Mã: " + item.code + "</span>" +
             "</div></div>";
     }).join("");
 

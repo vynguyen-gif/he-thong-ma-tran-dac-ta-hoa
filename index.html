@@ -409,6 +409,13 @@
                             <option value="HH3">HH3 - Vận dụng kiến thức kỹ năng</option>
                         </select>
 
+                        <select id="filter-level" onchange="filterIndicators()" class="text-xs border border-gray-300 rounded-lg px-3 py-2 bg-white font-bold text-gray-700 focus:ring-2 focus:ring-brand-500">
+                            <option value="ALL">Tất cả mức độ (Biết, Hiểu, Vận dụng)</option>
+                            <option value="Biết">🟢 Mức 1: Nhận biết</option>
+                            <option value="Hiểu">🔵 Mức 2: Thông hiểu</option>
+                            <option value="Vận dụng">🟣 Mức 3: Vận dụng</option>
+                        </select>
+
                         <input type="text" id="filter-keyword" onkeyup="filterIndicators()" placeholder="Từ khóa (VD: Nguyên tử, Halogen, Enthalpy, Ester)..." class="text-xs border border-gray-300 rounded-lg px-3 py-2 w-48 focus:ring-2 focus:ring-brand-500 outline-none">
                     </div>
                 </div>
@@ -1228,27 +1235,27 @@
            ========================================================================== */
         const INDICATORS_DATABASE = [
             // CLASS 10
-            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Trình bày được thành Chương 1: Cấu tạo nguyên tử (proton, neutron, electron), hạt nhân và vỏ nguyên tử.", code: "HH1.1", comp: "HH1" },
-            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Viết được cấu hình electron nguyên tử theo lớp, phân lớp (Z ≤ 20).", code: "HH1.3", comp: "HH1" },
-            { grade: "10", topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học", outcome: "Giải thích được quy luật biến đổi bán kính nguyên tử, độ âm điện, tính kim loại - phi kim trong chu kỳ và nhóm.", code: "HH1.6", comp: "HH1" },
-            { grade: "10", topic: "Chương 3: Liên kết hóa học", outcome: "Trình bày sự hình thành liên kết ionic, liên kết cộng hóa trị và liên kết hydrogen.", code: "HH1.2", comp: "HH1" },
-            { grade: "10", topic: "Chương 4: Phản ứng oxi hóa - khử", outcome: "Xác định được số oxi hóa, chất oxi hóa, chất khử và cân bằng phương pháp thăng bằng electron.", code: "HH1.5", comp: "HH1" },
-            { grade: "10", topic: "Chương 5: Năng lượng hóa học", outcome: "Tính được biến thiên enthalpy chuẩn của phản ứng \\(\\Delta_r H^\\circ_{298}\\) theo enthalpy tạo thành \\(\\Delta_f H^\\circ_{298}\\) và năng lượng liên kết \\(E_b\\).", code: "HH3.3", comp: "HH3" },
-            { grade: "10", topic: "Chương 6: Tốc độ phản ứng hóa học", outcome: "Thực hiện thí nghiệm và giải thích ảnh hưởng của nồng độ, nhiệt độ, diện tích tiếp xúc, chất xúc tác đến tốc độ phản ứng.", code: "HH2.4", comp: "HH2" },
-            { grade: "10", topic: "Chương 7: Nhóm Halogen", outcome: "So sánh tính chất hóa học và tính oxi hóa của \\(\\ce{F2, Cl2, Br2, I2}\\); Viết PTHH chứng minh.", code: "HH1.4", comp: "HH1" },
+            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Trình bày được thành phần của nguyên tử (proton, neutron, electron), hạt nhân và vỏ nguyên tử.", code: "HH1.1", level: "Biết", comp: "HH1" },
+            { grade: "10", topic: "Chương 1: Cấu tạo nguyên tử", outcome: "Viết được cấu hình electron nguyên tử theo lớp, phân lớp (Z ≤ 20).", code: "HH1.3", level: "Hiểu", comp: "HH1" },
+            { grade: "10", topic: "Chương 2: Bảng tuần hoàn các nguyên tố hóa học", outcome: "Giải thích được quy luật biến đổi bán kính nguyên tử, độ âm điện, tính kim loại - phi kim trong chu kỳ và nhóm.", code: "HH1.6", level: "Hiểu", comp: "HH1" },
+            { grade: "10", topic: "Chương 3: Liên kết hóa học", outcome: "Trình bày sự hình thành liên kết ionic, liên kết cộng hóa trị và liên kết hydrogen.", code: "HH1.2", level: "Biết", comp: "HH1" },
+            { grade: "10", topic: "Chương 4: Phản ứng oxi hóa - khử", outcome: "Xác định được số oxi hóa, chất oxi hóa, chất khử và cân bằng phương pháp thăng bằng electron.", code: "HH1.5", level: "Hiểu", comp: "HH1" },
+            { grade: "10", topic: "Chương 5: Năng lượng hóa học", outcome: "Tính được biến thiên enthalpy chuẩn của phản ứng \\(\\Delta_r H^\\circ_{298}\\) theo enthalpy tạo thành \\(\\Delta_f H^\\circ_{298}\\) và năng lượng liên kết \\(E_b\\).", code: "HH3.3", level: "Vận dụng", comp: "HH3" },
+            { grade: "10", topic: "Chương 6: Tốc độ phản ứng hóa học", outcome: "Thực hiện thí nghiệm và giải thích ảnh hưởng của nồng độ, nhiệt độ, diện tích tiếp xúc, chất xúc tác đến tốc độ phản ứng.", code: "HH2.4", level: "Hiểu", comp: "HH2" },
+            { grade: "10", topic: "Chương 7: Nhóm Halogen", outcome: "So sánh tính chất hóa học và tính oxi hóa của \\(\\ce{F2, Cl2, Br2, I2}\\); Viết PTHH chứng minh.", code: "HH1.4", level: "Hiểu", comp: "HH1" },
 
             // CLASS 11
-            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Trình bày khái niệm phản ứng thuận nghịch và nguyên lý Le Chatelier.", code: "HH1.2", comp: "HH1" },
-            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Thực hiện thí nghiệm chuẩn độ acid - base bằng dung dịch \\(\\ce{NaOH}\\) chuẩn.", code: "HH2.4", comp: "HH2" },
-            { grade: "11", topic: "Chương 4: Hydrocarbon", outcome: "Viết CTCT và gọi tên danh pháp IUPAC của Alkane, Alkene, Alkyne, Arene.", code: "HH1.3", comp: "HH1" },
-            { grade: "11", topic: "Chương 5: Dẫn xuất halogen - Alcohol - Phenol", outcome: "Giải thích ảnh hưởng của liên kết hydrogen đến nhiệt độ sôi và độ tan của alcohol.", code: "HH1.6", comp: "HH1" },
+            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Trình bày khái niệm phản ứng thuận nghịch và nguyên lý Le Chatelier.", code: "HH1.2", level: "Biết", comp: "HH1" },
+            { grade: "11", topic: "Chương 1: Cân bằng hóa học", outcome: "Thực hiện thí nghiệm chuẩn độ acid - base bằng dung dịch \\(\\ce{NaOH}\\) chuẩn.", code: "HH2.4", level: "Hiểu", comp: "HH2" },
+            { grade: "11", topic: "Chương 4: Hydrocarbon", outcome: "Viết CTCT và gọi tên danh pháp IUPAC của Alkane, Alkene, Alkyne, Arene.", code: "HH1.3", level: "Hiểu", comp: "HH1" },
+            { grade: "11", topic: "Chương 5: Dẫn xuất halogen - Alcohol - Phenol", outcome: "Giải thích ảnh hưởng của liên kết hydrogen đến nhiệt độ sôi và độ tan của alcohol.", code: "HH1.6", level: "Hiểu", comp: "HH1" },
 
             // CLASS 12
-            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Nêu khái niệm lipid, chất béo, acid béo; đặc điểm cấu tạo ester.", code: "HH1.1", comp: "HH1" },
-            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Trình bày tính chất hóa học của ester (thủy phân acid và xà phòng hóa).", code: "HH1.2", comp: "HH1" },
-            { grade: "12", topic: "Chương 2: Carbohydrate", outcome: "Trình bày tính chất hóa học đặc trưng của glucose, saccharose, tinh bột, cellulose.", code: "HH1.2", comp: "HH1" },
-            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Sử dụng bảng thế điện cực chuẩn để tính \\(E^\\circ_{\\text{pin}}\\) và dự đoán chiều phản ứng.", code: "HH1.7", comp: "HH1" },
-            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Vận dụng phương pháp điện phân giải thích quy trình mạ điện và tinh chế kim loại.", code: "HH3.1", comp: "HH3" }
+            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Nêu khái niệm lipid, chất béo, acid béo; đặc điểm cấu tạo ester.", code: "HH1.1", level: "Biết", comp: "HH1" },
+            { grade: "12", topic: "Chương 1: Ester - Lipid", outcome: "Trình bày tính chất hóa học của ester (thủy phân acid và xà phòng hóa).", code: "HH1.2", level: "Biết", comp: "HH1" },
+            { grade: "12", topic: "Chương 2: Carbohydrate", outcome: "Trình bày tính chất hóa học đặc trưng của glucose, saccharose, tinh bột, cellulose.", code: "HH1.2", level: "Biết", comp: "HH1" },
+            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Sử dụng bảng thế điện cực chuẩn để tính \\(E^\\circ_{\\text{pin}}\\) và dự đoán chiều phản ứng.", code: "HH1.7", level: "Hiểu", comp: "HH1" },
+            { grade: "12", topic: "Chương 5: Pin điện và điện phân", outcome: "Vận dụng phương pháp điện phân giải thích quy trình mạ điện và tinh chế kim loại.", code: "HH3.1", level: "Vận dụng", comp: "HH3" }
         ];
 
         /* ==========================================================================
@@ -1576,43 +1583,98 @@
         /* ==========================================================================
            MODULE 2: INDICATOR DATABASE LOOKUP
            ========================================================================== */
+        function getIndicatorLevel(item) {
+            if (item.level) return item.level;
+            const code = item.code || "";
+            const outcome = (item.outcome || "").toLowerCase();
+            if (code.startsWith("HH3") || /vận dụng|tính được|thiết kế|thực hiện được|áp dụng/i.test(outcome)) {
+                return "Vận dụng";
+            }
+            if (code === "HH1.1" || code === "HH1.2") {
+                return "Biết";
+            }
+            return "Hiểu";
+        }
+
         function renderIndicators() {
-            const gradeFilter = document.getElementById("filter-grade").value;
-            const compFilter = document.getElementById("filter-comp").value;
-            const keyFilter = document.getElementById("filter-keyword").value.toLowerCase();
+            const gradeFilter = document.getElementById("filter-grade") ? document.getElementById("filter-grade").value : "ALL";
+            const compFilter = document.getElementById("filter-comp") ? document.getElementById("filter-comp").value : "ALL";
+            const levelFilterEl = document.getElementById("filter-level");
+            const levelFilter = levelFilterEl ? levelFilterEl.value : "ALL";
+            const keyFilter = document.getElementById("filter-keyword") ? document.getElementById("filter-keyword").value.toLowerCase() : "";
 
             const container = document.getElementById("indicator-cards-container");
+            if (!container) return;
+
+            // Nguồn dữ liệu: kết hợp INDICATORS_DATABASE và OFFICIAL_KNTT_INDICATORS nếu có
+            let dataSource = [...INDICATORS_DATABASE];
+            if (typeof OFFICIAL_KNTT_INDICATORS !== "undefined" && Array.isArray(OFFICIAL_KNTT_INDICATORS)) {
+                const existingKeys = new Set(dataSource.map(i => i.grade + "_" + i.code + "_" + (i.outcome || "").slice(0, 30)));
+                OFFICIAL_KNTT_INDICATORS.forEach(item => {
+                    const k = item.grade + "_" + item.code + "_" + (item.outcome || "").slice(0, 30);
+                    if (!existingKeys.has(k)) {
+                        dataSource.push(item);
+                        existingKeys.add(k);
+                    }
+                });
+            }
             
-            const filtered = INDICATORS_DATABASE.filter(item => {
+            const filtered = dataSource.filter(item => {
                 if (gradeFilter !== "ALL" && item.grade !== gradeFilter) return false;
                 if (compFilter !== "ALL" && item.comp !== compFilter) return false;
-                if (keyFilter && !item.topic.toLowerCase().includes(keyFilter) && !item.outcome.toLowerCase().includes(keyFilter)) return false;
+                const lvl = item.level || getIndicatorLevel(item);
+                if (levelFilter !== "ALL" && lvl !== levelFilter) return false;
+                if (keyFilter) {
+                    const matchTopic = item.topic && item.topic.toLowerCase().includes(keyFilter);
+                    const matchOutcome = item.outcome && item.outcome.toLowerCase().includes(keyFilter);
+                    const matchCode = item.code && item.code.toLowerCase().includes(keyFilter);
+                    const matchLevel = lvl && lvl.toLowerCase().includes(keyFilter);
+                    if (!matchTopic && !matchOutcome && !matchCode && !matchLevel) return false;
+                }
                 return true;
             });
 
-            document.getElementById("indicator-count-text").innerText = `Hiển thị: ${filtered.length} Yêu cầu cần đạt`;
+            const countText = document.getElementById("indicator-count-text");
+            if (countText) {
+                countText.innerText = `Hiển thị: ${filtered.length} Yêu cầu cần đạt (Chuẩn SGK KNTT & CV 7991)`;
+            }
 
             if (filtered.length === 0) {
                 container.innerHTML = `<div class="text-center text-xs text-gray-500 py-8">Không tìm thấy yêu cầu cần đạt khớp với bộ lọc.</div>`;
                 return;
             }
 
-            container.innerHTML = filtered.map(item => `
-                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-brand-300 transition">
-                    <div class="space-y-1">
-                        <div class="flex items-center gap-2">
-                            <span class="bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded font-bold">Lớp ${item.grade}</span>
+            container.innerHTML = filtered.map(item => {
+                const lvl = item.level || getIndicatorLevel(item);
+                let levelBadge = "";
+                if (lvl === "Biết" || lvl === "Nhận biết") {
+                    levelBadge = `<span class="bg-emerald-100 text-emerald-800 border border-emerald-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-check text-[10px]"></i> Biết</span>`;
+                } else if (lvl === "Hiểu" || lvl === "Thông hiểu") {
+                    levelBadge = `<span class="bg-blue-100 text-blue-800 border border-blue-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-brain text-[10px]"></i> Hiểu</span>`;
+                } else if (lvl === "Vận dụng" || lvl === "VD") {
+                    levelBadge = `<span class="bg-purple-100 text-purple-800 border border-purple-300 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1 shadow-sm"><i class="fa-solid fa-bolt text-[10px]"></i> Vận dụng</span>`;
+                }
+
+                return `
+                <div class="bg-white p-4 rounded-xl border border-gray-200 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-3 hover:border-brand-300 hover:shadow-md transition">
+                    <div class="space-y-1.5">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="bg-brand-50 text-brand-700 text-xs px-2 py-0.5 rounded font-bold border border-brand-200">Lớp ${item.grade}</span>
+                            ${levelBadge}
                             <span class="text-xs font-bold text-gray-800">${item.topic}</span>
+                            ${item.lesson ? `<span class="text-xs text-gray-500 font-medium italic">• ${item.lesson}</span>` : ''}
                         </div>
-                        <p class="text-xs text-gray-600">${item.outcome}</p>
+                        <p class="text-xs text-gray-700 leading-relaxed">${item.outcome}</p>
                     </div>
                     <div class="flex items-center gap-2 shrink-0">
-                        <span class="bg-amber-100 text-amber-800 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-200">
+                        <span class="bg-amber-100 text-amber-900 text-xs px-2.5 py-1 rounded-full font-bold border border-amber-300 shadow-sm">
                             Mã: ${item.code}
                         </span>
                     </div>
                 </div>
-            `).join('');
+            `;
+            }).join('');
+
             triggerKaTeX();
         }
 
