@@ -5233,3 +5233,34 @@ window.addEventListener("DOMContentLoaded", function() {
     }, 50);
 });
 
+/* Helper toàn cục: Sinh đề và chuyển xem ngay */
+function generateExamFromCurrentMatrix() {
+    if (typeof generateExamFromMatrix === "function") {
+        generateExamFromMatrix();
+    }
+    if (typeof switchTab === "function") {
+        switchTab("generator");
+    }
+    if (typeof switchTab4View === "function") {
+        switchTab4View("exam");
+    }
+}
+
+/* Helper toàn cục: Thu gọn / Mở rộng Bản Đặc Tả */
+function toggleSpecSheetView() {
+    var container = document.getElementById("specification-table-container");
+    var chevron = document.getElementById("spec-chevron");
+    var text = document.getElementById("spec-toggle-text");
+    if (!container) return;
+    if (container.classList.contains("hidden")) {
+        container.classList.remove("hidden");
+        if (chevron) chevron.className = "fa-solid fa-chevron-up";
+        if (text) text.innerText = "Thu Gọn Bản Đặc Tả";
+    } else {
+        container.classList.add("hidden");
+        if (chevron) chevron.className = "fa-solid fa-chevron-down";
+        if (text) text.innerText = "Mở Rộng Bản Đặc Tả";
+    }
+}
+
+

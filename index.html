@@ -233,13 +233,9 @@
                 </div>
 
                 <div class="flex items-center space-x-2">
-                    <button onclick="exportExamToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-semibold">
-                        <i class="fa-solid fa-file-word text-amber-300"></i>
-                        <span>Xuất Đề Thi (.doc)</span>
-                    </button>
-                    <button onclick="exportMatrixToWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-semibold hidden md:flex">
-                        <i class="fa-solid fa-file-word text-amber-300"></i>
-                        <span>Xuất Ma Trận (.doc)</span>
+                    <button onclick="exportAllInOneWord()" class="bg-amber-400 hover:bg-amber-300 text-brand-950 text-xs sm:text-sm px-3.5 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-extrabold">
+                        <i class="fa-solid fa-file-word text-brand-950"></i>
+                        <span>Xuất Hồ Sơ Word (BGD)</span>
                     </button>
                     <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1">
                         <i class="fa-solid fa-print"></i>
@@ -250,31 +246,31 @@
         </div>
 
         <!-- MAIN TABS NAVIGATION -->
-        <nav class="bg-white border-b border-gray-200 text-gray-600 text-sm font-medium overflow-x-auto">
+        <nav class="bg-white border-b border-gray-200 text-gray-700 text-sm font-semibold overflow-x-auto shadow-xs">
             <div class="max-w-7xl mx-auto px-4 flex space-x-1 min-w-max">
-                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn active px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
-                    <i class="fa-solid fa-layer-group text-amber-600"></i>
-                    <span>1. Khung Năng Lực & Động Từ</span>
-                </button>
-                <button onclick="switchTab('indicators')" id="tab-indicators" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
-                    <i class="fa-solid fa-book-bookmark text-brand-500"></i>
-                    <span>2. Tra Cứu Chỉ Báo (10, 11, 12)</span>
-                </button>
-                <button onclick="switchTab('matrix')" id="tab-matrix" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                <button onclick="switchTab('matrix')" id="tab-matrix" class="tab-btn active px-4 py-3 flex items-center space-x-2 border-b-2 border-brand-500 text-brand-600 font-bold">
                     <i class="fa-solid fa-table-cells text-accent-blue"></i>
-                    <span>3. Soạn Ma Trận & Bản Đặc Tả</span>
+                    <span>1. Soạn Ma Trận & Bản Đặc Tả</span>
                 </button>
                 <button onclick="switchTab('generator')" id="tab-generator" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
                     <i class="fa-solid fa-wand-magic-sparkles text-accent-purple"></i>
-                    <span>4. Ngân Hàng & Sinh Đề Thi</span>
-                </button>
-                <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
-                    <i class="fa-solid fa-chart-pie text-accent-emerald"></i>
-                    <span>5. Thống Kê & Phân Tích</span>
+                    <span>2. Ngân Hàng & Sinh Đề Thi</span>
                 </button>
                 <button onclick="switchTab('syllabus')" id="tab-syllabus" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
                     <i class="fa-solid fa-graduation-cap text-rose-600"></i>
-                    <span>6. Đề Cương Ôn Tập (Học Sinh)</span>
+                    <span>3. Đề Cương Ôn Tập (Học Sinh)</span>
+                </button>
+                <button onclick="switchTab('indicators')" id="tab-indicators" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-book-bookmark text-brand-500"></i>
+                    <span>4. Tra Cứu Chỉ Báo (10, 11, 12)</span>
+                </button>
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-layer-group text-amber-600"></i>
+                    <span>5. Khung Năng Lực & Động Từ</span>
+                </button>
+                <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                    <i class="fa-solid fa-chart-pie text-accent-emerald"></i>
+                    <span>6. Thống Kê & Phân Tích</span>
                 </button>
             </div>
         </nav>
@@ -284,9 +280,9 @@
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
 
         <!-- ========================================== -->
-        <!-- TAB 1: KHUNG NĂNG LỰC & ĐỘNG TỪ MÔ TẢ -->
+        <!-- TAB 5: KHUNG NĂNG LỰC & ĐỘNG TỪ MÔ TẢ -->
         <!-- ========================================== -->
-        <section id="sec-overview" class="tab-content space-y-6">
+        <section id="sec-overview" class="tab-content hidden space-y-6">
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex items-start justify-between flex-wrap gap-4 border-b border-gray-100 pb-4">
                     <div>
@@ -436,25 +432,61 @@
         <!-- ========================================== -->
         <!-- TAB 3: SOẠN THẢO MA TRẬN & BẢN ĐẶC TẢ (CV 7991) -->
         <!-- ========================================== -->
-        <section id="sec-matrix" class="tab-content hidden space-y-6">
-            <!-- Configuration Box -->
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2 mb-2">
-                    <i class="fa-solid fa-sliders text-brand-500"></i>
-                    Thống Số Khung Đề Kiểm Tra (Chuẩn Công Văn 7991)
-                </h2>
-                <p class="text-sm text-gray-600 mb-4">
-                    Chọn nhanh cấu trúc mẫu theo CV 7991 (Trắc nghiệm nhiều lựa chọn: 12 câu, Đúng/Sai: 2-4 câu, Trả lời ngắn: 4-6 câu, Tự luận: 2-3 câu).
-                </p>
+        <section id="sec-matrix" class="tab-content space-y-6">
+            <!-- BẢNG ĐIỀU KHIỂN THIẾT LẬP ĐỀ THI & MA TRẬN (TINH GỌN - ĐẦY ĐỦ) -->
+            <div class="bg-white p-5 rounded-2xl shadow-sm border border-gray-200 space-y-4">
+                <!-- Header: Tên trạm, Giáo viên & Nhóm nút tác vụ nhanh -->
+                <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-3 border-b border-gray-100 pb-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-brand-600 text-white flex items-center justify-center font-bold text-lg shadow-sm">
+                            <i class="fa-solid fa-table-cells"></i>
+                        </div>
+                        <div>
+                            <div class="flex items-center gap-2 flex-wrap">
+                                <h2 class="text-lg font-black text-gray-800">Soạn Ma Trận & Bản Đặc Tả Đề Kiểm Tra</h2>
+                                <span class="bg-amber-100 text-amber-900 border border-amber-300 px-2.5 py-0.5 rounded-full text-xs font-bold">Chuẩn Khung CV 7991</span>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-0.5">
+                                <span class="font-bold text-brand-900 uppercase">GV: NGUYỄN VỸ</span> • Tổ Hóa Học — THPT Bùi Thị Xuân (Mũi Né)
+                            </p>
+                        </div>
+                    </div>
 
-                <!-- Structure Presets Selector -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                    <div class="bg-amber-50 p-3 rounded-xl border border-amber-200">
-                        <label class="block text-xs font-bold text-amber-900 mb-1">
-                            <i class="fa-solid fa-book-open text-amber-600 mr-1"></i>
-                            Kỳ Kiểm Tra Chuẩn Sách Kết Nối Tri Thức (KNTT):
+                    <!-- Action Buttons: Nổi bật, Trực quan -->
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button onclick="generateExamFromCurrentMatrix()" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-xs px-4 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow-sm hover:shadow">
+                            <i class="fa-solid fa-wand-magic-sparkles text-amber-300"></i>
+                            <span>Tự Động Sinh Đề Thi</span>
+                        </button>
+                        <button onclick="exportAllInOneWord()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3.5 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow-sm hover:shadow">
+                            <i class="fa-solid fa-file-word text-amber-200"></i>
+                            <span>Xuất Trọn Bộ Word (BGD)</span>
+                        </button>
+                        <button onclick="openImportMatrixModal()" class="bg-amber-500 hover:bg-amber-600 text-white text-xs px-3 py-2 rounded-xl font-bold transition flex items-center gap-1.5 shadow-sm">
+                            <i class="fa-solid fa-file-import text-amber-100"></i>
+                            <span>Nhập Từ File</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 3 Bộ chọn cốt lõi (Khối Lớp - Kỳ Thi KNTT - Cấu Trúc Điểm) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 bg-slate-50 p-3.5 rounded-xl border border-slate-200">
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-graduation-cap text-brand-500 mr-1"></i> Khối Lớp:
                         </label>
-                        <select id="kntt-term-select" onchange="applyKNTTTermPreset()" class="w-full text-xs p-2 border border-amber-300 rounded-lg font-bold text-amber-900 bg-white">
+                        <select id="exam-grade-select" onchange="onGradeSelectChange()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-bold text-brand-700 bg-white focus:ring-2 focus:ring-brand-500">
+                            <option value="10">Hóa Học Lớp 10 (KNTT)</option>
+                            <option value="11">Hóa Học Lớp 11 (KNTT)</option>
+                            <option value="12" selected>Hóa Học Lớp 12 (KNTT)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-calendar-check text-amber-600 mr-1"></i> Kỳ Kiểm Tra (KNTT):
+                        </label>
+                        <select id="kntt-term-select" onchange="applyKNTTTermPreset()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-bold text-amber-900 bg-white focus:ring-2 focus:ring-brand-500">
                             <option value="GK1">Kiểm Tra Giữa Kỳ 1 (KNTT)</option>
                             <option value="CK1">Kiểm Tra Cuối Kỳ 1 (KNTT)</option>
                             <option value="GK2">Kiểm Tra Giữa Kỳ 2 (KNTT)</option>
@@ -462,103 +494,73 @@
                         </select>
                     </div>
 
-                    <div class="bg-blue-50 p-3 rounded-xl border border-blue-200">
-                        <label class="block text-xs font-bold text-blue-900 mb-1">
-                            <i class="fa-solid fa-wand-magic text-blue-600 mr-1"></i>
-                            Cấu Trúc Thang Điểm & Định Dạng Đề (CV 7991):
+                    <div>
+                        <label class="block text-[11px] font-bold text-gray-700 mb-1">
+                            <i class="fa-solid fa-chart-simple text-blue-600 mr-1"></i> Định Dạng Đề & Thang Điểm (CV 7991):
                         </label>
-                        <select id="preset-structure-select" onchange="applyPresetStructure()" class="w-full text-xs p-2 border border-blue-300 rounded-lg font-bold text-blue-900 bg-white">
-                            <option value="PRESET_1">Mẫu 1: 12 câu P.I (3.00đ) + 2 câu P.II Đ/S [8 ý] (2.00đ) + 4 câu P.III TLN (2.00đ) + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
-                            <option value="PRESET_2">Mẫu 2: 12 câu P.I (3.00đ) + 2 câu P.II Đ/S [8 ý] (2.00đ) + 4 câu P.III TLN (2.00đ) + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
-                            <option value="PRESET_3">Mẫu 3: 12 câu P.I (3.00đ) + 4 câu P.II Đ/S [16 ý] (4.00đ) + 0 câu P.III + 3 câu P.IV Tự luận (3.00đ) [Tổng 10.00đ]</option>
-                            <option value="PRESET_4">Mẫu 4: 100% Trắc Nghiệm (18 câu P.I [4.50đ] + 4 câu P.II Đ/S [4.00đ] + 6 câu P.III TLN [1.50đ]) [Tổng 10.00đ - Chuẩn 2025]</option>
+                        <select id="preset-structure-select" onchange="applyPresetStructure()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-semibold text-blue-900 bg-white focus:ring-2 focus:ring-brand-500">
+                            <option value="PRESET_1">Mẫu 1: TN 12c (3đ) + Đ/S 2c [8 ý] (2đ) + TLN 4c (2đ) + Tự luận 3c (3đ)</option>
+                            <option value="PRESET_2">Mẫu 2: TN 12c (3đ) + Đ/S 2c [8 ý] (2đ) + TLN 4c (2đ) + Tự luận 3c (3đ)</option>
+                            <option value="PRESET_3">Mẫu 3: TN 12c (3đ) + Đ/S 4c [16 ý] (4đ) + 0c TLN + Tự luận 3c (3đ)</option>
+                            <option value="PRESET_4">Mẫu 4: 100% Trắc Nghiệm (18c P.I + 4c P.II + 6c P.III) [Chuẩn 2025]</option>
                         </select>
                     </div>
                 </div>
 
-                <!-- Teacher & School Identification Banner -->
-                <div class="mb-4 bg-gradient-to-r from-amber-50 via-brand-50 to-emerald-50 p-3 rounded-xl border border-amber-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 shadow-xs">
-                    <div class="flex items-center gap-2.5">
-                        <div class="w-9 h-9 rounded-lg bg-gradient-to-br from-amber-500 to-amber-600 text-white flex items-center justify-center font-bold text-base shadow">
-                            <i class="fa-solid fa-chalkboard-user"></i>
+                <!-- Tên Đề, Thời Gian, Hình Thức & Thanh Điểm Tóm Tắt Gọn Gàng -->
+                <div class="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-3 bg-white p-3 rounded-xl border border-gray-200">
+                    <div class="flex items-center gap-3 flex-wrap flex-1">
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs text-gray-500 font-semibold">Tên đề:</span>
+                            <input type="text" id="exam-title-input" value="ĐỀ KIỂM TRA ĐỊNH KỲ HÓA HỌC" class="text-xs font-bold p-1.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500 w-56">
                         </div>
-                        <div>
-                            <div class="flex items-center gap-2 flex-wrap">
-                                <span class="text-sm font-black text-brand-900 uppercase">GV: NGUYỄN VỸ</span>
-                                <span class="text-xs text-gray-400">•</span>
-                                <span class="text-xs font-bold text-gray-700">Tổ Hóa Học — THPT Bùi Thị Xuân (Mũi Né)</span>
-                            </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs text-gray-500 font-semibold">Thời gian:</span>
+                            <select id="exam-time-select" class="text-xs p-1.5 border border-gray-300 rounded-lg font-bold text-gray-800 bg-white">
+                                <option value="45">45 phút</option>
+                                <option value="50" selected>50 phút (Chuẩn)</option>
+                                <option value="90">90 phút</option>
+                            </select>
+                        </div>
+                        <div class="flex items-center gap-1.5">
+                            <span class="text-xs text-gray-500 font-semibold">Hình thức:</span>
+                            <select id="exam-format-select" onchange="toggleEssayColumns()" class="text-xs p-1.5 border border-gray-300 rounded-lg font-bold text-brand-700 bg-white">
+                                <option value="MIXED">Trắc Nghiệm + Tự Luận</option>
+                                <option value="TN_ONLY">100% Trắc Nghiệm</option>
+                            </select>
                         </div>
                     </div>
-                    <span class="bg-amber-100 text-amber-900 border border-amber-300 px-3 py-1 rounded-full text-xs font-extrabold flex items-center gap-1.5 shrink-0 shadow-xs">
-                        <i class="fa-solid fa-certificate text-amber-600"></i>
-                        <span>Chuẩn Khung CV 7991 / 2025</span>
-                    </span>
-                </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-xl border border-gray-200">
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Tên Kỳ Kiểm Tra</label>
-                        <input type="text" id="exam-title-input" value="ĐỀ KIỂM TRA ĐỊNH KỲ HÓA HỌC" class="w-full text-xs p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-brand-500">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Chọn Khối Lớp</label>
-                        <select id="exam-grade-select" onchange="onGradeSelectChange()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium">
-                            <option value="10">Hóa Học Lớp 10</option>
-                            <option value="11">Hóa Học Lớp 11</option>
-                            <option value="12" selected>Hóa Học Lớp 12</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Hình Thức Kiểm Tra</label>
-                        <select id="exam-format-select" onchange="toggleEssayColumns()" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium text-brand-700 bg-white">
-                            <option value="MIXED">Kết hợp: Trắc Nghiệm + Tự Luận (Phần IV)</option>
-                            <option value="TN_ONLY">100% Trắc Nghiệm (Phần I, II, III)</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label class="block text-xs font-bold text-gray-700 mb-1">Thời Gian Làm Bài</label>
-                        <select id="exam-time-select" class="w-full text-xs p-2 border border-gray-300 rounded-lg font-medium">
-                            <option value="45">45 phút (Định kỳ trường)</option>
-                            <option value="50" selected>50 phút (Chuẩn THPT 2025)</option>
-                            <option value="90">90 phút (Khảo sát / HSG)</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Real-time Validation Bar -->
-                <div class="mt-4 p-3 rounded-lg border text-xs flex flex-wrap items-center justify-between gap-2 bg-emerald-50 border-emerald-200 text-emerald-900" id="matrix-summary-bar">
-                    <div class="flex flex-wrap items-center space-x-3 sm:space-x-4">
-                        <span><strong>Phần I (MCQ):</strong> <span id="cnt-part1">12</span> câu (<span id="score-part1">3.00</span>đ)</span>
-                        <span><strong>Phần II (Đ/S - 4 ý a,b,c,d):</strong> <span id="cnt-part2">8 ý (2 câu lớn)</span> (<span id="score-part2">2.00</span>đ)</span>
-                        <span><strong>Phần III (TLN):</strong> <span id="cnt-part3">4</span> câu (<span id="score-part3">2.00</span>đ)</span>
-                        <span id="essay-summary-span" class="font-bold text-accent-rose"><strong>Phần IV (Tự luận):</strong> <span id="cnt-part4">3</span> câu (<span id="score-part4">3.00</span>đ)</span>
-                    </div>
-                    <div class="font-bold text-sm">
-                        Tổng điểm: <span id="cnt-total-score" class="text-brand-600 text-base font-extrabold">10.00</span> / 10.0
+                    <!-- Real-time Validation Bar -->
+                    <div class="flex items-center gap-2 flex-wrap bg-emerald-50 px-3 py-1.5 rounded-lg border border-emerald-200 text-xs shrink-0" id="matrix-summary-bar">
+                        <span class="text-emerald-900 font-medium">P.I: <strong id="cnt-part1">12</strong>c (<span id="score-part1">3.00</span>đ)</span>
+                        <span class="text-gray-300">•</span>
+                        <span class="text-blue-900 font-medium">P.II: <strong id="cnt-part2">8 ý</strong> (<span id="score-part2">2.00</span>đ)</span>
+                        <span class="text-gray-300">•</span>
+                        <span class="text-purple-900 font-medium">P.III: <strong id="cnt-part3">4</strong>c (<span id="score-part3">2.00</span>đ)</span>
+                        <span class="text-gray-300">•</span>
+                        <span id="essay-summary-span" class="text-rose-900 font-medium">P.IV: <strong id="cnt-part4">3</strong>c (<span id="score-part4">3.00</span>đ)</span>
+                        <span class="text-emerald-800 font-bold border-l border-emerald-300 pl-2">Tổng: <span id="cnt-total-score" class="text-brand-700 font-extrabold text-sm">10.00</span>/10đ</span>
                     </div>
                 </div>
             </div>
 
             <!-- Matrix Construction Table -->
             <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
-                <div class="flex items-center justify-between mb-4">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 mb-4 border-b border-gray-100 pb-3">
                     <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
                         <i class="fa-solid fa-table text-amber-500"></i>
                         Ma Trận Đề Kiểm Tra (Phụ Lục 1 - CV 7991)
                     </h3>
-                    <div class="flex items-center gap-2">
-                        <button onclick="openImportMatrixModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow">
-                            <i class="fa-solid fa-file-import text-amber-200"></i> Nhập Ma Trận & Bản Đặc Tả (Word / Excel / Ảnh)
-                        </button>
-                        <button onclick="exportMatrixToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow">
-                            <i class="fa-solid fa-file-word text-amber-300"></i> Xuất Ma Trận & Bản Đặc Tả Word
-                        </button>
-                        <button onclick="openAddNewTopicWithPicker()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow">
+                    <div class="flex items-center gap-2 flex-wrap">
+                        <button onclick="openAddNewTopicWithPicker()" class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow-xs">
                             <i class="fa-solid fa-plus-circle text-amber-200"></i> Thêm Bài Mới Từ SGK KNTT
                         </button>
-                        <button onclick="addMatrixRow()" class="bg-gray-600 hover:bg-gray-700 text-white text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1">
+                        <button onclick="addMatrixRow()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1 border border-gray-300">
                             <i class="fa-solid fa-plus"></i> Thêm Dòng Trống
+                        </button>
+                        <button onclick="exportMatrixToWord()" class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1.5 rounded-lg font-semibold transition flex items-center gap-1 shadow-xs">
+                            <i class="fa-solid fa-file-word text-amber-300"></i> Xuất Ma Trận Word
                         </button>
                     </div>
                 </div>
@@ -601,8 +603,9 @@
                         <p class="text-xs text-gray-500 mt-0.5">Tự động lấy câu hỏi từ ngân hàng hoặc tự chọn câu hỏi cho từng bài học vào ma trận.</p>
                     </div>
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="renderSpecificationTable()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1 border border-gray-300">
-                            <i class="fa-solid fa-rotate"></i> Làm Mới
+                        <button onclick="toggleSpecSheetView()" id="btn-toggle-spec" class="bg-brand-50 hover:bg-brand-100 text-brand-700 text-xs px-3 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 border border-brand-200">
+                            <i class="fa-solid fa-chevron-up" id="spec-chevron"></i>
+                            <span id="spec-toggle-text">Thu Gọn Bản Đặc Tả</span>
                         </button>
                         <button onclick="autoAssignAllMatrixQuestions()" class="bg-teal-600 hover:bg-teal-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
                             <i class="fa-solid fa-bolt text-amber-300"></i>
@@ -611,79 +614,75 @@
                         <button onclick="clearAllAssignedQuestions()" class="bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 text-xs px-3 py-1.5 rounded-lg font-medium transition flex items-center gap-1">
                             <i class="fa-solid fa-trash-can"></i> Xóa Câu Đã Gán
                         </button>
-                        <button onclick="generateExamFromAssignedMatrix()" class="bg-brand-600 hover:bg-brand-700 text-white text-xs px-3.5 py-1.5 rounded-lg font-bold transition flex items-center gap-1.5 shadow-sm">
-                            <i class="fa-solid fa-file-signature text-amber-300"></i>
-                            <span>Sinh Đề Thi Từ Ma Trận Này</span>
-                        </button>
                     </div>
                 </div>
 
-                <!-- Info banner -->
-                <div class="bg-gradient-to-r from-teal-50 via-emerald-50 to-blue-50 p-3 rounded-xl border border-teal-200 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
-                    <div class="flex items-center gap-2 text-teal-900">
-                        <i class="fa-solid fa-database text-teal-600 text-base"></i>
-                        <span>Ngân hàng câu hỏi hiện có: <strong class="text-teal-800" id="matrix-bank-total-badge">1.562+ câu</strong> (Đầy đủ 4 dạng thức: MCQ, Đúng/Sai, Trả lời ngắn, Tự luận kèm chuẩn KNTT).</span>
+                <div id="specification-table-container">
+                    <!-- Info banner -->
+                    <div class="bg-teal-50/70 p-3 rounded-xl border border-teal-200 mb-4 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+                        <div class="flex items-center gap-2 text-teal-900">
+                            <i class="fa-solid fa-database text-teal-600 text-base"></i>
+                            <span>Ngân hàng câu hỏi hiện có: <strong class="text-teal-800" id="matrix-bank-total-badge">1.562+ câu</strong> (Đầy đủ 4 dạng thức: MCQ, Đúng/Sai, Trả lời ngắn, Tự luận kèm chuẩn KNTT).</span>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-gray-500 font-medium">Trạng thái gán:</span>
+                            <span id="matrix-assigned-summary-badge" class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">Chưa gán câu hỏi</span>
+                        </div>
                     </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-gray-500 font-medium">Trạng thái gán:</span>
-                        <span id="matrix-assigned-summary-badge" class="bg-amber-100 text-amber-800 px-2 py-0.5 rounded-full font-bold">Chưa gán câu hỏi</span>
-                    </div>
-                </div>
 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-xs border-collapse chemistry-spec-table" id="specification-table">
-                        <thead>
-                            <tr>
-                                <th class="w-8">STT</th>
-                                <th class="w-1/6">Chủ Đề Kiến Thức</th>
-                                <th class="w-1/4">Mức Độ Đánh Giá & YCCĐ</th>
-                                <th class="w-16">Mã Chỉ Báo</th>
-                                <th class="w-1/6">Số Câu Theo Ma Trận</th>
-                                <th>Câu Hỏi Gán Từ Ngân Hàng (Tự Động / Tự Chọn)</th>
-                            </tr>
-                        </thead>
-                        <tbody id="specification-tbody">
-                            <!-- Populated dynamically -->
-                        </tbody>
-                    </table>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border-collapse chemistry-spec-table" id="specification-table">
+                            <thead>
+                                <tr>
+                                    <th class="w-8">STT</th>
+                                    <th class="w-1/6">Chủ Đề Kiến Thức</th>
+                                    <th class="w-1/4">Mức Độ Đánh Giá & YCCĐ</th>
+                                    <th class="w-16">Mã Chỉ Báo</th>
+                                    <th class="w-1/6">Số Câu Theo Ma Trận</th>
+                                    <th>Câu Hỏi Gán Từ Ngân Hàng (Tự Động / Tự Chọn)</th>
+                                </tr>
+                            </thead>
+                            <tbody id="specification-tbody">
+                                <!-- Populated dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- TAB 4: NGÂN HÀNG CÂU HỎI & SINH ĐỀ THI -->
+        <!-- TAB 2: NGÂN HÀNG CÂU HỎI & SINH ĐỀ THI -->
         <!-- ========================================== -->
         <section id="sec-generator" class="tab-content hidden space-y-6">
-            <!-- NẠP CÂU HỎI TỪ TÀI LIỆU MÁY TÍNH -->
-            <div class="bg-gradient-to-r from-emerald-50 via-teal-50 to-blue-50 p-5 rounded-xl border border-emerald-200 shadow-sm">
-                <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-                    <div>
-                        <h3 class="font-bold text-gray-800 text-base flex items-center gap-2">
-                            <i class="fa-solid fa-file-import text-emerald-600"></i>
-                            Nhập Câu Hỏi Từ File Máy Tính (Word .docx / .txt) Vào Ngân Hàng
-                        </h3>
-                        <p class="text-xs text-gray-600 mt-1">
-                            Tự động trích xuất các câu trắc nghiệm (Phần I), Đúng/Sai (Phần II), Trả lời ngắn (Phần III) và Tự luận (Phần IV) từ đề thi/đề cương trong máy bạn để ghép vào ma trận.
-                        </p>
+            <!-- NẠP CÂU HỎI TỪ TÀI LIỆU MÁY TÍNH (TINH GỌN) -->
+            <div class="bg-white p-3.5 rounded-2xl border border-gray-200 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
+                <div class="flex items-center gap-2.5">
+                    <div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-file-import"></i>
                     </div>
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="openImportMatrixModal()" class="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white font-bold text-xs px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-wand-magic-sparkles text-amber-200"></i>
-                            <span>Nhập Ma Trận & Sinh Đề Tự Động</span>
-                        </button>
-                        <label class="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3.5 py-2 rounded-lg shadow transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-arrow-up-from-bracket"></i>
-                            <span>Chọn File Word (.docx)</span>
-                            <input type="file" id="user-docx-input" accept=".docx,.txt" onchange="handleUserDocxUpload(event)" class="hidden">
-                        </label>
-                        <button onclick="openPasteModal()" class="bg-white hover:bg-gray-100 text-gray-700 font-semibold text-xs px-3 py-2 rounded-lg border border-gray-300 shadow-sm transition flex items-center gap-1.5">
-                            <i class="fa-solid fa-paste text-blue-600"></i>
-                            <span>Dán Văn Bản Đề Thi</span>
-                        </button>
+                    <div>
+                        <strong class="text-gray-800 text-xs">Nạp đề từ máy tính:</strong>
+                        <span class="text-gray-500 text-[11px] block sm:inline"> Tự trích xuất câu hỏi từ đề cương / đề thi Word (.docx) ghép vào ma trận</span>
                     </div>
                 </div>
-                <div id="upload-status-badge" class="mt-2 text-xs text-emerald-800 font-medium hidden"></div>
+                <div class="flex items-center gap-2 flex-wrap shrink-0">
+                    <button onclick="openImportMatrixModal()" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-xs px-3 py-1.5 rounded-lg shadow-xs transition flex items-center gap-1.5">
+                        <i class="fa-solid fa-wand-magic-sparkles text-amber-200"></i>
+                        <span>Nhập Ma Trận & Sinh Đề</span>
+                    </button>
+                    <label class="cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white font-semibold text-xs px-3 py-1.5 rounded-lg shadow-xs transition flex items-center gap-1">
+                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+                        <span>Chọn File Word (.docx)</span>
+                        <input type="file" id="user-docx-input" accept=".docx,.txt" onchange="handleUserDocxUpload(event)" class="hidden">
+                    </label>
+                    <button onclick="openPasteModal()" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold text-xs px-3 py-1.5 rounded-lg border border-gray-300 transition flex items-center gap-1">
+                        <i class="fa-solid fa-paste text-blue-600"></i>
+                        <span>Dán Văn Bản</span>
+                    </button>
+                </div>
             </div>
+            <div id="upload-status-badge" class="mt-1 text-xs text-emerald-800 font-medium hidden"></div>
 
             <!-- SUB-TABS NAVIGATION: SINH ĐỀ THI VS KHAI THÁC NGÂN HÀNG CÂU HỎI -->
             <div class="flex items-center justify-between bg-white p-2.5 rounded-xl border border-gray-200 shadow-sm no-print">
@@ -819,26 +818,26 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-gray-100 pb-4">
                     <div>
                         <h2 class="text-xl font-bold text-gray-800 flex items-center gap-2">
-                            <i class="fa-solid fa-microchip text-accent-purple"></i>
-                            Thuật Toán Sinh Đề Thi & Xáo Trộn Mã Đề
+                            <i class="fa-solid fa-file-signature text-brand-600"></i>
+                            Đề Kiểm Tra Định Kỳ Hóa Học (Sinh Theo Ma Trận)
                         </h2>
-                        <p class="text-sm text-gray-600 mt-1">
-                            Trích xuất câu hỏi từ Ngân hàng Lớp 10, 11, 12 (KNTT) & câu hỏi nạp từ máy tính. Áp dụng thuật toán Fisher-Yates, bảo toàn logic câu Tự luận và Đúng/Sai.
+                        <p class="text-xs text-gray-500 mt-1">
+                            Tự động trích xuất theo chuẩn SGK KNTT & CV 7991 (Phần I MCQ, Phần II Đúng/Sai, Phần III Trả lời ngắn, Phần IV Tự luận kèm đáp án).
                         </p>
                     </div>
 
                     <div class="flex flex-wrap items-center gap-2">
-                        <button onclick="generateExamFromMatrix()" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 hover:to-emerald-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                        <button onclick="generateExamFromMatrix()" class="bg-gradient-to-r from-brand-500 to-emerald-600 hover:from-brand-600 hover:to-emerald-700 text-white font-bold text-xs px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5">
                             <i class="fa-solid fa-bolt text-amber-300"></i>
-                            TẠO ĐỀ THEO MA TRẬN
+                            <span>Sinh Lại / Đổi Câu</span>
                         </button>
-                        <button onclick="exportExamToWord()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
+                        <button onclick="exportAllInOneWord()" class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-bold text-xs px-4 py-2 rounded-xl shadow transition flex items-center gap-1.5">
                             <i class="fa-solid fa-file-word text-amber-300"></i>
-                            XUẤT ĐỀ THI WORD (.DOC)
+                            <span>Xuất Trọn Bộ Word (BGD)</span>
                         </button>
-                        <button onclick="exportAllInOneWord()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-md transition flex items-center gap-2">
-                            <i class="fa-solid fa-file-zipper text-amber-300"></i>
-                            XUẤT TRỌN BỘ HỒ SƠ
+                        <button onclick="exportExamToWord()" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs px-3.5 py-2 rounded-xl shadow transition flex items-center gap-1.5">
+                            <i class="fa-solid fa-file-lines text-amber-200"></i>
+                            <span>Xuất Đề Thi (.doc)</span>
                         </button>
                     </div>
                 </div>
@@ -1520,11 +1519,25 @@
         });
 
         function switchTab(tabKey) {
-            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+                btn.classList.remove('border-brand-500');
+                btn.classList.remove('text-brand-600');
+                btn.classList.remove('font-bold');
+            });
             document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
 
-            document.getElementById(`tab-${tabKey}`).classList.add('active');
-            document.getElementById(`sec-${tabKey}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabKey}`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.classList.add('border-brand-500');
+                activeBtn.classList.add('text-brand-600');
+                activeBtn.classList.add('font-bold');
+            }
+            const activeSec = document.getElementById(`sec-${tabKey}`);
+            if (activeSec) {
+                activeSec.classList.remove('hidden');
+            }
 
             if (tabKey === 'analytics') {
                 updateCharts();
@@ -1538,6 +1551,34 @@
                 }
             }
             triggerKaTeX();
+        }
+
+        /* 1-click Sinh Đề Thi từ Ma Trận và chuyển ngay sang Tab Đề Thi để xem */
+        function generateExamFromCurrentMatrix() {
+            if (typeof generateExamFromMatrix === 'function') {
+                generateExamFromMatrix();
+            }
+            switchTab('generator');
+            if (typeof switchTab4View === 'function') {
+                switchTab4View('exam');
+            }
+        }
+
+        /* Thu gọn / Mở rộng Bản Đặc Tả để giao diện thoáng mắt khi soạn ma trận */
+        function toggleSpecSheetView() {
+            const container = document.getElementById("specification-table-container");
+            const chevron = document.getElementById("spec-chevron");
+            const text = document.getElementById("spec-toggle-text");
+            if (!container) return;
+            if (container.classList.contains("hidden")) {
+                container.classList.remove("hidden");
+                if (chevron) chevron.className = "fa-solid fa-chevron-up";
+                if (text) text.innerText = "Thu Gọn Bản Đặc Tả";
+            } else {
+                container.classList.add("hidden");
+                if (chevron) chevron.className = "fa-solid fa-chevron-down";
+                if (text) text.innerText = "Mở Rộng Bản Đặc Tả";
+            }
         }
 
         function triggerKaTeX() {
