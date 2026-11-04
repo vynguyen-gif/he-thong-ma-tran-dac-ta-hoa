@@ -773,7 +773,7 @@ function applyKNTTTermPreset() {
 
 /* Ghi đè hàm tính tổng điểm Ma trận để hỗ trợ cả cách nhập 8 lệnh hỏi Đ/S (0,25đ/lệnh) lẫn 2 câu lớn Đ/S (1,0đ/câu) */
 /* Ghi đè hàm tính tổng điểm Ma trận để đảm bảo chính xác 100% theo Công văn 7991:
-   Phần I (MCQ): 12 câu = 3.00đ (0.25đ/câu)
+   Phần I (Nhiều phương án): 12 câu = 3.00đ (0.25đ/câu)
    Phần II (Đ/S): 8 ý = 2 câu lớn = 2.00đ (0.25đ/ý hoặc 1.00đ/câu lớn)
    Phần III (TLN): 4 câu = 2.00đ (0.50đ/câu)
    Phần IV (Tự luận): 3 câu = 3.00đ (1.00đ/câu) hoặc 2 câu = 3.00đ
@@ -1473,7 +1473,7 @@ function updateRowPickerStats() {
     var elP4 = document.getElementById("row-picker-p4-stat");
     var elTotal = document.getElementById("row-picker-total-selected-count");
 
-    if (elP1) elP1.innerText = "P.I (MCQ): " + curP1 + "/" + req.p1;
+    if (elP1) elP1.innerText = "P.I (Nhiều phương án): " + curP1 + "/" + req.p1;
     if (elP2) elP2.innerText = "P.II (Đ/S): " + curP2 + "/" + req.p2;
     if (elP3) elP3.innerText = "P.III (TLN): " + curP3 + "/" + req.p3;
     if (elP4) elP4.innerText = "P.IV (TL): " + curP4 + "/" + req.p4;
@@ -1519,7 +1519,7 @@ function renderRowPickerCandidates() {
 
     container.innerHTML = filtered.map(function(q) {
         var isSelected = selectedIds.has(q.id);
-        var partName = (q.part === 1) ? "Phần I: MCQ" : (q.part === 2) ? "Phần II: Đúng/Sai" : (q.part === 3) ? "Phần III: TL Ngắn" : "Phần IV: Tự Luận";
+        var partName = (q.part === 1) ? "Phần I: Nhiều phương án" : (q.part === 2) ? "Phần II: Đúng/Sai" : (q.part === 3) ? "Phần III: TL Ngắn" : "Phần IV: Tự Luận";
         var partBadgeColor = (q.part === 1) ? "bg-green-100 text-green-800" : (q.part === 2) ? "bg-blue-100 text-blue-800" : (q.part === 3) ? "bg-purple-100 text-purple-800" : "bg-rose-100 text-rose-800";
         var levelColor = (q.level === "Biết") ? "bg-emerald-50 text-emerald-700 border-emerald-200" : (q.level === "Hiểu") ? "bg-blue-50 text-blue-700 border-blue-200" : "bg-purple-50 text-purple-700 border-purple-200";
 
@@ -1739,7 +1739,7 @@ function renderSpecificationTable() {
             "</td>" +
             "<td class='align-middle bg-brand-50/60 p-2 text-center'>" + spec.codes + p2CodesSummary + "</td>" +
             "<td class='space-y-1'>" +
-            "<p>- Phần I (MCQ): <strong>" + p1_cnt + "</strong> (B: " + row.p1_k + ", H: " + row.p1_h + ", VD: " + row.p1_v + ")</p>" +
+            "<p>- Phần I (Nhiều phương án): <strong>" + p1_cnt + "</strong> (B: " + row.p1_k + ", H: " + row.p1_h + ", VD: " + row.p1_v + ")</p>" +
             "<p>- Phần II (Đ/S): <strong>" + p2_cnt + "</strong> ý — " + rowP2Label + " (B: " + row.p2_k + ", H: " + row.p2_h + ", VD: " + row.p2_v + ")</p>" +
             p2DetailsHtml +
             "<p>- Phần III (TLN): <strong>" + p3_cnt + "</strong> (B: " + row.p3_k + ", H: " + row.p3_h + ", VD: " + row.p3_v + ")</p>" +
@@ -4133,7 +4133,7 @@ function renderBankCards() {
         else loadMoreBtn.classList.add("hidden");
     }
 
-    var partNames = { 1: "Phần I: MCQ", 2: "Phần II: Đúng/Sai", 3: "Phần III: TL Ngắn", 4: "Phần IV: Tự Luận" };
+    var partNames = { 1: "Phần I: Nhiều phương án", 2: "Phần II: Đúng/Sai", 3: "Phần III: TL Ngắn", 4: "Phần IV: Tự Luận" };
     var levelBadges = {
         "Biết": "bg-emerald-100 text-emerald-900 border-emerald-300",
         "Hiểu": "bg-blue-100 text-blue-900 border-blue-300",
@@ -5010,7 +5010,7 @@ function renderSyllabus() {
         "<span>PHẦN B: HỆ THỐNG CÁC ĐỀ ÔN TẬP (GỒM " + examData.exams.length + " ĐỀ ĐỘC LẬP - CHUẨN CV 7991)</span>" +
         "</h2>" +
         "<span class='text-xs font-semibold text-amber-800 bg-white px-2.5 py-1 rounded-lg border border-amber-200'>" +
-        "Mỗi đề: 12 MCQ (3đ) + 2 Đ/S 8 ý (2đ) + 4 TLN (2đ) + 3 TL (3đ) = 10,0đ" +
+        "Mỗi đề: 12 câu Nhiều phương án (3đ) + 2 Đ/S 8 ý (2đ) + 4 TLN (2đ) + 3 TL (3đ) = 10,0đ" +
         "</span>" +
         "</div>";
 
@@ -5158,7 +5158,7 @@ function renderSyllabus() {
             // Bảng P.I & P.III
             html += "<div class='grid grid-cols-1 md:grid-cols-2 gap-3 text-xs'>" +
                 "<div>" +
-                "<h4 class='font-bold text-green-900 mb-1.5'>1. Đáp án Phần I (MCQ 12 câu):</h4>" +
+                "<h4 class='font-bold text-green-900 mb-1.5'>1. Đáp án Phần I (Nhiều phương án 12 câu):</h4>" +
                 "<div class='grid grid-cols-4 sm:grid-cols-6 gap-1.5 text-center font-bold'>";
             exam.part1.forEach(function(q, qIdx) {
                 html += "<div class='p-1 bg-green-50 rounded border border-green-200 text-green-900'>" +
