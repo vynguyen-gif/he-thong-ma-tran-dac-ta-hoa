@@ -13,27 +13,34 @@
                 extend: {
                     colors: {
                         brand: {
-                            50: '#f4f7f6',
-                            100: '#e3ece9',
-                            500: '#1e5f54',
-                            600: '#164a42',
-                            700: '#103731',
-                        },
-                        amber: {
-                            50: '#fffbeb',
-                            500: '#f59e0b',
-                            600: '#d97706',
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#0d9488',
+                            600: '#0f766e',
+                            700: '#115e59',
+                            800: '#134e4a',
+                            900: '#042f2e',
+                            950: '#02211c',
                         },
                         accent: {
                             blue: '#2563eb',
                             purple: '#7c3aed',
                             emerald: '#059669',
-                            rose: '#e11d48'
+                            rose: '#e11d48',
+                            amber: '#d97706'
                         }
+                    },
+                    boxShadow: {
+                        'card': '0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04)',
+                        'card-hover': '0 4px 6px -1px rgba(15, 23, 42, 0.08), 0 2px 4px -2px rgba(15, 23, 42, 0.04)',
+                        'modal': '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)',
                     }
                 }
             }
-        }
+        };
     </script>
     
     <!-- FontAwesome CDN (For Icons - NO SVG code used) -->
@@ -53,54 +60,107 @@
     <script src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
 
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
-        body {
-            font-family: 'Lexend', sans-serif;
-            background-color: #f8faf9;
-            color: #1f2937;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap');
         
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 580px;
-            margin-left: auto;
-            margin-right: auto;
-            height: 320px;
-            max-height: 380px;
-        }
-        @media (min-width: 768px) {
-            .chart-container {
-                height: 350px;
-            }
+        :root {
+            --font-sans: 'Be Vietnam Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            --font-heading: 'Plus Jakarta Sans', 'Be Vietnam Pro', sans-serif;
         }
 
-        .tab-btn.active {
-            border-bottom: 3px solid #1e5f54;
-            color: #1e5f54;
+        body {
+            font-family: var(--font-sans);
+            background-color: #f8fafc;
+            color: #0f172a;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+            letter-spacing: -0.012em;
+        }
+
+        h1, h2, h3, h4, h5, h6, .heading-font {
+            font-family: var(--font-heading);
+            letter-spacing: -0.022em;
+        }
+
+        /* Custom Scrollbars */
+        ::-webkit-scrollbar {
+            width: 7px;
+            height: 7px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        /* Modern Crisp Tabs */
+        .tab-btn {
+            position: relative;
+            transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 0.65rem;
             font-weight: 600;
-            background-color: #ffffff;
+            color: #475569;
+        }
+        .tab-btn:hover:not(.active) {
+            background-color: #f1f5f9;
+            color: #0f172a;
+        }
+        .tab-btn.active {
+            background: linear-gradient(135deg, #f0fdfa 0%, #e6fffa 100%) !important;
+            color: #0f766e !important;
+            font-weight: 700 !important;
+            box-shadow: 0 1px 3px rgba(15, 118, 110, 0.12), inset 0 0 0 1.5px #5eead4 !important;
+        }
+
+        /* Modern Tables with Crisp Borders & Smooth Hovers */
+        .chemistry-spec-table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        .chemistry-spec-table th, .chemistry-spec-table td {
+            border: 1px solid #cbd5e1;
+            padding: 7px 10px;
+            font-size: 0.8125rem;
+            line-height: 1.45;
+        }
+        .chemistry-spec-table th {
+            background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+            color: #0f172a;
+            font-weight: 700;
+            text-align: center;
+        }
+        .chemistry-spec-table tbody tr {
+            transition: background-color 0.15s ease;
+        }
+        .chemistry-spec-table tbody tr:hover td {
+            background-color: #f8fafc;
+        }
+
+        /* Form Inputs & Controls */
+        input[type="text"], input[type="number"], select, textarea {
+            font-family: inherit;
+            color: #0f172a;
+            transition: border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(13, 148, 136, 0.18);
+            border-color: #0d9488 !important;
         }
 
         /* Printable / Export Styling Simulation */
         @media print {
             .no-print { display: none !important; }
             .print-only { display: block !important; }
-            body { background: white; font-size: 11pt; color: black; }
+            body { background: white; font-size: 11pt; color: black; font-family: 'Times New Roman', serif; }
             .paper-shadow { box-shadow: none !important; border: none !important; padding: 0 !important; }
             .page-break { page-break-before: always; }
-        }
-
-        .chemistry-spec-table th, .chemistry-spec-table td {
-            border: 1px solid #cbd5e1;
-            padding: 6px 8px;
-            font-size: 0.825rem;
-        }
-
-        .chemistry-spec-table th {
-            background-color: #f1f5f9;
-            font-weight: 600;
-            text-align: center;
         }
 
         /* Atomic Orbital Boxes (Ô lượng tử / Ô orbital) - Hỗ trợ cả thẻ span inline và table */
@@ -148,25 +208,45 @@
             font-size: 12pt !important;
             font-family: "Times New Roman", serif !important;
             font-weight: bold !important;
-            line-height: 1 !important;
             padding: 0 !important;
-            color: #000000 !important;
+            line-height: 20px !important;
             background-color: #ffffff !important;
+            color: #000000 !important;
         }
 
-        /* Ký hiệu đồng vị / nguyên tử chuẩn IUPAC & SGK Hóa học */
+        /* Đồng vị hóa học dạng khối số khối A và số hiệu Z xếp chồng bên trái kí hiệu */
         .isotope-sym {
-            display: inline-block !important;
+            display: inline-flex !important;
+            align-items: center !important;
             vertical-align: middle !important;
-            text-align: right !important;
             line-height: 1 !important;
+            font-family: "Times New Roman", serif !important;
+            margin: 0 2px !important;
+            white-space: nowrap !important;
+        }
+        .isotope-sym .iso-az {
+            display: inline-flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            align-items: flex-end !important;
+            font-size: 8.5pt !important;
+            line-height: 1.05 !important;
             margin-right: 1.5px !important;
+            vertical-align: middle !important;
+            font-family: "Times New Roman", serif !important;
+            font-weight: 600 !important;
+        }
+        .isotope-sym .iso-elem {
+            font-size: 11pt !important;
+            font-weight: bold !important;
+            font-family: "Times New Roman", serif !important;
+            line-height: 1 !important;
+            vertical-align: middle !important;
         }
         .isotope-sym sup, .isotope-sym .iso-a {
             font-size: 8.5pt !important;
             display: block !important;
             line-height: 1 !important;
-            margin-bottom: 1px !important;
             vertical-align: baseline !important;
             font-family: "Times New Roman", serif !important;
             font-weight: 600 !important;
@@ -214,57 +294,56 @@
 <body class="min-h-screen flex flex-col">
 
     <!-- HEADER / NAVIGATION BAR -->
-    <header class="bg-brand-500 text-white shadow-md sticky top-0 z-50 no-print">
+    <header class="bg-gradient-to-r from-[#042f2e] via-[#0d635c] to-[#0f766e] text-white shadow-md sticky top-0 z-50 no-print border-b border-teal-700/60 backdrop-blur-md">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
-                <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-lg bg-amber-500 flex items-center justify-center font-bold text-white text-xl shadow">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-400 via-amber-300 to-amber-500 flex items-center justify-center font-black text-amber-950 text-xl shadow-md ring-2 ring-white/20">
                         <i class="fa-solid fa-flask-vial"></i>
                     </div>
                     <div class="flex items-center gap-2.5 flex-wrap">
-                        <h1 class="font-black text-xl text-white tracking-wide">Hóa Học</h1>
-                        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-black bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-amber-950 border border-amber-200 shadow-md uppercase tracking-wide">
+                        <h1 class="font-black text-xl text-white tracking-tight drop-shadow-xs">Hóa Học THPT</h1>
+                        <span class="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full text-xs font-black bg-gradient-to-r from-amber-300 via-amber-400 to-amber-500 text-amber-950 border border-amber-200 shadow-sm uppercase tracking-wide">
                             <i class="fa-solid fa-chalkboard-user text-amber-950"></i> GV: NGUYỄN VỸ
                         </span>
-                        <span class="hidden lg:inline-flex items-center gap-1.5 text-xs text-amber-200 font-medium italic pl-2.5 border-l border-brand-500/70">
+                        <span class="hidden lg:inline-flex items-center gap-1.5 text-xs text-teal-100 font-medium italic pl-3 border-l border-teal-400/40">
                             <i class="fa-solid fa-atom text-amber-300"></i> "Khám phá thế giới qua lăng kính Hóa học"
                         </span>
                     </div>
                 </div>
 
-                <div class="flex items-center space-x-2">
-                    <button onclick="exportAllInOneWord()" class="bg-amber-400 hover:bg-amber-300 text-brand-950 text-xs sm:text-sm px-3.5 py-1.5 rounded-lg transition flex items-center space-x-1.5 shadow font-extrabold">
-                        <i class="fa-solid fa-file-word text-brand-950"></i>
+                <div class="flex items-center space-x-2.5">
+                    <button onclick="exportAllInOneWord()" class="bg-gradient-to-r from-amber-400 via-amber-300 to-amber-400 hover:brightness-105 text-slate-900 text-xs sm:text-sm px-4 py-2 rounded-xl transition-all flex items-center space-x-2 shadow-md hover:shadow-lg font-black active:scale-95">
+                        <i class="fa-solid fa-file-word text-slate-900 text-base"></i>
                         <span>Xuất Hồ Sơ Word (BGD)</span>
                     </button>
-                    <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm px-3 py-1.5 rounded-lg transition flex items-center space-x-1">
+                    <button onclick="window.print()" class="bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs sm:text-sm px-3.5 py-2 rounded-xl transition-all flex items-center space-x-1.5 backdrop-blur-xs active:scale-95 font-medium">
                         <i class="fa-solid fa-print"></i>
-                        <span class="hidden md:inline">In / Xuất PDF</span>
+                        <span class="hidden md:inline font-medium">In / Xuất PDF</span>
                     </button>
                 </div>
             </div>
         </div>
 
         <!-- MAIN TABS NAVIGATION -->
-        <nav class="bg-white border-b border-gray-200 text-gray-700 text-sm font-semibold overflow-x-auto shadow-xs">
-            <div class="max-w-7xl mx-auto px-4 flex space-x-1 min-w-max">
-                <button onclick="switchTab('matrix')" id="tab-matrix" class="tab-btn active px-4 py-3 flex items-center space-x-2 border-b-2 border-brand-500 text-brand-600 font-bold">
-                    <i class="fa-solid fa-table-cells text-accent-blue"></i>
+        <nav class="bg-white/95 backdrop-blur-md border-b border-slate-200 text-slate-600 text-xs sm:text-sm font-semibold overflow-x-auto shadow-xs">
+            <div class="max-w-7xl mx-auto px-4 flex space-x-2 min-w-max py-1.5">
+                <button onclick="switchTab('matrix')" id="tab-matrix" class="tab-btn active px-3.5 py-2 flex items-center space-x-2 font-bold transition-all">
+                    <i class="fa-solid fa-table-cells text-blue-600"></i>
                     <span>1. Soạn Ma Trận & Bản Đặc Tả</span>
                 </button>
-                <button onclick="switchTab('generator')" id="tab-generator" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
-                    <i class="fa-solid fa-wand-magic-sparkles text-accent-purple"></i>
+                <button onclick="switchTab('generator')" id="tab-generator" class="tab-btn px-3.5 py-2 flex items-center space-x-2 font-bold transition-all">
+                    <i class="fa-solid fa-wand-magic-sparkles text-purple-600"></i>
                     <span>2. Ngân Hàng & Sinh Đề Thi</span>
                 </button>
-                <button onclick="switchTab('syllabus')" id="tab-syllabus" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
+                <button onclick="switchTab('syllabus')" id="tab-syllabus" class="tab-btn px-3.5 py-2 flex items-center space-x-2 font-bold transition-all">
                     <i class="fa-solid fa-graduation-cap text-rose-600"></i>
                     <span>3. Đề Cương Ôn Tập (Học Sinh)</span>
                 </button>
-                <button onclick="switchTab('indicators')" id="tab-indicators" class="tab-btn px-4 py-3 flex items-center space-x-2 border-b-2 border-transparent">
-                    <i class="fa-solid fa-book-bookmark text-brand-500"></i>
+                <button onclick="switchTab('indicators')" id="tab-indicators" class="tab-btn px-3.5 py-2 flex items-center space-x-2 font-bold transition-all">
+                    <i class="fa-solid fa-book-bookmark text-teal-600"></i>
                     <span>4. Tra Cứu Chỉ Báo (10, 11, 12)</span>
                 </button>
-                
             </div>
         </nav>
     </header>
